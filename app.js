@@ -67,6 +67,65 @@ App({
       })
     }
   },
+  initBle(){
+    var that = this;
+    wx.getBLEDeviceServices({
+      deviceId: that.globalData.connectedDeviceId,
+      success: function (res) {
+        console.log(res.services)
+        wx.getBLEDeviceCharacteristics({
+          deviceId: that.globalData.connectedDeviceId,
+          serviceId: that.globalData.UUID_SERVICE, //res.services[1].uuid,
+          success: function (res) {
+            console.log(res.characteristics)
+            wx.notifyBLECharacteristicValueChange({
+              state: true,
+              deviceId: that.globalData.connectedDeviceId,
+              serviceId: that.globalData.UUID_SERVICE, //that.data.services[1].uuid,
+              characteristicId: that.globalData.UUID_NOTIFICATION, //characteristics[1].uuid,
+              success: function (res) {
+                console.log('启用notify成功')
+                startAuth(); // 开始蓝牙连接认证
+                // that.Send();
+              }
+            })
+          }
+        })
+      }
+    })
+    wx.onBLEConnectionStateChange(function (res) {
+      console.log(res)
+      // that.setData({
+      //   connected: res.connected
+      // })
+    })
+    wx.onBLECharacteristicValueChange(function (characteristic) {
+      console.log("接收到特征值变化", characteristic)
+      var receiveText = app.buf2string(characteristic.value)
+      console.log('接收到数据：' + receiveText)
+
+
+      //解析蓝牙返回数据
+      let buffer = characteristic.value
+      let dataView = new DataView(buffer)
+      console.log("接收字节长度:" + dataView.byteLength)
+      var str = ""
+      for (var i = 0; i < dataView.byteLength; i++) {
+        // str += String.fromCharCode(dataView.getUint8(i))
+        str += dataView.getUint8(i).toString(16) + ','
+        // console.log(dataView.getUint8(i))
+        // console.log(str)
+      }
+      console.log(parseInt(str, 16))
+      str = "收到数据:" + str;
+      console.log(str)
+      that.setData({
+        receiveText: that.data.receiveText + str
+      })
+      that.sendData("ff 43 42 44 49 47 42 45 48 45 43 43 47 48 43 44 48")
+
+    })
+  },
   getBlueService: function(){
     wx.notifyBLECharacteristicValueChange({
       state: true,

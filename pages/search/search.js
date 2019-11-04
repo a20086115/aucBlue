@@ -82,6 +82,9 @@ Page({
       deviceId: e.currentTarget.id,
       success: function (res) {
         console.log(res)
+        // 保存蓝牙名称和deviceid到全局变量
+        app.globalData.name = name;
+        app.globalData.connectedDeviceid = e.currentTarget.id;
         wx.hideLoading()
         wx.showToast({
           title: '连接成功',
