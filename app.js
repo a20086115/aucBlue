@@ -21,6 +21,9 @@ App({
   searchBle(cb){
 
   },
+  connectBle(device){
+    bletools.connectBle(device);
+  },
   globalData: {
     SystemInfo: {},
     status: true, // 连接状态    
@@ -168,5 +171,17 @@ App({
       }
     })
   },
+
+
+  // 蓝牙回调函数
+  bleStateListener(){
+
+  },
+  writeListener(){
+
+  },
+  notifyListener(){
+    
+  }
 
 })
