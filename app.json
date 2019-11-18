@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/search/search",
-    "pages/device/device"
+    "pages/device/device",
+    "pages/search/search"
   ],
   "window": {
     "backgroundTextStyle": "light",

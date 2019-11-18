@@ -12,7 +12,23 @@ Page({
     UUID_WRITE: "0000FFF6-0000-1000-8000-00805F9B34FB", // 1
     UUID_NOTIFICATION: "0000FFF4-0000-1000-8000-00805F9B34FB", // 0
     UUID_CONFIRM: "0000FFF3-0000-1000-8000-00805F9B34FB", //2
-    UUID_NOTIFICATION_DES2: "00002902-0000-1000-8000-00805f9b34fb"
+    UUID_NOTIFICATION_DES2: "00002902-0000-1000-8000-00805f9b34fb",
+    show: false
+  },
+  showPopup() {
+    this.setData({ show: true });
+  },
+
+  onClose() {
+    this.setData({ show: false });
+  },
+  openTap(){
+    this.onClose();
+    app.addTask({
+      data: [0x00, 0x03, 0x00, 0x09, 0x01, 0x55, 0xd9, 0x55],
+      
+    });
+    this.sendData()
   },
   bindInput: function (e) {
     this.setData({
@@ -34,7 +50,6 @@ Page({
         return parseInt(h, 16)
       }))
       var buffer = typedArray.buffer
-
       console.log(buffer)
       wx.writeBLECharacteristicValue({
         deviceId: that.data.connectedDeviceId,
@@ -54,8 +69,7 @@ Page({
           console.log(res)
         }
       })
-    }
-    else {
+    }else {
       wx.showModal({
         title: '提示',
         content: '蓝牙已断开',
@@ -75,7 +89,9 @@ Page({
       name: options.name,
       connectedDeviceId: options.connectedDeviceId
     })
-
+    console.log("蓝牙初始化")
+    app.globalData.connectedDeviceId = options.connectedDeviceId;
+    app.globalData.name = options.name;
     app.initBle();
 
   },

@@ -1,0 +1,24 @@
+{
+  "name": "ble_miniprogram",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "miniprogram-sm-crypto": "^0.1.0",
+    "vant-weapp": "^0.5.23"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a20086115/aucBlue.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a20086115/aucBlue/issues"
+  },
+  "homepage": "https://github.com/a20086115/aucBlue#readme"
+}

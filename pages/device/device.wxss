@@ -1,18 +1,32 @@
 page {
   background-color: #f8f8f8;
 }
-.container {
-  padding: 30rpx;
-  align-items: left;
-}
-.input {
-  margin-top:3px;
+.topContainer{
+  position: relative;
+  background-color: #e71f1f;
   width: 100%;
-  border: 1px solid lightgray;
-  border-radius: 6px;
+  height:300rpx;
+  padding: 30rpx;
 }
-.button {
-  position: fixed;
-  width: 690rpx;
-  bottom: 30rpx;
+.switchImage{
+  width: 6%;
+  position: absolute;
+  right: 50rpx;
+  top: 50rpx;
+}
+.switchTip{
+  padding: 40rpx 100rpx;
+  border: 1px solid gainsboro;
+}
+.topTitle1{
+  text-align: center;
+  color: white;
+  display: block;
+  margin-top: 100rpx;
+}
+.topTitle2{
+  text-align: center;
+  color: white;
+  display: block;
+  margin-top: 50rpx;
 }

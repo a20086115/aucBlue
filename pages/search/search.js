@@ -45,8 +45,7 @@ Page({
           })
         }
       })
-    }
-    else {
+    }else {
       wx.stopBluetoothDevicesDiscovery({
         success: function (res) {
           console.log(res)
