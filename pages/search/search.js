@@ -58,12 +58,14 @@ Page({
   },
   Connect: function (e) {
     var that = this
-    var advertisData, name
+    var advertisData, name;
+    var device = null;
     console.log(e.currentTarget.id)
     for (var i = 0; i < that.data.devicesList.length; i++) {
       if (e.currentTarget.id == that.data.devicesList[i].deviceId) {
         name = that.data.devicesList[i].name
         advertisData = that.data.devicesList[i].advertisData
+        device = that.data.devicesList[i]
       }
     }
     wx.stopBluetoothDevicesDiscovery({
@@ -74,9 +76,11 @@ Page({
         })
       }
     })
-    wx.showLoading({
-      title: '连接蓝牙设备中...',
-    })
+    app.globalData.connectedDeviceId = e.currentTarget.id
+    app.globalData.name = name
+
+    app.connectBle(device)
+    return
     wx.createBLEConnection({
       deviceId: e.currentTarget.id,
       success: function (res) {
@@ -84,12 +88,7 @@ Page({
         // 保存蓝牙名称和deviceid到全局变量
         app.globalData.name = name;
         app.globalData.connectedDeviceid = e.currentTarget.id;
-        wx.hideLoading()
-        wx.showToast({
-          title: '连接成功',
-          icon: 'success',
-          duration: 1000
-        })
+
         wx.navigateTo({
           url: '../device/device?connectedDeviceId=' + e.currentTarget.id + '&name=' + name
         })
