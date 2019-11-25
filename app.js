@@ -18,12 +18,6 @@ App({
     // 第一步 initBle() 初始化蓝牙模块,判断版本是否支持
     bletools.initBle(this);
   },
-  searchBle(cb){
-
-  },
-  connectBle(device){
-    bletools.connectBle(device);
-  },
   globalData: {
     SystemInfo: {},
     status: true, // 连接状态    
@@ -41,12 +35,6 @@ App({
   addTask(task){
     this.globalData.taskList.push(task);
   },
-  sendData1(){
-    bletools.write();
-  },
-  notifyListener(){
-
-  },
   sendData: function (hex, cb) {
     var that = this
     console.log("发送数据" + hex)
@@ -60,6 +48,11 @@ App({
       }))
       var buffer = typedArray.buffer
       console.log(buffer)
+      console.log({
+        deviceId: that.globalData.connectedDeviceId,
+        serviceId: that.globalData.UUID_SERVICE, //services[1].uuid,
+        characteristicId: that.globalData.UUID_CONFIRM, //characteristics[1].uuid
+      })
       wx.writeBLECharacteristicValue({
         deviceId: that.globalData.connectedDeviceId,
         serviceId: that.globalData.UUID_SERVICE, //services[1].uuid,
@@ -89,75 +82,76 @@ App({
       })
     }
   },
-  // 从列表中选择蓝牙后开始进行连接。
-  initBle(){
-    var that = this;
-    //获取在蓝牙模块生效期间所有已发现的蓝牙设备。包括已经和本机处于连接状态的设备。
-    wx.getBLEDeviceServices({
-      deviceId: that.globalData.connectedDeviceId,
-      success: function (res) {
-        console.log(res.services)
-        wx.getBLEDeviceCharacteristics({
-          deviceId: that.globalData.connectedDeviceId,
-          serviceId: that.globalData.UUID_SERVICE, //res.services[1].uuid,
-          success: function (res) {
-            console.log(res.characteristics)
-            wx.notifyBLECharacteristicValueChange({
-              state: true,
-              deviceId: that.globalData.connectedDeviceId,
-              serviceId: that.globalData.UUID_SERVICE, //that.data.services[1].uuid,
-              characteristicId: that.globalData.UUID_NOTIFICATION, //characteristics[1].uuid,
-              success: function (res) {
-                console.log('启用notify成功')
-                that.startAuth(); // 开始蓝牙连接认证
-                // that.Send();
-              }
-            })
-          }
-        })
-      },
-      fail: function(){
-        console.log('获取服务失败')
-      }
-    })
-    wx.onBLEConnectionStateChange(function (res) {
-      console.log("onBLEConnectionStateChange" + res.connected)
-      console.log(res)
-      // that.setData({
-      //   connected: res.connected
-      // })
-    })
-    wx.onBLECharacteristicValueChange(function (characteristic) {
-      console.log("接收到特征值变化", characteristic)
-      var receiveText = that.buf2string(characteristic.value)
-      console.log('接收到数据：' + receiveText)
+  // // 从列表中选择蓝牙后开始进行连接。
+  // initBle(){
+  //   var that = this;
+  //   //获取在蓝牙模块生效期间所有已发现的蓝牙设备。包括已经和本机处于连接状态的设备。
+  //   wx.getBLEDeviceServices({
+  //     deviceId: that.globalData.connectedDeviceId,
+  //     success: function (res) {
+  //       console.log(res.services)
+  //       wx.getBLEDeviceCharacteristics({
+  //         deviceId: that.globalData.connectedDeviceId,
+  //         serviceId: that.globalData.UUID_SERVICE, //res.services[1].uuid,
+  //         success: function (res) {
+  //           console.log(res.characteristics)
+  //           wx.notifyBLECharacteristicValueChange({
+  //             state: true,
+  //             deviceId: that.globalData.connectedDeviceId,
+  //             serviceId: that.globalData.UUID_SERVICE, //that.data.services[1].uuid,
+  //             characteristicId: that.globalData.UUID_NOTIFICATION, //characteristics[1].uuid,
+  //             success: function (res) {
+  //               console.log('启用notify成功')
+  //               that.startAuth(); // 开始蓝牙连接认证
+  //               // that.Send();
+  //             }
+  //           })
+  //         }
+  //       })
+  //     },
+  //     fail: function(){
+  //       console.log('获取服务失败')
+  //     }
+  //   })
+  //   wx.onBLEConnectionStateChange(function (res) {
+  //     console.log("onBLEConnectionStateChange" + res.connected)
+  //     console.log(res)
+  //     // that.setData({
+  //     //   connected: res.connected
+  //     // })
+  //   })
+  //   wx.onBLECharacteristicValueChange(function (characteristic) {
+  //     console.log("接收到特征值变化", characteristic)
+  //     var receiveText = that.buf2string(characteristic.value)
+  //     console.log('接收到数据：' + receiveText)
 
 
-      //解析蓝牙返回数据
-      let buffer = characteristic.value
-      let dataView = new DataView(buffer)
-      console.log("接收字节长度:" + dataView.byteLength)
-      var str = ""
-      for (var i = 0; i < dataView.byteLength; i++) {
-        // str += String.fromCharCode(dataView.getUint8(i))
-        str += dataView.getUint8(i).toString(16) + ','
-        // console.log(dataView.getUint8(i))
-        // console.log(str)
-      }
-      console.log(parseInt(str, 16))
-      str = "收到数据:" + str;
-      console.log(str)
-      that.sendData("ff 43 42 44 49 47 42 45 48 45 43 43 47 48 43 44 48")
+  //     //解析蓝牙返回数据
+  //     let buffer = characteristic.value
+  //     let dataView = new DataView(buffer)
+  //     console.log("接收字节长度:" + dataView.byteLength)
+  //     var str = ""
+  //     for (var i = 0; i < dataView.byteLength; i++) {
+  //       // str += String.fromCharCode(dataView.getUint8(i))
+  //       str += dataView.getUint8(i).toString(16) + ','
+  //       // console.log(dataView.getUint8(i))
+  //       // console.log(str)
+  //     }
+  //     console.log(parseInt(str, 16))
+  //     str = "收到数据:" + str;
+  //     console.log(str)
+  //     that.sendData("ff 43 42 44 49 47 42 45 48 45 43 43 47 48 43 44 48")
 
-    })
-  },
+  //   })
+  // },
   // 蓝牙认证， 发送aa后 发送ff 43...
   startAuth(){
     console.log(" 蓝牙认证， 发送aa后 发送ff 43")
     var that = this;
-    that.sendData("aa", function(){
-      that.sendData("ff,43,42,44,49,47,42,45,48,45,43,43,47,48,43,44,48")
-    })
+    this.write(["aa"])
+    // that.sendData("aa", function(){
+     
+    // })
   },
   getBlueService: function(){
     wx.notifyBLECharacteristicValueChange({
@@ -172,16 +166,126 @@ App({
     })
   },
 
-
-  // 蓝牙回调函数
-  bleStateListener(){
-
+  /**
+    * 在页面退出时 销毁蓝牙适配器
+    */
+  clearBle: function () {
+    bletools.clear();
   },
-  writeListener(){
-
+  // 开始扫描
+  startScanBle(cb) {
+    bletools.startScanBle(cb);
   },
-  notifyListener(){
-    
-  }
+  // 结束扫描
+  stopScanBle(){
+    bletools.stopBluetoothDevicesDiscovery()
+  },
+  // 连接设备
+  connectBle(device) {
+    bletools.connectBle(device);
+  },
+  // 蓝牙发送方法
+  write(data) {
+    bletools.write(data);
+  },
+  /**
+   * 发送数据结果 true or false
+   * 如果为false msg是失败原因
+   */
+  writeListener: function (result, msg) {
+    //此处可以执行自己的逻辑 比如一些提示
+    console.log(result ? '发送数据成功' : msg)
+  },
+
+  /**
+   * 接收数据 
+   */
+  notifyListener: function (data) {
+    console.log('接收到数据')
+    console.log(data)
+    this.write(["ff","43","42","44","49","47","42","45","48","45","43","43","47","48","43","44","48"]);
+    // this.sendData("ff,43,42,44,49,47,42,45,48,45,43,43,47,48,43,44,48")
+  },
+
+  /**
+   * ble状态监听
+   */
+  bleStateListener: function (state) {
+    console.log("ble状态监听")
+    switch (state) {
+      case constants.STATE_DISCONNECTED: //设备连接断开
+        console.log('设备连接断开')
+        break;
+      case constants.STATE_SCANNING: //设备正在扫描
+        this.setData({
+          titleText: constants.SCANING
+        })
+        this.Modal.showModal();
+        console.log('设备正在扫描')
+        break;
+      case constants.STATE_SCANNED: //设备扫描结束
+        console.log('设备扫描结束')
+        //改下ui显示
+        this.setData({
+          titleText: constants.SCANED
+        })
+        break;
+      case constants.STATE_CONNECTING: //设备正在连接
+        console.log('设备正在连接')
+        wx.showLoading({
+          title: '连接蓝牙设备中...',
+        })
+        break;
+      case constants.STATE_CONNECTED: //设备连接成功
+        wx.hideLoading()
+        wx.showToast({
+          title: '连接成功',
+          icon: 'success',
+          duration: 1000
+        })
+        console.log('设备连接成功')
+        wx.navigateTo({
+          url: '../device/device'
+        })
+        break;
+      case constants.STATE_CONNECTING_ERROR: //连接失败
+        console.log('连接失败')
+        break;
+      case constants.STATE_NOTIFY_SUCCESS: //开启notify成功
+        console.log('开启notify成功')
+        this.startAuth(); // 发送认证相关
+        break;
+      case constants.STATE_NOTIFY_FAIL: //开启notify失败
+        console.log('开启notify失败')
+        break;
+      case constants.STATE_CLOSE_BLE: //蓝牙未打开 关闭状态
+        showModal(constants.NOT_BLE)
+        break;
+      case constants.STATE_NOTBLE_WCHAT_VERSION: //微信版本过低 不支持ble
+        showModal(constants.NOT_PERMISSION2)
+        break;
+      case constants.STATE_NOTBLE_SYSTEM_VERSION: //系统版本过低 不支持ble
+        showModal(constants.NOT_PERMISSION1)
+        break;
+    }
+  },
 
 })
+/**
+ * 对一些告警信息弹窗显示
+ */
+function showModal(content) {
+  wx.showModal({
+    title: constants.ALARM_TITLE,
+    content: content,
+    showCancel: false,
+    success(res) {
+      if (res.confirm) {
+        //回到上一页面
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    }
+  })
+}

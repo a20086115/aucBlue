@@ -18,7 +18,6 @@ Page({
   showPopup() {
     this.setData({ show: true });
   },
-
   onClose() {
     this.setData({ show: false });
   },
@@ -83,17 +82,6 @@ Page({
     }
   },
   onLoad: function (options) {
-    var that = this
-    console.log(options)
-    that.setData({
-      name: options.name,
-      connectedDeviceId: options.connectedDeviceId
-    })
-    console.log("蓝牙初始化")
-    app.globalData.connectedDeviceId = options.connectedDeviceId;
-    app.globalData.name = options.name;
-    app.initBle();
-
   },
   onReady: function () {
 

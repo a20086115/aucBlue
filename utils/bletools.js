@@ -38,16 +38,34 @@ var timeOut= null
  * data 16进制数组
  */
 function write(data) {
-  let buffer = new ArrayBuffer(data.length)
-  let dataView = new DataView(buffer)
-  for (var i = 0; i < data.length; i++) {
-    dataView.setUint8(i, data[i])
+  var typedArray = new Uint8Array(data.map(function (h) {
+    // console.log(parseInt(h, 16))
+    return parseInt(h, 16)
+  }))
+  var buffer = typedArray.buffer
+
+  // let buffer = new ArrayBuffer(data.length)
+  // let dataView = new DataView(buffer)
+  // for (var i = 0; i < data.length; i++) {
+  //   dataView.setUint8(i, data[i])
+  // }
+  console.log(data)
+  console.log(buffer)
+  console.log(currentBle)
+  console.log({
+    deviceId: currentBle,
+    serviceId: constants.SERUUID,
+    characteristicId: constants.CONFIRMUUID,
+  })
+  var charId = constants.CONFIRMUUID
+  if(data[0] === "ff"){
+    charId = constants.WRITEUUID
   }
   //写数据
   wx.writeBLECharacteristicValue({
     deviceId: currentBle,
     serviceId: constants.SERUUID,
-    characteristicId: constants.WRITEUUID,
+    characteristicId: charId,
     value: buffer,
     success: res => {
       _this.writeListener(true)
@@ -61,7 +79,7 @@ function write(data) {
 /**
  * 扫描蓝牙  扫描时先断开连接 避免在连接时同时扫描 因为他们都比较消耗性能 容易导致卡顿等不良体验
  */
-function startScanBle(obj) {
+function startScanBle(cb) {
   disconnect()
   //监听寻找到新设备的事件
   wx.onBluetoothDeviceFound((devices) => {
@@ -69,10 +87,10 @@ function startScanBle(obj) {
     //获取名称 效验名称
     var deviceName = bleDevice.name;
     // 过滤 
-    console.log(bleDevice.deviceId) //打印扫描到的mac地址
-    if (deviceName.toUpperCase().startsWith(constants.CONDITION1) || deviceName.toUpperCase().startsWith(constants.CONDITION2)) {
+    console.log(deviceName + ":" + bleDevice.deviceId) //打印扫描到的mac地址
+    if (deviceName.toUpperCase().indexOf(constants.CONDITION) != -1) {
       // 扫描结果暴露出去 
-      obj.success(bleDevice)
+      cb(bleDevice)
     }
   })
     //扫描附近的外围设备

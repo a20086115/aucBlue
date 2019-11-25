@@ -10,9 +10,9 @@
  */
 module.exports = {
   // string config
-  'NOT_BLE': '嘤嘤嘤 您的蓝牙未打开 请打开你的蓝牙后再进入该页面操作',
-  'NOT_PERMISSION1': '嘤嘤嘤 您的系统版本过低 不支持蓝牙的使用',
-  'NOT_PERMISSION2': '嘤嘤嘤 您的微信版本过低 不支持蓝牙的使用',
+  'NOT_BLE': '您的蓝牙未打开 请打开你的蓝牙后再进入该页面操作',
+  'NOT_PERMISSION1': '您的系统版本过低 不支持蓝牙的使用',
+  'NOT_PERMISSION2': '您的微信版本过低 不支持蓝牙的使用',
   'SCANING': '设备扫描中...',
   'SCANED': '已停止扫描',
   'ALARM_TITLE': '告警提示',
@@ -36,8 +36,7 @@ module.exports = {
   'STATE_NOTBLE_SYSTEM_VERSION': 10,
   'STATE_NOTBLE_WCHAT_VERSION': 11,
   // match config
-  'CONDITION1': 'TK',
-  'CONDITION2': 'HO',
+  'CONDITION': 'TC',
   // scan connect config  unit:ms
   'CONNECTTIME': 5000,
   'SCANTIME': 5000,
