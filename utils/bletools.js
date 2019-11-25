@@ -43,35 +43,23 @@ function write(data) {
     return parseInt(h, 16)
   }))
   var buffer = typedArray.buffer
-
-  // let buffer = new ArrayBuffer(data.length)
-  // let dataView = new DataView(buffer)
-  // for (var i = 0; i < data.length; i++) {
-  //   dataView.setUint8(i, data[i])
-  // }
-  console.log(data)
-  console.log(buffer)
-  console.log(currentBle)
-  console.log({
-    deviceId: currentBle,
-    serviceId: constants.SERUUID,
-    characteristicId: constants.CONFIRMUUID,
-  })
-  var charId = constants.CONFIRMUUID
-  if(data[0] === "ff"){
-    charId = constants.WRITEUUID
+  var charId = constants.WRITEUUID
+  if(data[0] === "aa"){
+    charId = constants.CONFIRMUUID
   }
   //写数据
+  console.log(data)
+  console.log(charId)
   wx.writeBLECharacteristicValue({
     deviceId: currentBle,
     serviceId: constants.SERUUID,
     characteristicId: charId,
     value: buffer,
     success: res => {
-      _this.writeListener(true)
+      _this.writeListener(true, data)
     },
     fail: res => {
-      _this.writeListener(false, errorInfo.getErrorInfo(res.errCode))
+      _this.writeListener(false, data, errorInfo.getErrorInfo(res.errCode))
     }
   })
 }

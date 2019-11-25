@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/search/search",
-    "pages/device/device"
+    "pages/device/device",
+    "pages/fieldapplication/fieldapplication"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -10,5 +11,16 @@
     "navigationBarTextStyle": "black",
     "backgroundColor": "#f8f8f8"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-popup": "./miniprogram_npm/vant-weapp/popup/index",
+    "van-grid": "./miniprogram_npm/vant-weapp/grid/index",
+    "van-grid-item": "./miniprogram_npm/vant-weapp/grid-item/index",
+    "van-dialog": "./miniprogram_npm/vant-weapp/dialog/index",
+    "van-tab": "./miniprogram_npm/vant-weapp/tab/index",
+    "van-tabs": "./miniprogram_npm/vant-weapp/tabs/index",
+    "data-input": "./my_components/data-input/data-input",
+    "van-cell-group": "./miniprogram_npm/vant-weapp/cell-group/index",
+    "van-field": "./miniprogram_npm/vant-weapp/field/index"
+  }
 }

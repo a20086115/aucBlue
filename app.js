@@ -1,6 +1,7 @@
 //app.js
 var bletools = require('./utils/bletools.js');
 var constants = require('./utils/constants.js');
+var CRC = require('./utils/crc.js');
 App({
   buf2hex: function (buffer) {
     return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('')
@@ -29,7 +30,9 @@ App({
     UUID_CONFIRM: "0000FFF3-0000-1000-8000-00805F9B34FB", //2
     UUID_NOTIFICATION_DES2: "00002902-0000-1000-8000-00805f9b34fb",
     taskList:[],
-    cbMap:{}
+    cbMap:{},
+    callback:null,
+    frameBuffer:[]
   },
   // 添加任务到队列中
   addTask(task){
@@ -147,11 +150,7 @@ App({
   // 蓝牙认证， 发送aa后 发送ff 43...
   startAuth(){
     console.log(" 蓝牙认证， 发送aa后 发送ff 43")
-    var that = this;
-    this.write(["aa"])
-    // that.sendData("aa", function(){
-     
-    // })
+    bletools.write(["aa"]);
   },
   getBlueService: function(){
     wx.notifyBLECharacteristicValueChange({
@@ -185,16 +184,30 @@ App({
     bletools.connectBle(device);
   },
   // 蓝牙发送方法
-  write(data) {
+  write(data, cb) {
+    this.globalData.callback = cb;
+    // 添加crc字节
+    var crc = CRC.CRC.CRC16(data);
+    data.push(crc.substring(0, 2))
+    data.push(crc.substring(2, 4))
+    data.push("55")
+    // data.unshift("80")
+    // 80 00 03 00 41 00 1c 15 c6 55
     bletools.write(data);
   },
   /**
    * 发送数据结果 true or false
    * 如果为false msg是失败原因
    */
-  writeListener: function (result, msg) {
+  writeListener: function (result, writeData, msg) {
     //此处可以执行自己的逻辑 比如一些提示
     console.log(result ? '发送数据成功' : msg)
+    if(writeData.length > 3 && writeData[3] == "03"){
+      wx.showToast({
+        title: `设置成功`,
+        icon: 'none'
+      });
+    }
   },
 
   /**
@@ -203,8 +216,40 @@ App({
   notifyListener: function (data) {
     console.log('接收到数据')
     console.log(data)
-    this.write(["ff","43","42","44","49","47","42","45","48","45","43","43","47","48","43","44","48"]);
-    // this.sendData("ff,43,42,44,49,47,42,45,48,45,43,43,47,48,43,44,48")
+    var firstData = data[0];
+    console.log(firstData)
+    if (firstData == "ff") { //蓝牙设备发来的加密串，
+      console.log("加密认证中"); 
+      bletools.write(["ff", "43", "42", "44", "49", "47", "42", "45", "48", "45", "43", "43", "47", "48", "43", "44", "48"]);
+    } else if (firstData== "fe") { //加密认证过程完成
+      console.log("加密认证过程完成"); 
+    } else {
+      this.addFrame(data);
+    }
+  },
+  // 加入一帧
+  addFrame(frame) {
+    var firstByte = frame[0];
+    //如果是一个报文的第一帧，清空当前缓冲区数据
+    if (firstByte == "00") {
+      this.globalData.frameBuffer = [];
+    }
+    this.globalData.frameBuffer.push(frame);
+    //判断第一个字节是否是结束帧，如果是，组织一个完整的报文
+    if (firstByte == "80") {
+      if ((frame[1] == 0x00) && (frame[2] == 0x0a)) {
+        if (frame[3] == 0) {
+          this.makeACompleteFrame();
+        }
+      } else {
+        this.makeACompleteFrame();
+      }
+    }
+  },
+  // 组成完整帧进行回调
+  makeACompleteFrame(){
+    console.log("完整帧")
+    console.log(this.globalData.frameBuffer)
   },
 
   /**
@@ -249,7 +294,13 @@ App({
         })
         break;
       case constants.STATE_CONNECTING_ERROR: //连接失败
-        console.log('连接失败')
+        console.log('连接失败')      
+        wx.hideLoading()
+        wx.showToast({
+          title: '连接失败',
+          icon: 'success',
+          duration: 1000
+        })
         break;
       case constants.STATE_NOTIFY_SUCCESS: //开启notify成功
         console.log('开启notify成功')

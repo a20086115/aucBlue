@@ -1,8 +1,6 @@
 const app = getApp()
 Page({
   data: {
-    inputText: 'Hello World!',
-    receiveText: '',
     name: '',
     connectedDeviceId: '',
     services: {},
@@ -13,7 +11,28 @@ Page({
     UUID_NOTIFICATION: "0000FFF4-0000-1000-8000-00805F9B34FB", // 0
     UUID_CONFIRM: "0000FFF3-0000-1000-8000-00805F9B34FB", //2
     UUID_NOTIFICATION_DES2: "00002902-0000-1000-8000-00805f9b34fb",
-    show: false
+    show: false,
+    modules: [{
+      url:"/pages/fieldapplication/fieldapplication",
+        name:"现场应用",
+        icon:"../../../images/fieldapplication.png"
+    }, {
+        url: "/pages/dashboard/index",
+        name: "测量值",
+        icon: "../../../images/measuredvalue.png"
+    }, {
+        url: "/pages/dashboard/index",
+        name: "设备信息",
+        icon: "../../../images/deviceinformation.png"
+    }, {
+        url: "/pages/dashboard/index",
+        name: "事件",
+        icon: "../../../images/event.png"
+    }, {
+        url: "/pages/dashboard/index",
+        name: "控制参数",
+        icon: "../../../images/controlparameter.png"
+    }]
   },
   showPopup() {
     this.setData({ show: true });
@@ -29,20 +48,9 @@ Page({
     });
     this.sendData()
   },
-  bindInput: function (e) {
-    this.setData({
-      inputText: e.detail.value
-    })
-    console.log(e.detail.value)
-  },
   Send: function () {
     var that = this
     if (that.data.connected) {
-      // var buffer = new ArrayBuffer(that.data.inputText.length)
-      // var dataView = new Uint8Array(buffer)
-      // for (var i = 0; i < that.data.inputText.length; i++) {
-      //   dataView[i] = that.data.inputText.charCodeAt(i)
-      // }
       var hex = 'AA'
       var typedArray = new Uint8Array(hex.match(/[\da-f]{2}/gi).map(function (h) {
         // console.log(parseInt(h, 16))
@@ -81,16 +89,9 @@ Page({
       })
     }
   },
-  onLoad: function (options) {
-  },
-  onReady: function () {
-
-  },
-  onShow: function () {
-
-  },
-  onHide: function () {
-
+  onUnload(){
+    console.log("unload")
+    app.clearBle();
   },
   sendData: function (hex){
     var that = this;

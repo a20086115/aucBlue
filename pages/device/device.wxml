@@ -4,6 +4,9 @@
     <text class="topTitle1">系统运行状态</text>
     <text class="topTitle2">故障</text>
   </view>
+  <van-grid column-num="3" square="{{true}}" clickable="true" gutter="{{ 10 }}" style="width:100%;margin-top:10px;">
+    <van-grid-item style="" wx:key="{{item.name}}" wx:for="{{modules}}" link-type="navigateTo" url="{{item.url}}" icon="{{item.icon}}" text="{{item.name}}" />
+  </van-grid>
 </view>
 
 
