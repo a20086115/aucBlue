@@ -2,6 +2,7 @@
 var bletools = require('./utils/bletools.js');
 var constants = require('./utils/constants.js');
 var CRC = require('./utils/crc.js');
+var aucConstants = require('./utils/aucConstants.js');
 App({
   buf2hex: function (buffer) {
     return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('')
@@ -33,6 +34,11 @@ App({
     cbMap:{},
     callback:null,
     frameBuffer:[]
+  },
+  convertAddress(arr) {
+    for (var i = 0; i < arr.length; i++) {
+      arr[i] = aucConstants.addressMap.get(arr[i])
+    }
   },
   // 添加任务到队列中
   addTask(task){
@@ -184,14 +190,16 @@ App({
     bletools.connectBle(device);
   },
   // 蓝牙发送方法
-  write(data, cb) {
+  write(data, cb, f) {
     this.globalData.callback = cb;
     // 添加crc字节
     var crc = CRC.CRC.CRC16(data);
     data.push(crc.substring(0, 2))
     data.push(crc.substring(2, 4))
     data.push("55")
-    // data.unshift("80")
+    if(f){
+      data.unshift("80")
+    }
     // 80 00 03 00 41 00 1c 15 c6 55
     bletools.write(data);
   },

@@ -1,0 +1,28 @@
+/* my_components/data_input/data_input.wxss */
+.data-input{
+  width:100%;
+}
+.title{
+  float:left;
+  width:40%;
+  padding: 10rpx 5rpx;
+  text-align: center
+}
+.value{
+  float:left;
+  width:55%;
+  border:1px solid gainsboro;
+  padding: 10rpx 10rpx;
+  box-sizing: border-box;
+}
+.edit-input{
+  border: 1px solid gainsboro;
+  margin: 30rpx;
+  padding:10rpx;
+}
+.edit-tip{
+  color: rgb(8, 8, 1);
+  text-align: right;
+  margin: 30rpx;
+  font-size: 14px;
+}
