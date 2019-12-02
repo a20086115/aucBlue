@@ -221,7 +221,8 @@ function _startNotifyListener(deviceId) {
     state: true,
     success: res => {
       //启动成功后 监听数据变化
-      _onNotifyListener()
+      //延迟一百毫秒，防止收不到数据
+      setTimeout(_onNotifyListener,100)
       _this.bleStateListener(constants.STATE_NOTIFY_SUCCESS)
     },
     fail: res => {

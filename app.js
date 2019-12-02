@@ -190,16 +190,14 @@ App({
     bletools.connectBle(device);
   },
   // 蓝牙发送方法
-  write(data, cb, f) {
-    this.globalData.callback = cb;
+  write(data, callback, f) {
+    this.globalData.callback = callback;
     // 添加crc字节
     var crc = CRC.CRC.CRC16(data);
     data.push(crc.substring(0, 2))
     data.push(crc.substring(2, 4))
     data.push("55")
-    if(f){
-      data.unshift("80")
-    }
+    data.unshift("80")
     // 80 00 03 00 41 00 1c 15 c6 55
     bletools.write(data);
   },
@@ -258,6 +256,11 @@ App({
   makeACompleteFrame(){
     console.log("完整帧")
     console.log(this.globalData.frameBuffer)
+    // 遍历所有帧缓冲区，判断第一个字节是否是结束帧
+
+
+
+    this.globalData.frameBuffer.length = 0;
   },
 
   /**

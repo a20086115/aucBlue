@@ -125,15 +125,11 @@ Page({
       //剔除重复设备，兼容不同设备API的不同返回值
       var isnotexist = true
       if (devices.deviceId) {
-        if (devices.advertisData)
-        {
+        if (devices.advertisData){
           devices.advertisData = app.buf2hex(devices.advertisData)
-        }
-        else
-        {
+        }else{
           devices.advertisData = ''
         }
-        console.log(devices)
         for (var i = 0; i < that.data.devicesList.length; i++) {
           if (devices.deviceId == that.data.devicesList[i].deviceId) {
             isnotexist = false
@@ -142,14 +138,10 @@ Page({
         if (isnotexist) {
           that.data.devicesList.push(devices)
         }
-      }
-      else if (devices.devices) {
-        if (devices.devices[0].advertisData)
-        {
+      }else if (devices.devices) {
+        if (devices.devices[0].advertisData){
           devices.devices[0].advertisData = app.buf2hex(devices.devices[0].advertisData)
-        }
-        else
-        {
+        }else {
           devices.devices[0].advertisData = ''
         }
         console.log(devices.devices[0])
@@ -158,17 +150,13 @@ Page({
             isnotexist = false
           }
         }
-        if (isnotexist) {
+        if (isnotexist && devices.devices[0].name.indexOf("TC") != -1) {
           that.data.devicesList.push(devices.devices[0])
         }
-      }
-      else if (devices[0]) {
-        if (devices[0].advertisData)
-        {
+      }else if (devices[0]) {
+        if (devices[0].advertisData){
           devices[0].advertisData = app.buf2hex(devices[0].advertisData)
-        }
-        else
-        {
+        }else{
           devices[0].advertisData = ''
         }
         console.log(devices[0])

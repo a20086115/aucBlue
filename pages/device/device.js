@@ -42,11 +42,21 @@ Page({
   },
   openTap(){
     this.onClose();
-    app.addTask({
-      data: [0x00, 0x03, 0x00, 0x09, 0x01, 0x55, 0xd9, 0x55],
+    app.write(["00", "06", "00", "d5", "00", "01"], function () {
+      console.log("!11")
+    }, true);
+  },
+  closeTap(){
+
+    this.onClose();
+    app.write(["00", "03", "00", "41", "00", "12"], function(){
       
     });
-    this.sendData()
+  },
+  resetTap(){
+    this.onClose();
+    app.write(["00", "03", "02", "f1", "00", "01"], function(){
+    });
   },
   Send: function () {
     var that = this

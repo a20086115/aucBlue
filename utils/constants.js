@@ -1,12 +1,6 @@
 /**
- *  match config
- *  过滤蓝牙名称 如果你不需要可以改下代码 如果需要获取更多的名称也要改下代码 就一个if没什么难度 过滤方法是startsWith
- *  我这里测试用了两个条件 代表我只要设备名称开头是TL 或TK的设备才能显示出来 只支持大写 因为在过滤中我将设备名称转为大写后再对比的
- *  如果需要根据服务UUID过滤可以考虑改一下我的代码 只需要在扫描中添加一些参数就可以了 这个比较简单了
- * 
- *  CONNECTTIME 连接超时时间 单位ms  但是我测试了 好像没啥用啊.... 有瑕疵
+ *  match config 过滤蓝牙名称
  *  SCANTIME  扫描超时时间 单位ms 默认5秒
- *  
  */
 module.exports = {
   // string config
@@ -21,8 +15,6 @@ module.exports = {
   'NOTIFYUUID': '0000FFF4-0000-1000-8000-00805F9B34FB',
   'WRITEUUID': '0000FFF6-0000-1000-8000-00805F9B34FB',
   'CONFIRMUUID': "0000FFF3-0000-1000-8000-00805F9B34FB", //2
-  //test data config
-  'testData1': [0x01, 0x00, 0xff],
   // var config
   'STATE_DISCONNECTED': 0,
   'STATE_SCANNING': 1,
