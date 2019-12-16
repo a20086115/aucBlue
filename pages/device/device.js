@@ -17,19 +17,19 @@ Page({
         name:"现场应用",
         icon:"../../../images/fieldapplication.png"
     }, {
-        url: "/pages/dashboard/index",
+        url: "/pages/measureValue/measureValue",
         name: "测量值",
         icon: "../../../images/measuredvalue.png"
     }, {
-        url: "/pages/dashboard/index",
+        url: "/pages/deviceInfo/deviceInfo",
         name: "设备信息",
         icon: "../../../images/deviceinformation.png"
     }, {
-        url: "/pages/dashboard/index",
+        url: "/pages/eventInfo/eventInfo",
         name: "事件",
         icon: "../../../images/event.png"
     }, {
-        url: "/pages/dashboard/index",
+        url: "/pages/controlParams/controlParams",
         name: "控制参数",
         icon: "../../../images/controlparameter.png"
     }]
@@ -42,20 +42,26 @@ Page({
   },
   openTap(){
     this.onClose();
-    app.write(["00", "06", "00", "d5", "00", "01"], function () {
-      console.log("!11")
-    }, true);
+    app.write(["00", "06", "00", "d5", "00", "01"], function (receiveData) {
+      console.log("openTap", receiveData)
+    });
   },
   closeTap(){
-
     this.onClose();
-    app.write(["00", "03", "00", "41", "00", "12"], function(){
-      
+    app.write(["00", "03", "00", "51", "00", "21"], function(receiveData){
+      console.log("closeTap", receiveData)
     });
   },
   resetTap(){
     this.onClose();
-    app.write(["00", "03", "02", "f1", "00", "01"], function(){
+    app.write(["00", "03", "02", "f1", "00", "01"], function (receiveData) {
+      console.log("resetTap", receiveData)
+    });
+  },
+  setFrameLen(){
+    this.onClose();
+    app.write(["00", "06", "00", "19", "00", "01"], function (receiveData) {
+      console.log("setFrameLen", receiveData)
     });
   },
   Send: function () {

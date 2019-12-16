@@ -1,23 +1,11 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-const makeCrc = array => {
-
+const getAddressFrame = address => {
+  var str = parseInt(currentItem.address).toString(16);
+  while(str.length < 4){
+    str = "0" + str;
+  }
+  return [str.substr(0, 2), str.substr(2, 2)]
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
-
-module.exports = {
-  formatTime: formatTime,
-  makeCrc: makeCrc
+export {
+  getAddressFrame
 }

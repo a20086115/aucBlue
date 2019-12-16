@@ -1,10 +1,44 @@
 <van-tabs style="width:100%;height:100%;" swipeable bind:change="onChange">
   <van-tab title="基本参数" style="width:100%;"> 
-      <data-input wx:for="{{basic_params}}" :value="3" style="width:50%;"></data-input>
+      <data-input wx:for="{{basic_params}}" wx:key="{{item.key}}" item="{{item}}" bind:myValueClick="onInputClick"></data-input>
   </van-tab>
 
 
-  <van-tab title="通信参数">内容 2</van-tab>
-  <van-tab title="现场调整">内容 3</van-tab>
+  <van-tab title="通信参数">
+      <view wx:for="{{commu_params}}" wx:key="{{item.key}}">
+          <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+          <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+      </view>
+  </van-tab>
+
+
+  <van-tab title="现场调整">
+    <view wx:for="{{field_debug}}" wx:key="{{item.key}}">
+        <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+        <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+    </view>
+  </van-tab>
+
+
 </van-tabs>
 
+<!-- <data-dialog item="{{currentItem}}" show="{{show}}"></data-dialog> -->
+<van-dialog use-slot  title="{{ currentItem.title }}" show="{{ show }}" closeOnClickOverlay="{{true}}"  show-cancel-button bind:confirm="onConfirm" asyncClose="true" bind:close="onClose">
+  <view>
+    <input class="edit-input-dialog" type="digit" value="{{inputValue}}" bindinput="bindKeyInput" placeholder="{{currentItem.value}}" confirm-type="done" />
+    <view class="edit-tip-dialog">注：此处最小值为{{currentItem.min}}, 最大值为{{currentItem.max}}</view>
+  </view>
+</van-dialog>
+
+<van-action-sheet
+  show="{{ spinnerShow }}"
+  actions="{{ currentItem.actions }}"
+  bind:close="onActionClose"
+  bind:cancel="onActionClose"
+  bind:select="onActionSelect"
+  title="{{currentItem.title}}设置"
+  cancel-text="取消"
+  close-on-click-overlay="{{true}}"
+/>
+
+<van-toast id="van-toast" />

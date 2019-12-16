@@ -1,1 +1,19 @@
 /* my_components/data-select.wxss */
+.data-select{
+  width:100%;
+  display: flex;
+  padding: 10rpx 30rpx;
+  box-sizing: border-box
+}
+.title{
+  width:40%;
+  padding: 14rpx 0;
+  text-align: right;
+  box-sizing: border-box;
+}
+.value{
+  width:60%;
+  border:1px solid gainsboro;
+  padding: 16rpx;
+  box-sizing: border-box;
+}

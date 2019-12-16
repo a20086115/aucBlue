@@ -4,21 +4,15 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    value: { // 
-      type: String,
-      value: '数值'
-    },
-    title: { // 
-      type: String,
-      value: '标题'
-    },
+    item: {
+      type: Object
+    }
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    show: false
   },
 
   /**
@@ -27,21 +21,14 @@ Component({
   methods: {
     onTap: function () {
       console.log("onTaponTaponTap")
-      var myEventDetail = {} // detail对象，提供给事件监听函数
-      var myEventOption = {} // 触发事件的选项
-      this.setData({
-        show: true
-      })
-      // this.triggerEvent('myevent', myEventDetail, myEventOption)
+      if(this.data.item.type == "input"){
+        var myEventDetail = {
+          item: this.data.item
+        } // detail对象，提供给事件监听函数
+        var myEventOption = {} // 触发事件的选项
+        this.triggerEvent('myValueClick', myEventDetail, myEventOption)
+      }
     },
-    onConfirm(){
-
-    },
-    onClose(){
-
-    },
-    onCancel(){
-
-    }
+ 
   }
 })

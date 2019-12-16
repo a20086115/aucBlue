@@ -1,0 +1,6 @@
+<van-dialog use-slot  title="{{ item.title }}" show="{{ show }}" closeOnClickOverlay="{{true}}"  show-cancel-button bind:confirm="onConfirm"  bind:close="onClose" >
+  <view>
+    <input class="edit-input" type="digit" placeholder="{{item.value}}" confirm-type="done" />
+    <view class="edit-tip">注：此处最小值为{{item.min}}, 最大值为{{item.max}}</view>
+  </view>
+</van-dialog>

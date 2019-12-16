@@ -1,2 +1,9 @@
 <!--my_components/data-select.wxml-->
-<text>my_components/data-select.wxml</text>
+<view class="data-select" style="{{ style }}">
+  <view class="title">{{item.title}}：</view>
+  <view class="value"  bindtap="onTap">
+     {{item.value}}
+     <van-icon style="float:right" name="arrow-down" />
+  </view>
+ 
+</view>

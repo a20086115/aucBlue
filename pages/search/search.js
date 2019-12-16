@@ -150,7 +150,7 @@ Page({
             isnotexist = false
           }
         }
-        if (isnotexist && devices.devices[0].name.indexOf("TC") != -1) {
+        if (isnotexist && devices.devices[0].name) {
           that.data.devicesList.push(devices.devices[0])
         }
       }else if (devices[0]) {

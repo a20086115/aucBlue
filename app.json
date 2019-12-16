@@ -2,25 +2,33 @@
   "pages": [
     "pages/search/search",
     "pages/device/device",
-    "pages/fieldapplication/fieldapplication"
+    "pages/fieldapplication/fieldapplication",
+    "pages/deviceInfo/deviceInfo",
+    "pages/eventInfo/eventInfo",
+    "pages/controlParams/controlParams",
+    "pages/measureValue/measureValue"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f8f8f8",
-    "navigationBarTitleText": "BLE Demo",
+    "navigationBarTitleText": "电能质量监控",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#f8f8f8"
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "data-input": "./my_components/data-input/data-input",
+    "data-select": "./my_components/data-select/data-select",
     "van-popup": "./miniprogram_npm/vant-weapp/popup/index",
     "van-grid": "./miniprogram_npm/vant-weapp/grid/index",
     "van-grid-item": "./miniprogram_npm/vant-weapp/grid-item/index",
     "van-dialog": "./miniprogram_npm/vant-weapp/dialog/index",
     "van-tab": "./miniprogram_npm/vant-weapp/tab/index",
     "van-tabs": "./miniprogram_npm/vant-weapp/tabs/index",
-    "data-input": "./my_components/data-input/data-input",
     "van-cell-group": "./miniprogram_npm/vant-weapp/cell-group/index",
-    "van-field": "./miniprogram_npm/vant-weapp/field/index"
+    "van-toast": "./miniprogram_npm/vant-weapp/toast/index",
+    "van-field": "./miniprogram_npm/vant-weapp/field/index",
+    "van-icon": "./miniprogram_npm/vant-weapp/icon/index",
+    "van-action-sheet": "./miniprogram_npm/vant-weapp/action-sheet/index"
   }
 }

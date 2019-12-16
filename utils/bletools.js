@@ -38,6 +38,8 @@ var timeOut= null
  * data 16进制数组
  */
 function write(data) {
+
+  console.log("write数据")
   var typedArray = new Uint8Array(data.map(function (h) {
     // console.log(parseInt(h, 16))
     return parseInt(h, 16)
@@ -49,7 +51,6 @@ function write(data) {
   }
   //写数据
   console.log(data)
-  console.log(charId)
   wx.writeBLECharacteristicValue({
     deviceId: currentBle,
     serviceId: constants.SERUUID,

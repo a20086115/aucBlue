@@ -133,27 +133,86 @@ addressMap.set("742", "_l2gwyz_742_10_-999_999");
 addressMap.set("743", "_l3hwyz_743_10_-999_999");
 addressMap.set("744", "_acfsqdyz_744_10_-999_999");
 addressMap.set("117", "_dqcs_117_1_1_65535");
-addressMap.set("752", "_mkh_752_1_1_99");
 addressMap.set("34", "_xtsjn_34_1_2000_2099");
 addressMap.set("35", "_xtsjy_35_1_1_12");
 addressMap.set("36", "_xtsjr_36_1_1_31");
 addressMap.set("37", "_xtsjs_37_1_0_23");
 addressMap.set("38", "_xtsjf_38_1_0_59");
 addressMap.set("39", "_xtsjm_39_1_0_59");
-addressMap.set("82", "_bjsl_82_1_0_30");
-addressMap.set("81", "_bjrl_81_10_0_65535");
 
-addressMap.set("65", "主CT变比_zctbh_65_1_0_65535");
-addressMap.set("70", "辅CT变比_fctbh_70_1_0_65535");
-addressMap.set("67", "终端地址_zddz_67_1_0_65535");
-addressMap.set("68", "行政区域码_xzqym_68_1_0_65535");
-addressMap.set("753", "心跳时间_xtsj_753_1_0_65535");
-addressMap.set("80", "目标无功功率_mbwggl_80_10_-200_200");
-addressMap.set("83", "目标功率因数_mbglys_83_100_-1_1");
-addressMap.set("69", "变压器容量_byqrl_69_1_0_65535");
-addressMap.set("84", "自动开机延时_zdkjys_84_1_0_65535");
-addressMap.set("745", "_ycdxs_745_100_-5_5");
+addressMap.set("213", "开机_kj_213_1_0_65535_input");
+addressMap.set("19", "设置帧长_szzc_19_1_0_65535_input");
 
+
+
+addressMap.set("745", "_ycdxs_745_100_-5_5_input");
+
+
+// 设备信息
+addressMap.set("970", "出场编号_ccbh_970_1_0_65535_text");
+addressMap.set("27", "设备容量_sbrl_27_1_0_65535_text");
+addressMap.set("28", "硬件版本_yjbb_28_10_0_65535_text_1");
+addressMap.set("29", "硬件版本_yjbb_28_100_0_65535_text");
+addressMap.set("30", "主控版本_zkbb_30_100_0_65535_text");
+addressMap.set("31", "底层版本_dcbb_31_100_0_65535_text");
+addressMap.set("32", "辅控版本_fkbb_32_100_0_65535_text");
+addressMap.set("33", "显示版本_xsbb_33_100_0_65535_text");
+
+// 现场应用 - 基本参数
+addressMap.set("65", "主CT变比_zctbh_65_1_0_65535_input");
+addressMap.set("70", "辅CT变比_fctbh_70_1_0_65535_input");
+addressMap.set("67", "终端地址_zddz_67_1_0_65535_input");
+addressMap.set("68", "行政区域码_xzqym_68_1_0_65535_input");
+addressMap.set("753", "心跳时间_xtsj_753_1_0_65535_input");
+addressMap.set("80", "目标无功功率_mbwggl_80_10_-200_200_input");
+addressMap.set("83", "目标功率因数_mbglys_83_100_-1_1_input");
+addressMap.set("69", "变压器容量_byqrl_69_1_0_65535_input");
+addressMap.set("84", "自动开机延时_zdkjys_84_1_0_65535_input");
+
+// 现场应用 - 通信参数
+addressMap.set("93", "并机通信_bjtx_93_1_0_30_select");
+addressMap.set("94", "并机调度_bjdd_94_10_0_65535_select");
+addressMap.set("82", "并机数量_bjsl_82_1_0_30_input");
+addressMap.set("81", "并机容量_bjrl_81_10_0_65535_input");
+addressMap.set("752", "模块号_mkh_752_1_1_99_input");
+
+// 现场应用 - 现场调整
+addressMap.set("52", "主CT方向调整_zctfxtz_52_1_0_65535_select");
+addressMap.set("53", "辅CT方向调整_fctfxtz_53_10_0_65535_select");
+
+var OFFON = [{
+  value: 0,
+  name: "OFF"
+}, {
+  value: 1,
+  name: "ON"
+}];
+
+var ctfxtz = [{
+  name:"不调整",
+  value:0},{
+  name:"调整A相",
+  value:1},{
+  name:"调整B相",
+  value:2},{
+  name:"调整A和B相",
+  value:3},{
+  name:"调整C相",
+  value:4},{
+  name:"调整A和C相",
+  value:5},{
+  name:"调整B和C相",
+  value:6},{
+  name:"调整ABC相",
+  value:7}]
+
+var selectMap = {
+  "93": OFFON,
+  "94": OFFON,
+  "52": ctfxtz,
+  "53": ctfxtz
+}
 module.exports = {
-  addressMap: addressMap
+  addressMap: addressMap,
+  selectMap: selectMap
 }

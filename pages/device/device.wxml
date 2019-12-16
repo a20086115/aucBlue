@@ -14,4 +14,5 @@
   <view class="switchTip" bindtap="openTap">开机</view>
   <view class="switchTip" bindtap="closeTap">关机</view>
   <view class="switchTip" bindtap="resetTap">复位</view>
+  <view class="switchTip" bindtap="setFrameLen">设为20</view>
 </van-popup>

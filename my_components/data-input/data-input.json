@@ -1,7 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "van-cell-group": "../../miniprogram_npm/vant-weapp/cell-group/index",
-    "van-field": "../../miniprogram_npm/vant-weapp/field/index"
+
   }
 }

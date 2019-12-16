@@ -1,28 +1,24 @@
 /* my_components/data_input/data_input.wxss */
 .data-input{
   width:100%;
+  display: flex;
+  padding: 10rpx 30rpx;
+  box-sizing: border-box
 }
 .title{
-  float:left;
   width:40%;
-  padding: 10rpx 5rpx;
-  text-align: center
-}
-.value{
-  float:left;
-  width:55%;
-  border:1px solid gainsboro;
-  padding: 10rpx 10rpx;
+  padding: 14rpx 0;
+  text-align: right;
   box-sizing: border-box;
 }
-.edit-input{
-  border: 1px solid gainsboro;
-  margin: 30rpx;
-  padding:10rpx;
+.value{
+  width:60%;
+  padding: 14rpx;
+  box-sizing: border-box;
 }
-.edit-tip{
-  color: rgb(8, 8, 1);
-  text-align: right;
-  margin: 30rpx;
-  font-size: 14px;
+.border{
+  border:1px solid gainsboro;
+}
+.noBorder{
+  border:1px solid white;
 }

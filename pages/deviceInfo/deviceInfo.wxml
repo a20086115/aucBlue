@@ -1,0 +1,3 @@
+<!--pages/deviceInfo/deviceInfo.wxml-->
+<data-input wx:for="{{basic_params}}" wx:key="{{item.key}}" item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+<data-input  item="{{bluItem}}" bind:myValueClick="onInputClick"></data-input>
