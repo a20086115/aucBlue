@@ -68,29 +68,7 @@ Page({
       this.getXctzxx();
     }
   },
-  // 获取心跳时间
-  getXtsj(){
-    var sendData = ["00", "03", "02", "f1", "00", "01"];
-    app.write(sendData, (obj, frame) => {
-      console.log("---------")
-      console.log(obj, frame)
-      this.setData({
-          basic_params: Object.assign(this.data.basic_params, obj.data)
-      })
-      console.log(this.data)
-    });
-  },
-  // 获取现场调整信息
-  getXctzxx(){
-    var sendData = ["00", "03", "00", "0e", "00", "28"];
-    app.write(sendData, (obj, frame) => {
-      console.log("获取现场调整信息成功", obj, frame)
-      this.setData({
-        field_debug: Object.assign(this.data.field_debug, obj.data)
-      })
-      console.log(this.data)
-    });
-  },
+  
   onConfirm() {
     console.log("onConfirm", this.data.inputValue, this.data)
     // 判断value是否为空
@@ -151,6 +129,29 @@ Page({
         spinnerShow: false,
       })
       Toast.fail("设置成功")
+      console.log(this.data)
+    });
+  },
+  // 获取心跳时间
+  getXtsj() {
+    var sendData = ["00", "03", "02", "f1", "00", "01"];
+    app.write(sendData, (obj, frame) => {
+      console.log("---------")
+      console.log(obj, frame)
+      this.setData({
+        basic_params: Object.assign(this.data.basic_params, obj.data)
+      })
+      console.log(this.data)
+    });
+  },
+  // 获取现场调整信息
+  getXctzxx() {
+    var sendData = ["00", "03", "00", "0e", "00", "28"];
+    app.write(sendData, (obj, frame) => {
+      console.log("获取现场调整信息成功", obj, frame)
+      this.setData({
+        field_debug: Object.assign(this.data.field_debug, obj.data)
+      })
       console.log(this.data)
     });
   }

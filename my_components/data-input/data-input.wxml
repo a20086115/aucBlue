@@ -1,5 +1,5 @@
 <!--my_components/data_input/data_input.wxml-->
 <view class="data-input" style="{{ style }}">
-  <view class="title">{{item.title}}：</view>
+  <view class="title" wx:if="{{item.title}}">{{item.title}}</view>
   <view class="value {{item.type == 'input' ? 'border' : 'noBorder'}}"  bindtap="onTap">{{item.value}}</view>
 </view>

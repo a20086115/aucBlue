@@ -22,15 +22,15 @@ App({
     // 第一步 initBle() 初始化蓝牙模块,判断版本是否支持
     bletools.initBle(this);
     //开启循环任务
-    // setInterval(() => {
-    //   if ((this.globalData.currentTask.used || new Date().getTime() - this.globalData.currentTask.time > 1000 * 5)  && this.globalData.taskList.length > 0) {
-    //     console.log("进入条件")
-    //     this.globalData.currentTask = this.globalData.taskList.shift();
-    //     this.globalData.currentTask.time = new Date().getTime();
-    //     bletools.write(this.globalData.currentTask.sendFrame)
-    //   }
+    setInterval(() => {
+      if ((this.globalData.currentTask.used || new Date().getTime() - this.globalData.currentTask.time > 1000 * 5)  && this.globalData.taskList.length > 0) {
+        console.log("进入条件")
+        this.globalData.currentTask = this.globalData.taskList.shift();
+        this.globalData.currentTask.time = new Date().getTime();
+        bletools.write(this.globalData.currentTask.sendFrame)
+      }
    
-    // },1000);
+    },1000);
   },
   globalData: {
     SystemInfo: {},
@@ -102,17 +102,17 @@ App({
     data.push("55")
     data.unshift("80")
     // 80 00 03 00 41 00 1c 15 c6 55
-    bletools.write(data)
-    this.globalData.currentTask = {
-      sendFrame: data,
-      callback: callback,
-      used: false
-    }
-    // this.addTask({
+    // bletools.write(data)
+    // this.globalData.currentTask = {
     //   sendFrame: data,
     //   callback: callback,
     //   used: false
-    // });
+    // }
+    this.addTask({
+      sendFrame: data,
+      callback: callback,
+      used: false
+    });
   },
   /**
    * 发送数据结果 true or false
@@ -183,8 +183,7 @@ App({
 
     // 合为一帧， 数组扁平化
     var completeFrame = Array.prototype.concat.apply([], this.globalData.frameBuffer)
- 
-    if (completeFrame.length > 2 && completeFrame[2] == "6") {
+    if (completeFrame.length > 2 && completeFrame[1] == "6") {
       wx.showToast({ title: `设置成功`, icon: 'success' });
     }
 

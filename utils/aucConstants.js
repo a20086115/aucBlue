@@ -180,37 +180,191 @@ addressMap.set("752", "模块号_mkh_752_1_1_99_input");
 addressMap.set("52", "主CT方向调整_zctfxtz_52_1_0_65535_select");
 addressMap.set("53", "辅CT方向调整_fctfxtz_53_10_0_65535_select");
 
-var OFFON = [{
-  value: 0,
-  name: "OFF"
-}, {
-  value: 1,
-  name: "ON"
-}];
 
-var ctfxtz = [{
-  name:"不调整",
-  value:0},{
-  name:"调整A相",
-  value:1},{
-  name:"调整B相",
-  value:2},{
-  name:"调整A和B相",
-  value:3},{
-  name:"调整C相",
-  value:4},{
-  name:"调整A和C相",
-  value:5},{
-  name:"调整B和C相",
-  value:6},{
-  name:"调整ABC相",
-  value:7}]
+// 测量值 - 常规数据
+// dwdy: app.convertAddress(["133", "134", "135", "126", "126", "126", "127", "128", "129"]),
+// dwdl: app.convertAddress(["136", "137", "138", "139", "150", "151", "152", "153", "144", "145", "146", "147"]),
+// fzdl: app.convertAddress(["785", "787", "789", "791", "799", "800", "801", "802", "793", "794", "795", "796"]),
+// bcdl: app.convertAddress(["10", "11", "12", "13"]),
+// 测量值- 常规数据- 电网电压
+addressMap.set("133", "电网电压A_bcdla_*_100_0_65535_text");
+addressMap.set("134", "电网电压B_bcdlb_*_100_0_65535_text");
+addressMap.set("135", "电网电压C_bcdlc_*_100_0_65535_text");
+addressMap.set("126", "电压频率_bcdln_*_1000_0_65535_text");
+addressMap.set("127", "电网电压thda_bcdln_*_100_0_65535_text");
+addressMap.set("128", "电网电压thdb_bcdln_*_100_0_65535_text");
+addressMap.set("129", "电网电压thdc_bcdln_*_100_0_65535_text");
+addressMap.set("130", "电网电压不平衡度_*_*_100_0_65535_text");
+// 测量值- 常规数据- 电网电流
+addressMap.set("136", "电网电流A_bcdla_*_100_0_65535_text");
+addressMap.set("137", "电网电流A_bcdla_*_100_0_65535_text");
+addressMap.set("138", "电网电流B_bcdlb_*_100_0_65535_text");
+addressMap.set("139", "电网电流B_bcdlb_*_100_0_65535_text");
+addressMap.set("140", "电网电流C_bcdlc_*_100_0_65535_text");
+addressMap.set("141", "电网电流C_bcdlc_*_100_0_65535_text");
+addressMap.set("142", "电网电流N_bcdlc_*_100_0_65535_text");
+addressMap.set("143", "电网电流N_bcdlc_*_100_0_65535_text");
+addressMap.set("150", "电网电流功率因数_bcdln_*_10000_0_65535_text");
+addressMap.set("151", "电网电流功率因数_bcdln_*_10000_0_65535_text");
+addressMap.set("152", "电网电流功率因数_bcdln_*_10000_0_65535_text");
+// addressMap.set("153", "电网电流功率因数_bcdln_*_10000_0_65535_text");
+addressMap.set("144", "电网电流thda_bcdln_*_100_0_65535_text");
+addressMap.set("145", "电网电流thdb_bcdln_*_100_0_65535_text");
+addressMap.set("146", "电网电流thdc_bcdln_*_100_0_65535_text");
+// addressMap.set("147", "电网电流thdn_bcdln_*_100_0_65535_text");
+addressMap.set("147", "电网电流不平衡度_*_*_100_0_65535_text");
+// 测量值- 常规数据- 负载电流
+addressMap.set("785", "*_*_*_100_0_65535_text");
+addressMap.set("786", "*_*_*_100_0_65535_text");
+addressMap.set("787", "*_*_*_100_0_65535_text");
+addressMap.set("788", "*_*_*_100_0_65535_text");
+addressMap.set("789", "*_*_*_100_0_65535_text");
+addressMap.set("790", "*_*_*_100_0_65535_text");
+addressMap.set("791", "*_*_*_100_0_65535_text");
+addressMap.set("792", "*_*_*_100_0_65535_text");
+addressMap.set("799", "*_*_*_100_0_65535_text");
+addressMap.set("800", "*_*_*_100_0_65535_text");
+addressMap.set("801", "*_*_*_100_0_65535_text");
+// addressMap.set("802", "*_*_*_100_0_65535_text");
+addressMap.set("793", "*_*_*_100_0_65535_text");
+addressMap.set("794", "*_*_*_100_0_65535_text");
+addressMap.set("795", "*_*_*_100_0_65535_text");
+addressMap.set("796", "负载电流不平衡度_*_*_100_0_65535_text");
+
+addressMap.set("127", "电网电压thda_bcdln_*_100_0_65535_text");
+addressMap.set("128", "电网电压thdb_bcdln_*_100_0_65535_text");
+addressMap.set("129", "电网电压thdc_bcdln_*_100_0_65535_text");
+// 测量值- 常规数据- 补偿电流
+addressMap.set("10", "补偿电流A_bcdla_10_100_0_65535_text");
+addressMap.set("11", "补偿电流B_bcdlb_11_100_0_65535_text");
+addressMap.set("12", "补偿电流C_bcdlc_12_100_0_65535_text");
+addressMap.set("13", "补偿电流D_bcdln_13_100_0_65535_text");
+
+
+// 测量值 - 器件参数
+addressMap.set("344", "上母线_smxdy_344_10_0_65535_text");
+addressMap.set("345", "下母线_xmxdy_345_10_0_65535_text");
+addressMap.set("346", "总母线_zmxdy_346_10_0_65535_text");
+addressMap.set("347", "A相_lcldya_347_100_0_65535_text");
+addressMap.set("348", "B相_lcldyb_348_100_0_65535_text");
+addressMap.set("349", "C相_lcldyc_349_100_0_65535_text");
+addressMap.set("350", "散热器_ssqwd_350_10_0_65535_text");
+addressMap.set("351", "电感_dgwd_351_10_0_65535_text");
+addressMap.set("352", "腔体_qtwd_352_10_0_65535_text");
+addressMap.set("353", "电容_drwd_353_10_0_65535_text");
+addressMap.set("368", "A相_nbdla_368_100_0_65535_text");
+addressMap.set("369", "B相_nbdlb_369_100_0_65535_text");
+addressMap.set("370", "C相_nbdlc_370_100_0_65535_text");
+
+// 测量值 - 电能质量分析
+// 1.负载侧
+addressMap.set("803", "视在功率A相kVA_szgla_803_10_0_65535_text");
+addressMap.set("804", "视在功率B相kVA_szglb_804_10_0_65535_text");
+addressMap.set("805", "视在功率C相kVA_szglc_805_10_0_65535_text");
+addressMap.set("806", "总视在功率kVA_szglz_806_10_0_65535_text");
+addressMap.set("807", "有功功率A相kW_yggla_807_10_0_65535_text");
+addressMap.set("808", "有功功率B相kW_ygglb_808_10_0_65535_text");
+addressMap.set("809", "有功功率C相kW_ygglc_809_10_0_65535_text");
+addressMap.set("810", "总有功功率kW_ygglz_810_10_0_65535_text");
+addressMap.set("811", "无功功率A相kvar_wggla_811_10_0_65535_text");
+addressMap.set("812", "无功功率B相kvar_wgglb_812_10_0_65535_text");
+addressMap.set("813", "无功功率C相kvar_wgglc_813_10_0_65535_text");
+addressMap.set("814", "总无功功率kvar_wgglz_814_10_0_65535_text");
+// 2. 电网侧
+addressMap.set("154", "视在功率A相kVA_szgla_154_10_0_65535_text");
+addressMap.set("155", "视在功率B相kVA_szglb_155_10_0_65535_text");
+addressMap.set("156", "视在功率C相kVA_szglc_156_10_0_65535_text");
+addressMap.set("157", "总视在功率kVA_szglz_157_10_0_65535_text");
+addressMap.set("158", "有功功率A相kW_yggla_158_10_0_65535_text");
+addressMap.set("159", "有功功率B相kW_ygglb_159_10_0_65535_text");
+addressMap.set("160", "有功功率C相kW_ygglc_160_10_0_65535_text");
+addressMap.set("161", "总有功功率kW_ygglz_161_10_0_65535_text");
+addressMap.set("162", "无功功率A相kvar_wggla_162_10_0_65535_text");
+addressMap.set("163", "无功功率B相kvar_wgglb_163_10_0_65535_text");
+addressMap.set("164", "无功功率C相kvar_wgglc_164_10_0_65535_text");
+addressMap.set("165", "总无功功率kvar_wgglz_165_10_0_65535_text");
+// 3.设备侧
+addressMap.set("203", "无功功率A相kvar_wggla_203_10_0_65535_text");
+addressMap.set("204", "无功功率B相kvar_wgglb_204_10_0_65535_text");
+addressMap.set("205", "无功功率C相kvar_wgglc_205_10_0_65535_text");
+addressMap.set("206", "总无功功率kvar_wgglz_206_10_0_65535_text");
+// 4.各次谐波
+addressMap.set("235", "1_gcxb1_235_100_0_65535_text");
+addressMap.set("236", "2_gcxb2_236_100_0_65535_text");
+addressMap.set("237", "3_gcxb3_237_100_0_65535_text");
+addressMap.set("238", "4_gcxb4_238_100_0_65535_text");
+addressMap.set("239", "5_gcxb5_239_100_0_65535_text");
+addressMap.set("240", "6_gcxb6_240_100_0_65535_text");
+addressMap.set("241", "7_gcxb7_241_100_0_65535_text");
+addressMap.set("242", "8_gcxb8_242_100_0_65535_text");
+addressMap.set("243", "9_gcxb9_243_100_0_65535_text");
+addressMap.set("244", "10_gcxb10_244_100_0_65535_text");
+addressMap.set("245", "11_gcxb11_245_100_0_65535_text");
+addressMap.set("246", "12_gcxb12_246_100_0_65535_text");
+addressMap.set("247", "13_gcxb13_247_100_0_65535_text");
+addressMap.set("248", "14_gcxb14_248_100_0_65535_text");
+addressMap.set("249", "15_gcxb15_249_100_0_65535_text");
+addressMap.set("250", "16_gcxb16_250_100_0_65535_text");
+addressMap.set("251", "17_gcxb17_251_100_0_65535_text");
+addressMap.set("252", "18_gcxb18_252_100_0_65535_text");
+addressMap.set("253", "19_gcxb19_253_100_0_65535_text");
+addressMap.set("254", "20_gcxb20_254_100_0_65535_text");
+addressMap.set("255", "21_gcxb21_255_100_0_65535_text");
+addressMap.set("256", "22_gcxb22_256_100_0_65535_text");
+addressMap.set("257", "23_gcxb23_257_100_0_65535_text");
+addressMap.set("258", "24_gcxb24_258_100_0_65535_text");
+addressMap.set("259", "25_gcxb25_259_100_0_65535_text");
+addressMap.set("260", "26_gcxb26_260_100_0_65535_text");
+addressMap.set("261", "27_gcxb27_261_100_0_65535_text");
+addressMap.set("262", "28_gcxb28_262_100_0_65535_text");
+addressMap.set("263", "29_gcxb29_263_100_0_65535_text");
+addressMap.set("264", "30_gcxb30_264_100_0_65535_text");
+addressMap.set("265", "31_gcxb31_265_100_0_65535_text");
+addressMap.set("266", "32_gcxb32_266_100_0_65535_text");
+addressMap.set("267", "33_gcxb33_267_100_0_65535_text");
+addressMap.set("268", "34_gcxb34_268_100_0_65535_text");
+addressMap.set("269", "35_gcxb35_269_100_0_65535_text");
+addressMap.set("270", "36_gcxb36_270_100_0_65535_text");
+addressMap.set("271", "37_gcxb37_271_100_0_65535_text");
+addressMap.set("272", "38_gcxb38_272_100_0_65535_text");
+addressMap.set("273", "39_gcxb39_273_100_0_65535_text");
+addressMap.set("274", "40_gcxb40_274_100_0_65535_text");
+addressMap.set("275", "41_gcxb41_275_100_0_65535_text");
+addressMap.set("276", "42_gcxb42_276_100_0_65535_text");
+addressMap.set("277", "43_gcxb43_277_100_0_65535_text");
+addressMap.set("278", "44_gcxb44_278_100_0_65535_text");
+addressMap.set("279", "45_gcxb45_279_100_0_65535_text");
+addressMap.set("280", "46_gcxb46_280_100_0_65535_text");
+addressMap.set("281", "47_gcxb47_281_100_0_65535_text");
+addressMap.set("282", "48_gcxb48_282_100_0_65535_text");
+addressMap.set("283", "49_gcxb49_283_100_0_65535_text");
+addressMap.set("284", "50_gcxb50_284_100_0_65535_text");
+// 下拉框三个
+addressMap.set("285", "_spinner1_285_1_0_65535_select");
+addressMap.set("286", "_spinner2_286_1_0_65535_select");
+addressMap.set("287", "_spinner3_287_1_0_65535_select");
+
+
+
+
+
+
+var offOn = [{value: 0,name: "OFF"}, {value: 1,name: "ON"}];
+
+var ctfxtz = [{name: "不调整",value: 0}, {name: "调整A相",value: 1}, { name: "调整B相",  value: 2}, {  name: "调整A和B相",  value: 3}, {  name: "调整C相",  value: 4}, {  name: "调整A和C相",  value: 5}, {  name: "调整B和C相",  value: 6}, {  name: "调整ABC相",  value: 7}]
+
+var xiangwei = [{ name: "A相", value: 0 }, { name: "B相", value: 1 }, { name: "C相", value: 2 }, { name: "N", value: 3 }]
+var analyType = [{ name: "幅值", value: 0 }, { name: "相位", value: 1 }, { name: "百分比", value: 2 }]
+var analyType1 = [{ name: "电网电压", value: 0 }, { name: "负载电流", value: 1 }, { name: "网侧电流", value: 2 }]
 
 var selectMap = {
-  "93": OFFON,
-  "94": OFFON,
+  "93": offOn,
+  "94": offOn,
   "52": ctfxtz,
-  "53": ctfxtz
+  "53": ctfxtz,
+  "285": analyType1,
+  "286": xiangwei,
+  "287": analyType,
 }
 module.exports = {
   addressMap: addressMap,

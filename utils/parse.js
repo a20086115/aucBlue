@@ -80,18 +80,33 @@ function convertFrameByte(value, address){
     var actions = [];
     if (type == "select") {
       // 如果是下拉框， 获取其spinner
-      actions = aucConstants.selectMap[arr[2]]
+      actions = aucConstants.selectMap[address]
+    }
+    if(value >= 37628){
+      value = value - 65536
     }
     return {
       value: (value / bs).toFixed(bs.length - 1),
       title: arr[0],
       key: arr[1],
-      address: arr[2],
+      address: address,
       bs: arr[3],
       min: arr[4],
       max: arr[5],
       type: arr[6],
       actions: actions
+    }
+  }else{
+    return {
+      value: "",
+      title: "未知",
+      key: "unknown",
+      address: "0",
+      bs: 1,
+      min: 0,
+      max: 65535,
+      type: "text",
+      actions: []
     }
   }
 }

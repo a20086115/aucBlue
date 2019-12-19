@@ -1,0 +1,10 @@
+/* my_components/data-grid/data-grid.wxss */
+.center{
+  text-align: center;
+}
+.pd-20{
+  padding: 10rpx;
+}
+.van-col{
+  padding: 12rpx 0;
+}

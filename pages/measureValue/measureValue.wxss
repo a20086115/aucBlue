@@ -1,1 +1,12 @@
 /* pages/measureValue/measureValue.wxss */
+.title{
+  padding: 14rpx 18rpx;
+  border-bottom: 1px solid gainsboro;
+  border-top: 4px solid gainsboro;
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+}
+.leftTitle{
+  text-align: center;
+}
