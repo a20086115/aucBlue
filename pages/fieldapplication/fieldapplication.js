@@ -57,6 +57,8 @@ Page({
     console.log(event.detail.name)
     if (event.detail.name == "0"){
      // app.write(["00","03","00","41","00","1c"]);
+     // 获取基本参数
+      this.getJbcs();
       // 获取心跳时间
       this.getXtsj();
     } else if (event.detail.name == "1") {
@@ -132,14 +134,26 @@ Page({
       console.log(this.data)
     });
   },
+  // 获取基本参数
+  getJbcs() {
+    var sendData = ["00", "03", "00", "41", "00", "1c"];
+    app.write(sendData, (obj, frame) => {
+      console.log("----获取基本参数-----")
+      console.log(obj, frame)
+      this.setData({
+        basic_params: app.copyObject(this.data.basic_params, obj.data)
+      })
+      console.log(this.data)
+    });
+  },
   // 获取心跳时间
   getXtsj() {
     var sendData = ["00", "03", "02", "f1", "00", "01"];
     app.write(sendData, (obj, frame) => {
-      console.log("---------")
+      console.log("----获取心跳时间-----")
       console.log(obj, frame)
       this.setData({
-        basic_params: Object.assign(this.data.basic_params, obj.data)
+        basic_params: app.copyObject(this.data.basic_params, obj.data)
       })
       console.log(this.data)
     });
@@ -150,7 +164,7 @@ Page({
     app.write(sendData, (obj, frame) => {
       console.log("获取现场调整信息成功", obj, frame)
       this.setData({
-        field_debug: Object.assign(this.data.field_debug, obj.data)
+        field_debug: app.copyObject(this.data.field_debug, obj.data)
       })
       console.log(this.data)
     });

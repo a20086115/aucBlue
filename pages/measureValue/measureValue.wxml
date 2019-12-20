@@ -1,4 +1,4 @@
-<van-tabs style="width:100%;height:100%;" swipeable bind:change="onChange" active="{{ active }}">
+<van-tabs style="width:100%;height:100%;" swipeable bind:change="onChange" >
   <van-tab title="常规数据" style="width:100%;">
     <data-grid x_array="{{titleArr1}}" y_array="{{dwdy_y_arr}}" value_array="{{dwdy}}" title="电网电压"> </data-grid>
     <data-grid x_array="{{titleArr}}" y_array="{{dwdl_y_arr}}" value_array="{{dwdl}}" title="电网电流"> </data-grid>

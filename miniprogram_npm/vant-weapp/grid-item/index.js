@@ -1,5 +1,6 @@
 import { link } from '../mixins/link';
 import { VantComponent } from '../common/component';
+import { addUnit } from '../common/utils';
 VantComponent({
     relation: {
         name: 'grid',
@@ -28,26 +29,30 @@ VantComponent({
             const { columnNum, border, square, gutter, clickable, center } = data;
             const width = `${100 / columnNum}%`;
             const styleWrapper = [];
-            const contentStyleWrapper = [];
             styleWrapper.push(`width: ${width}`);
             if (square) {
-              styleWrapper.push(`padding-top: ${width}`);
+                styleWrapper.push(`padding-top: ${width}`);
             }
             if (gutter) {
-                styleWrapper.push(`padding-right: ${gutter}px`);
+                const gutterValue = addUnit(gutter);
+                styleWrapper.push(`padding-right: ${gutterValue}`);
                 const index = children.indexOf(this);
-                if (index >= columnNum && !square) {
-                    styleWrapper.push(`margin-top: ${gutter}px`);
+                if (index >= columnNum) {
+                    styleWrapper.push(`margin-top: ${gutterValue}`);
                 }
-                if(square){
-                  contentStyleWrapper.push(`right: ${gutter}px`)
-                  contentStyleWrapper.push(`bottom: ${gutter}px`)
-                  contentStyleWrapper.push(`height: auto`)
-                }
+            }
+            let contentStyle = '';
+            if (square && gutter) {
+                const gutterValue = addUnit(gutter);
+                contentStyle = `
+          right: ${gutterValue};
+          bottom: ${gutterValue};
+          height: auto;
+        `;
             }
             this.setData({
                 style: styleWrapper.join('; '),
-                contentStyle: contentStyleWrapper.join('; '),
+                contentStyle,
                 center,
                 border,
                 square,

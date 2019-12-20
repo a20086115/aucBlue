@@ -72,7 +72,9 @@ App({
   },
   startAuth(){
     console.log(" 蓝牙认证， 发送aa后 发送ff 43")
-    bletools.write(["aa"]);
+    setTimeout(() => {
+      bletools.write(["aa"]);
+      },100)
   },
   /**
     * 在页面退出时 销毁蓝牙适配器
