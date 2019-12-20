@@ -41,7 +41,7 @@ Page({
       obj.data["28"].value += obj.data["29"].value;
       delete obj.data[29]
       this.setData({
-        device_info: Object.assign(this.data.device_info, obj.data)
+        device_info: app.copyObject(this.data.device_info, obj.data)
       })
     });
   },

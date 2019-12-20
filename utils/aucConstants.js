@@ -160,7 +160,7 @@ addressMap.set("745", "预充电系数_ycdxs_745_100_-5_5_input");
 // 设备信息
 addressMap.set("970", "出场编号_ccbh_970_1_0_65535_text");
 addressMap.set("27", "设备容量_sbrl_27_1_0_65535_text");
-addressMap.set("28", "硬件版本_yjbb_28_10_0_65535_text_1");
+addressMap.set("28", "硬件版本_yjbb_28_10_0_65535_text");
 addressMap.set("29", "硬件版本_yjbb_28_100_0_65535_text");
 addressMap.set("30", "主控版本_zkbb_30_100_0_65535_text");
 addressMap.set("31", "底层版本_dcbb_31_100_0_65535_text");

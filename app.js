@@ -257,7 +257,14 @@ App({
         break;
     }
   },
-
+  copyObject(obj1, obj2) {
+    for (let key in obj1) {
+      if (obj2[key]) {
+        obj1[key] = obj2[key];
+      }
+    }
+    return obj1
+  },
 })
 /**
  * 对一些告警信息弹窗显示
