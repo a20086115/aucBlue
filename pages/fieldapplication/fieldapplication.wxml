@@ -1,6 +1,9 @@
 <van-tabs style="width:100%;height:100%;" swipeable bind:change="onChange">
   <van-tab title="基本参数" style="width:100%;"> 
-      <data-input wx:for="{{basic_params}}" wx:key="{{item.key}}" item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+      <view wx:for="{{basic_params}}" wx:key="{{item.key}}">
+          <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+          <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+      </view>
   </van-tab>
 
 

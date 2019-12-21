@@ -169,13 +169,17 @@ addressMap.set("33", "显示版本_xsbb_33_100_0_65535_text");
 
 // 现场应用 - 基本参数
 addressMap.set("65", "主CT变比_zctbh_65_1_0_65535_input");
+addressMap.set("66", "主CT位置_zctwz_66_1_0_65535_select");
 addressMap.set("67", "终端地址_zddz_67_1_0_65535_input");
 addressMap.set("68", "行政区域码_xzqym_68_1_0_65535_input");
 addressMap.set("69", "变压器容量_byqrl_69_1_0_65535_input");
 addressMap.set("70", "辅CT变比_fctbh_70_1_0_65535_input");
+addressMap.set("71", "补偿模式_bcms_71_1_0_65535_select");
+addressMap.set("79", "电压控制参考值_dykz_79_10_0_800_input");
 addressMap.set("80", "目标无功功率_mbwggl_80_10_-200_200_input");
 addressMap.set("83", "目标功率因数_mbglys_83_100_-1_1_input");
 addressMap.set("84", "自动开机延时_zdkjys_84_1_0_65535_input");
+addressMap.set("92", "开机模式_kjms_92_1_0_65535_select");
 addressMap.set("753", "心跳时间_xtsj_753_1_0_65535_input");
 
 // 现场应用 - 通信参数
@@ -360,6 +364,10 @@ addressMap.set("287", "_spinner3_287_1_0_65535_select");
 
 var offOn = [{value: 0,name: "OFF"}, {value: 1,name: "ON"}];
 
+var kjms = [{ name: "手动", value: 0 }, { name: "自动", value: 1 }];
+var bcms = [{ name: "手动补偿", value: 0 }, { name: "自动无功", value: 1 }, { name: "自动谐波", value: 2 }, { name: "自动不平衡", value: 3 }, { name: "无功+谐波", value: 4 }, { name: "无功+不平衡", value: 5 },
+  { name: "不平衡+无功", value: 6 }, { name: "不平衡+谐波", value: 7 }, { name: "恒功率因数", value: 8 }, { name: "恒无功功率", value: 9 }, { name: "自动全补偿", value: 10 }, { name: "老化模式", value: 11 }]
+var zctwz = [{ name: "负载侧", value: 0 }, { name: "电网侧", value: 1 }]
 var ctfxtz = [{name: "不调整",value: 0}, {name: "调整A相",value: 1}, { name: "调整B相",  value: 2}, {  name: "调整A和B相",  value: 3}, {  name: "调整C相",  value: 4}, {  name: "调整A和C相",  value: 5}, {  name: "调整B和C相",  value: 6}, {  name: "调整ABC相",  value: 7}]
 
 var xiangwei = [{ name: "A相", value: 0 }, { name: "B相", value: 1 }, { name: "C相", value: 2 }, { name: "N", value: 3 }]
@@ -367,6 +375,9 @@ var analyType = [{ name: "幅值", value: 0 }, { name: "相位", value: 1 }, { n
 var analyType1 = [{ name: "电网电压", value: 0 }, { name: "负载电流", value: 1 }, { name: "网侧电流", value: 2 }]
 
 var selectMap = {
+  "66": zctwz,
+  "71": bcms,
+  "92": kjms,
   "93": offOn,
   "94": offOn,
   "52": ctfxtz,

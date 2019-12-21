@@ -6,11 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    basic_params_address: ["65", "70", "67", "68", "753", "80", "83", "69", "84"],
-    basic_params: app.convertAddress(["65", "70", "67", "68", "753", "80", "83", "69", "84"]),
+    basic_params_address: ["65", "66", "70", "71", "67", "68", "753", "79", "80", "83", "69", "84", "92"],
+    basic_params: app.convertAddress(["65", "66", "70", "71", "67", "68", "753", "79", "80", "83", "69", "84", "92"]),
 
-    commu_params_address: ["81", "82", "93", "94", "752"],
-    commu_params: app.convertAddress(["81", "82", "93", "94", "752"]),
+    commu_params_address: ["81", "82", "93", "752"],
+    commu_params: app.convertAddress(["81", "82", "93", "752"]),
 
     field_debug_address: ["52", "53"],
     field_debug: app.convertAddress(["52", "53"]),
@@ -29,9 +29,16 @@ Page({
     wx.setNavigationBarTitle({
       title: '现场应用'
     })
+    
+    //初次进入页面读取首页数据
+    // 获取基本参数
+    this.getJbcs();
+    // 获取心跳时间
+    this.getXtsj();
 
     console.log(this.data)
   },
+
   // 输入框点击事件
   onInputClick(event){
     console.log(event)
@@ -62,9 +69,10 @@ Page({
       // 获取心跳时间
       this.getXtsj();
     } else if (event.detail.name == "1") {
-      app.write(["00", "03", "00", "41", "00", "1c"],function(){
-        console.log("!11")
-      },true);
+      //获取通信参数
+      this.getTxcs();
+      //获取模块号
+      this.getMkh();
     } else {
       // 获取现场调整信息
       this.getXctzxx();
@@ -154,6 +162,30 @@ Page({
       console.log(obj, frame)
       this.setData({
         basic_params: app.copyObject(this.data.basic_params, obj.data)
+      })
+      console.log(this.data)
+    });
+  },
+  // 获取通信参数
+  getTxcs() {
+    var sendData = ["00", "03", "00", "51", "00", "0D"];
+    app.write(sendData, (obj, frame) => {
+      console.log("----获取通信参数-----")
+      console.log(obj, frame)
+      this.setData({
+        commu_params: app.copyObject(this.data.commu_params, obj.data)
+      })
+      console.log(this.data)
+    });
+  },
+  // 获取模块号
+  getMkh() {
+    var sendData = ["00", "03", "02", "F0", "00", "01"];
+    app.write(sendData, (obj, frame) => {
+      console.log("----获取模块号-----")
+      console.log(obj, frame)
+      this.setData({
+        commu_params: app.copyObject(this.data.commu_params, obj.data)
       })
       console.log(this.data)
     });
