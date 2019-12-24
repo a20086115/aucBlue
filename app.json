@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/search/search",
     "pages/device/device",
+    "pages/search/search",
     "pages/fieldapplication/fieldapplication",
     "pages/deviceInfo/deviceInfo",
     "pages/eventInfo/eventInfo",

@@ -98,7 +98,7 @@ function convertFrameByte(value, address){
     }
   }else{
     return {
-      value: "",
+      value: "*",
       title: "未知",
       key: "unknown",
       address: "0",

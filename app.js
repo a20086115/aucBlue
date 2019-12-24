@@ -51,9 +51,13 @@ App({
   },
   // 根据地址数组， 转换成界面需要的对象
   convertAddress(addressArray) {
-    var result = {};
+    var result = [];
     for (var i = 0; i < addressArray.length; i++) {
-      result[addressArray[i]] = convertFrameByte("", addressArray[i])
+      if(addressArray[i] === "xx"){
+        result.push({});
+      }else{
+        result.push(convertFrameByte("", addressArray[i]))
+      }
     }
     return result;
   },
@@ -260,14 +264,16 @@ App({
     }
   },
   copyObject(obj1, obj2) {
-    for (let key in obj1) {
-      if (obj2[key]) {
-        obj1[key] = obj2[key];
+    for (let item of obj1) {
+      if (obj2[item.address]) {
+        item.value = obj2[item.address].value;
       }
     }
     return obj1
   },
 })
+
+
 /**
  * 对一些告警信息弹窗显示
  */

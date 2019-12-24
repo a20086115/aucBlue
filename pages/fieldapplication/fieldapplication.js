@@ -6,15 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    basic_params_address: ["65", "66", "70", "71", "67", "68", "753", "79", "80", "83", "69", "84", "92"],
     basic_params: app.convertAddress(["65", "66", "70", "71", "67", "68", "753", "79", "80", "83", "69", "84", "92"]),
 
-    commu_params_address: ["81", "82", "93", "752"],
     commu_params: app.convertAddress(["81", "82", "93", "752"]),
 
-    field_debug_address: ["52", "53"],
     field_debug: app.convertAddress(["52", "53"]),
-
 
     currentItem:{},
     show:false,
@@ -57,10 +53,8 @@ Page({
     })
   },
   onChange(event) {
-    wx.showToast({
-      title: `切换到标签 ${event.detail.name}`,
-      icon: 'none'
-    });
+    console.log("切换到标签", event.detail.name )
+  
     console.log(event.detail.name)
     if (event.detail.name == "0"){
      // app.write(["00","03","00","41","00","1c"]);

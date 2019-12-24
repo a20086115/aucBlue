@@ -16,8 +16,8 @@ Page({
     bcdl_y_arr: ["有效值（A）"],
     // 常规数据中的数据
     dwdy: app.convertAddress(["133", "134", "135", "126", "126", "126", "127", "128", "129"]),
-    dwdl: app.convertAddress(["136", "138", "140", "142", "150", "151", "152", "0", "144", "145", "146", "0"]),
-    fzdl: app.convertAddress(["785", "787", "789", "791", "799", "800", "801", "0", "793", "794", "795", "0"]),
+    dwdl: app.convertAddress(["136", "138", "140", "142", "150", "151", "152", "", "144", "145", "146", ""]),
+    fzdl: app.convertAddress(["785", "787", "789", "791", "799", "800", "801", "", "793", "794", "795", ""]),
     bcdl: app.convertAddress(["10", "11", "12", "13"]),
 
     // 器件参数中的数据
@@ -46,6 +46,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '测量值'
     })
+    console.log(this.data)
   },
   // 输入框点击事件
   onInputClick(event) {
