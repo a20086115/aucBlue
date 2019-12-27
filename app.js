@@ -99,7 +99,7 @@ App({
     bletools.connectBle(device);
   },
   // 蓝牙发送方法
-  write(data, callback, f) {
+  write(data, callback) {
     //
     // 添加crc字节
     var crc = CRC.CRC.CRC16(data);

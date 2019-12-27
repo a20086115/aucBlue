@@ -1,0 +1,31 @@
+<view class='imagesize'>
+  <image src="/images/ic_launcher_foreground.png" class='in-image'   >
+  </image>
+</view>
+
+<view class='container'>
+    电能质量综合监控
+</view>
+
+<van-cell-group>
+  <van-field
+    value="{{ username }}"
+    required
+    clearable
+    label="用户名"
+    placeholder="请输入用户名"
+    bind:click-icon="onClickIcon"
+    bind:change="c"
+  />
+  <van-field
+    value="{{ password }}"
+    required
+    clearable
+    label="密码"
+    placeholder="请输入密码"
+    bind:click-icon="onClickIcon"
+    bind:change="p"
+  />
+</van-cell-group>
+
+<van-button type="info" size="large" bind:click="login">登录</van-button>

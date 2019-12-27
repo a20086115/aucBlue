@@ -1,0 +1,15 @@
+/* pages/login/login.wxss */
+.imagesize{
+ display:flex;                   
+ justify-content: center;        
+ }
+
+.imagesize image { 
+  width:200rpx;
+  height:200rpx;
+}
+
+.container{
+  text-align: center;
+}
+

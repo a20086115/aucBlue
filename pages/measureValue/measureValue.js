@@ -87,6 +87,18 @@ Page({
       this.getGcxb();
     }
   },
+  // 获取电网电压、电流
+  getDwdyAndDwdl() {
+    var sendData = ["00", "03", "00", "7d", "00", "1d"];
+    app.write(sendData, (obj, frame) => {
+      console.log("获取器件参数", obj, frame)
+      this.setData({
+        dwdy: app.copyObject(this.data.dwdy, obj.data),
+        dwdl: app.copyObject(this.data.dwdl, obj.data),
+      })
+      console.log(this.data)
+    });
+  },
   // 获取器件参数
   getQjcs(){
     var sendData = ["00", "03", "01", "58", "00", "1b"];
