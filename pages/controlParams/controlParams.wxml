@@ -1,2 +1,102 @@
 <!--pages/controlParams/controlParams.wxml-->
-<text>pages/controlParams/controlParams.wxml</text>
+<van-tabs style="width:100%;height:100%;" swipeable  bind:change="onChange">
+  <van-tab title="电流参考" style="width:100%;"> 
+      <view wx:for="{{reference_params}}" wx:key="{{item.key}}">
+          <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+          <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+      </view>
+  </van-tab>
+
+
+  <van-tab title="控制参数">
+      <view wx:for="{{control_params}}" wx:key="{{item.key}}">
+          <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+          <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+      </view>
+  </van-tab>
+
+
+  <van-tab title="保护参数">
+    <view wx:for="{{protect_params}}" wx:key="{{item.key}}">
+        <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+        <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+    </view>
+  </van-tab>
+
+
+ <van-tab title="容量分配">
+    <view wx:for="{{capallocation_params}}" wx:key="{{item.key}}">
+        <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+        <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+    </view>
+  </van-tab>
+
+  <van-tab title="调试参数">
+    <view wx:for="{{debug_params}}" wx:key="{{item.key}}">
+        <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+        <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+    </view>
+
+    <view class="button-sp-area"> 
+      <van-button type="info" size="large" bind:click="update">程序升级</van-button>
+    </view>
+    <view class="button-sp-area"> 
+      <van-button type="info" size="large" bind:click="hycs">还原参数</van-button>
+    </view>
+    <view class="button-sp-area"> 
+      <van-button type="info" size="large" bind:click="cpufw">CPU复位</van-button>
+    </view>
+    <view class="button-sp-area"> 
+      <van-button type="info" size="large" bind:click="lssjcc">历史事件擦除</van-button>
+    </view>
+
+  </van-tab>
+
+  <van-tab title="录波">
+    <view wx:for="{{record_params}}" wx:key="{{item.key}}">
+        <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}"                      bind:myValueClick="onInputClick"> </data-input>
+        <data-select wx:else item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+        
+    </view>
+
+    <view class="button-sp-area"> 
+    <van-button type="info" size="large" bind:click="record_man">手动录波</van-button>
+    </view>
+    <view class="button-sp-area"> 
+    <van-button type="info" size="large" bind:click="dataexport">数据导出</van-button>
+    </view>
+  </van-tab>
+
+  <van-tab title="冻结数据">
+    <view wx:for="{{datafrozen_params}}" wx:key="{{item.key}}">
+        <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+        <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+    </view>
+    <van-button type="info" size="large" bind:click="query">查询</van-button>
+    <van-button type="info" size="large" bind:click="exportselection">导出选择</van-button>
+    <van-button type="info" size="large" bind:click="dataexport">数据导出</van-button>
+    <van-button type="info" size="large" bind:click="cleardata">存储擦除</van-button>
+  </van-tab>
+
+</van-tabs>
+
+<!-- <data-dialog item="{{currentItem}}" show="{{show}}"></data-dialog> -->
+<van-dialog use-slot  title="{{ currentItem.title }}" show="{{ show }}" closeOnClickOverlay="{{true}}"  show-cancel-button bind:confirm="onConfirm" asyncClose="true" bind:close="onClose">
+  <view>
+    <input class="edit-input-dialog" type="digit" value="{{inputValue}}" bindinput="bindKeyInput" placeholder="{{currentItem.value}}" confirm-type="done" />
+    <view class="edit-tip-dialog">注：此处最小值为{{currentItem.min}}, 最大值为{{currentItem.max}}</view>
+  </view>
+</van-dialog>
+
+<van-action-sheet
+  show="{{ spinnerShow }}"
+  actions="{{ currentItem.actions }}"
+  bind:close="onActionClose"
+  bind:cancel="onActionClose"
+  bind:select="onActionSelect"
+  title="{{currentItem.title}}设置"
+  cancel-text="取消"
+  close-on-click-overlay="{{true}}"
+/>
+
+<van-toast id="van-toast" />

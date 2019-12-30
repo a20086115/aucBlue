@@ -1,25 +1,26 @@
+
 var addressMap = new Map();
 addressMap.set("375", "无功电流设定值_wgglsdz_375_10_ - 200_200_input");
 addressMap.set("376", "负序有功I2pa_fxygi2pa_376_10_-200_200_input");
 addressMap.set("377", "负序无功I2qa_fxwgi2qa_377_10_-200_200_input");
 addressMap.set("378", "零序有功I2pa_lxygi2pa_378_10_-200_200_input");
 addressMap.set("379", "零序无功I2qa_lxwgi2qa_379_10_-200_200_input");
-addressMap.set("499", "Udc_Ref_Udc_Ref_499_10_-999_999_input");
-addressMap.set("500", "Udc_Kp_Udc_Kp_500_10_-999_999_input");
-addressMap.set("501", "Udc_Ki_Udc_Ki_501_10_-999_999_input");
-addressMap.set("502", "UdcBal_Kp_UdcBal_Kp_502_10_-999_999_input");
-addressMap.set("503", "UdcBal_Ki_UdcBal_Ki_503_10_-999_999_input");
-addressMap.set("504", "UdcBal_th_UdcBal_th_504_10_-999_999_input");
-addressMap.set("505", "Fs_set_Fs_set_505_1_15000_25000_input");
-addressMap.set("506", "I_Kp_I_Kp_506_10_-999_999_input");
-addressMap.set("507", "I_Bal_Kp_I_Bal_Kp_507_10_-999_999_input");
-addressMap.set("508", "Damp_Kp_Damp_Kp_508_10_-999_999_input");
-addressMap.set("509", "Err_Min_Err_Min_509_10_-99_99_input");
-addressMap.set("510", "Err_Max_Err_Max_510_10_-999_999_input");
-addressMap.set("511", "Rcon_num_Rcon_num_511_1_0_13_input");
+addressMap.set("499", "Udc.Ref_Udc.Ref_499_10_-999_999_input");
+addressMap.set("500", "Udc.Kp_Udc.Kp_500_10_-999_999_input");
+addressMap.set("501", "Udc.Ki_Udc.Ki_501_10_-999_999_input");
+addressMap.set("502", "UdcBal.Kp_UdcBal.Kp_502_10_-999_999_input");
+addressMap.set("503", "UdcBal.Ki_UdcBal.Ki_503_10_-999_999_input");
+addressMap.set("504", "UdcBal.th_UdcBal.th_504_10_-999_999_input");
+addressMap.set("505", "Fs.set_Fs.set_505_1_10000_25000_input");
+addressMap.set("506", "I.Kp_I.Kp_506_10_-999_999_input");
+addressMap.set("507", "IBal.Kp_IBal.Kp_507_10_-999_999_input");
+addressMap.set("508", "Damp.Kp_Damp.Kp_508_10_-999_999_input");
+addressMap.set("509", "Err.Min_Err.Min_509_10_-999_999_input");
+addressMap.set("510", "Err.Max_Err.Max_510_10_-999_999_input");
+addressMap.set("511", "Rcon.num_Rcon.num_511_1_0_13_input");
 addressMap.set("512", "lxyzCPF_lxyzCPF_512_1_-200_200_input");
 
-addressMap.set("513", "PLL_Mode模式选择_PLLmsxz_513_1_0_30_select");
+addressMap.set("513", "PLL模式选择_pllmsxz_513_1_0_30_select");
 addressMap.set("514", "电压环LPF使能_dyhlpf_514_1_0_30_select");
 addressMap.set("515", "均压环LPF使能_jyhlpf_515_1_0_30_select");
 addressMap.set("516", "无功快速补偿使能_wgksbc_516_1_0_30_select");
@@ -29,55 +30,55 @@ addressMap.set("519", "基波前馈使能_jbqksn_519_1_0_30_select");
 
 addressMap.set("523", "order1_order1_523_1_1_1_input");
 addressMap.set("524", "kr1_kr1_524_1_0_10000_input");
-addressMap.set("525", "wc1_wc1_525_1_1_20_input");
+addressMap.set("525", "wc1_wc1_525_1_0_20_input");
 addressMap.set("526", "f1_f1_526_1_0_90_input");
 addressMap.set("527", "order2_order2_527_1_1_51_input");
 addressMap.set("528", "kr2_kr2_528_1_0_10000_input");
-addressMap.set("529", "wc2_wc2_529_1_1_20_input");
+addressMap.set("529", "wc2_wc2_529_1_0_20_input");
 addressMap.set("530", "f2_f2_530_1_0_90_input");
 addressMap.set("531", "order3_order3_531_1_1_51_input");
 addressMap.set("532", "kr3_kr3_532_1_0_10000_input");
-addressMap.set("533", "wc3_wc3_533_1_1_20_input");
+addressMap.set("533", "wc3_wc3_533_1_0_20_input");
 addressMap.set("534", "f3_f3_534_1_0_90_input");
 addressMap.set("535", "order4_order4_535_1_1_51_input");
 addressMap.set("536", "kr4_kr4_536_1_0_10000_input");
-addressMap.set("537", "wc4_wc4_537_1_1_20_input");
+addressMap.set("537", "wc4_wc4_537_1_0_20_input");
 addressMap.set("538", "f4_f4_538_1_0_90_input");
 addressMap.set("539", "order5_order5_539_1_1_51_input");
 addressMap.set("540", "kr5_kr5_540_1_0_10000_input");
-addressMap.set("541", "wc5_wc5_541_1_1_20_input");
+addressMap.set("541", "wc5_wc5_541_1_0_20_input");
 addressMap.set("542", "f5_f5_542_1_0_90_input");
 addressMap.set("543", "order6_order6_543_1_1_51_input");
 addressMap.set("544", "kr6_kr6_544_1_0_10000_input");
-addressMap.set("545", "wc6_wc6_545_1_1_20_input");
+addressMap.set("545", "wc6_wc6_545_1_0_20_input");
 addressMap.set("546", "f6_f6_546_1_0_90_input");
 addressMap.set("547", "order7_order7_547_1_1_51_input");
 addressMap.set("548", "kr7_kr7_548_1_0_10000_input");
-addressMap.set("549", "wc7_wc7_549_1_1_20_input");
+addressMap.set("549", "wc7_wc7_549_1_0_20_input");
 addressMap.set("550", "f7_f7_550_1_0_90_input");
 addressMap.set("551", "order8_order8_551_1_1_51_input");
 addressMap.set("552", "kr8_kr8_552_1_0_10000_input");
-addressMap.set("553", "wc8_wc8_553_1_1_20_input");
+addressMap.set("553", "wc8_wc8_553_1_0_20_input");
 addressMap.set("554", "f8_f8_554_1_0_90_input");
 addressMap.set("555", "order9_order9_555_1_1_51_input");
 addressMap.set("556", "kr9_kr9_556_1_0_10000_input");
-addressMap.set("557", "wc9_wc9_557_1_1_20_input");
+addressMap.set("557", "wc9_wc9_557_1_0_20_input");
 addressMap.set("558", "f9_f9_558_1_0_90_input");
 addressMap.set("559", "order10_order10_559_1_1_51_input");
 addressMap.set("560", "kr10_kr10_560_1_0_10000_input");
-addressMap.set("561", "wc10_wc10_561_1_1_20_input");
+addressMap.set("561", "wc10_wc10_561_1_0_20_input");
 addressMap.set("562", "f10_f10_562_1_0_90_input");
 addressMap.set("563", "order11_order11_563_1_1_51_input");
 addressMap.set("564", "kr11_kr11_564_1_0_10000_input");
-addressMap.set("565", "wc11_wc11_565_1_1_20_input");
+addressMap.set("565", "wc11_wc11_565_1_0_20_input");
 addressMap.set("566", "f11_f11_566_1_0_90_input");
 addressMap.set("567", "order12_order12_567_1_1_51_input");
 addressMap.set("568", "kr12_kr12_568_1_0_10000_input");
-addressMap.set("569", "wc12_wc12_569_1_1_20_input");
+addressMap.set("569", "wc12_wc12_569_1_0_20_input");
 addressMap.set("570", "f12_f12_570_1_0_90_input");
 addressMap.set("571", "order13_order13_571_1_1_51_input");
 addressMap.set("572", "kr13_kr13_572_1_0_10000_input");
-addressMap.set("573", "wc13_wc13_573_1_1_20_input");
+addressMap.set("573", "wc13_wc13_573_1_0_20_input");
 addressMap.set("574", "f13_f13_574_1_0_90_input");
 addressMap.set("603", "单相最大值_dxzdlxfz_603_10_0_999_input");
 addressMap.set("604", "N线总电流限幅值_lxzdlxfz_604_10_0_999_input");
@@ -88,9 +89,9 @@ addressMap.set("608", "谐波单相电流限幅值_xbdxdlxfz_608_10_0_999_input"
 addressMap.set("609", "谐波零线电流限幅值_xblxdlxfz_609_10_0_999_input");
 addressMap.set("610", "基波相位调整_jbxwtz_610_10_0_999_input");
 addressMap.set("611", "谐波相位调整_xbxwtz_611_10_0_999_input");
-addressMap.set("612", "谐波检测个数_xbjcgs_612_1_0_12_input");
+addressMap.set("612", "谐波检测个数_xbjcgs_612_1_0_50_input");
 addressMap.set("613", "瞬时值削顶限幅_sszxdxf_613_10_0_999_input");
-addressMap.set("614", "半周期SDFT使能_bzqsdftsn_614_10_0_999_select");
+addressMap.set("614", "半周期SDFT使能_bzqsdftsn_614_1_0_999_select");
 addressMap.set("615", "CT滞后补偿_ctzhbc_615_10_-200_200_input");
 addressMap.set("624", "3次谐波限幅_xbxf3_624_10_0_999_input");
 addressMap.set("625", "5次谐波限幅_xbxf5_625_10_0_999_input");
@@ -124,24 +125,31 @@ addressMap.set("652", "30次谐波限幅_xbxf30_652_10_0_999_input");
 addressMap.set("653", "31次谐波限幅_xbxf31_653_10_0_999_input");
 addressMap.set("676", "待调谐波次数_dtxbcs_676_1_1_51_input");
 addressMap.set("677", "目标优先级_mbyxj_677_1_1_51_input");
-addressMap.set("728", "直流过压阈值_zlgyyz_728_10_-999_999_input");
-addressMap.set("729", "直流欠压阈值_zlqyyy_729_10_-999_999_input");
-addressMap.set("730", "逆变过流阈值_nbglyz_730_10_-999_999_input");
-addressMap.set("731", "N线过流阈值_nxglyz_731_10_-999_999_input");
-addressMap.set("732", "不平衡度阈值_bphdyz_732_10_-999_999_input");
-addressMap.set("733", "无功阈值_wgyz_733_10_-999_999_input");
-addressMap.set("734", "负荷率阈值_fhlyz_734_10_-999_999_input");
-addressMap.set("735", "电网缺相阈值_dwqxyz_735_10_-999_999_input");
-addressMap.set("736", "电网过压阈值_dwgyyz_736_10_-999_999_input");
-addressMap.set("737", "电网欠压阈值_dwqyyz_737_10_-999_999_input");
-addressMap.set("738", "电网频率上限_dwplsx_738_10_-999_999_input");
-addressMap.set("739", "电网频率下限_dwplxx_739_10_-999_999_input");
-addressMap.set("740", "IGBT过温阈值_igbtgwyz_740_10_-999_999_input");
-addressMap.set("741", "L1过温阈值_l1gwyy_741_10_-999_999_input");
-addressMap.set("742", "L2过温阈值_l2gwyz_742_10_-999_999_input");
-addressMap.set("743", "L3过温阈值_l3hwyz_743_10_-999_999_input");
-addressMap.set("744", "AC风扇启动阈值_acfsqdyz_744_10_-999_999_input");
+addressMap.set("728", "直流过压阈值_zlgyyz_728_10_0_999_input");
+addressMap.set("729", "直流欠压阈值_zlqyyy_729_10_-0_999_input");
+addressMap.set("730", "逆变过流阈值_nbglyz_730_10_0_999_input");
+addressMap.set("731", "N线过流阈值_nxglyz_731_10_0_999_input");
+addressMap.set("732", "不平衡度阈值_bphdyz_732_10_0_999_input");
+addressMap.set("733", "无功阈值_wgyz_733_10_0_999_input");
+addressMap.set("734", "负荷率阈值_fhlyz_734_10_0_999_input");
+addressMap.set("735", "电网缺相阈值_dwqxyz_735_10_0_999_input");
+addressMap.set("736", "电网过压阈值_dwgyyz_736_10_0_999_input");
+addressMap.set("737", "电网欠压阈值_dwqyyz_737_10_0_999_input");
+addressMap.set("739", "电网频率下限_dwplxx_739_10_0_999_input");
+addressMap.set("740", "IGBT过温阈值_igbtgwyz_740_10_0_999_input");
+addressMap.set("741", "L1过温阈值_l1gwyy_741_10_0_999_input");
+addressMap.set("742", "L2过温阈值_l2gwyz_742_10_0_999_input");
+addressMap.set("743", "L3过温阈值_l3hwyz_743_10_0_999_input");
+addressMap.set("744", "AC风扇启动阈值_acfsqdyz_744_10_0_999_input");
+addressMap.set("745", "预充电系数_ycdxs_745_100_-5_5_input");
+addressMap.set("746", "VolShutAMP_volshutamp_746_10_-999_999_input");
+addressMap.set("747", "VolClamAMP_volclamamp_747_10_-999_999_input");
+addressMap.set("748", "Vol.Iinvdet_volinvdet_748_10_-999_999_input");
+
+addressMap.set("116", "记录次数_jlcs_116_1_1_65535_input");
 addressMap.set("117", "读取次数_dqcs_117_1_1_65535_input");
+addressMap.set("119", "导出选择_dcxz_119_1_1_65535_select");
+
 addressMap.set("34", "系统时间年_xtsjn_34_1_2000_2099_input");
 addressMap.set("35", "系统时间月_xtsjy_35_1_1_12_input");
 addressMap.set("36", "系统时间日_xtsjr_36_1_1_31_input");
@@ -153,8 +161,6 @@ addressMap.set("213", "开机_kj_213_1_0_65535_input");
 addressMap.set("19", "设置帧长_szzc_19_1_0_65535_input");
 
 
-
-addressMap.set("745", "预充电系数_ycdxs_745_100_-5_5_input");
 
 
 // 设备信息
@@ -363,6 +369,9 @@ addressMap.set("287", "_spinner3_287_1_0_65535_select");
 
 
 var offOn = [{value: 0,name: "OFF"}, {value: 1,name: "ON"}];
+var pllmsxz = [{ name: "Kp", value: 0 }, { name: "SOLPF", value: 1 }];
+var dyhlpf = [{ name: "ALL_OFF", value: 0 }, { name: "Fun_ON", value: 1 }, { name: "Harm_ON", value: 2 }, { name: "ALL_ON", value: 3 }]
+var dcxz = [{ name: "蓝牙", value: 0 }, { name: "串口", value: 1 }];
 
 var kjms = [{ name: "手动", value: 0 }, { name: "自动", value: 1 }];
 var bcms = [{ name: "手动补偿", value: 0 }, { name: "自动无功", value: 1 }, { name: "自动谐波", value: 2 }, { name: "自动不平衡", value: 3 }, { name: "无功+谐波", value: 4 }, { name: "无功+不平衡", value: 5 },
@@ -382,9 +391,18 @@ var selectMap = {
   "94": offOn,
   "52": ctfxtz,
   "53": ctfxtz,
+  "119": dcxz,
   "285": analyType1,
   "286": xiangwei,
   "287": analyType,
+  "513": pllmsxz,
+  "514": dyhlpf,
+  "515": offOn,
+  "516": offOn,
+  "517": offOn,
+  "518": offOn,
+  "519": offOn,
+  "614": offOn,
 }
 module.exports = {
   addressMap: addressMap,

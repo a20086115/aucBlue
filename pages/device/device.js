@@ -48,7 +48,7 @@ Page({
   },
   closeTap(){
     this.onClose();
-    app.write(["00", "03", "00", "51", "00", "21"], function(receiveData){
+    app.write(["00", "03", "00", "51", "00", "21"], function(receiveData) {
       console.log("closeTap", receiveData)
     });
   },

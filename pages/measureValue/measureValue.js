@@ -7,9 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    titleArr:["A","B","C","总"],
-    dwc_y_arr: ["视在功率（kVa）", "有功功率（kW）", "无功功率（kvar）"],
-    sbc_y_arr: ["视在功率（kVa）"],
+    titleArr:["A","B","C","N"],
+    dwc_y_arr: ["视在功率（kVA）", "有功功率（kW）", "无功功率（kvar）"],
+    sbc_y_arr: ["视在功率（kVA）"],
     titleArr1: ["A", "B", "C"],
     dwdy_y_arr: ["有效值（A）", "频率（HZ）", "THD（%）"],
     dwdl_y_arr: ["有效值（A）", "功率因数", "THD（%）"],
@@ -92,9 +92,60 @@ Page({
     var sendData = ["00", "03", "00", "7d", "00", "1d"];
     app.write(sendData, (obj, frame) => {
       console.log("获取器件参数", obj, frame)
+
+      obj.data["136"].value = parseInt(obj.data["136"].value) + 
+              (parseInt(obj.data["137"].value) << 16);
+      obj.data["138"].value = parseInt(obj.data["138"].value) +
+        (parseInt(obj.data["139"].value) << 16);
+      obj.data["140"].value = parseInt(obj.data["140"].value) +
+        (parseInt(obj.data["141"].value) << 16);
+      obj.data["142"].value = parseInt(obj.data["142"].value) +
+        (parseInt(obj.data["143"].value) << 16);
+      delete obj.data[137]
+      delete obj.data[139]
+      delete obj.data[141]
+      delete obj.data[143]
+
       this.setData({
         dwdy: app.copyObject(this.data.dwdy, obj.data),
         dwdl: app.copyObject(this.data.dwdl, obj.data),
+      })
+      console.log(this.data)
+    });
+  },
+  // 获取负载电流
+  getFzdl() {
+    var sendData = ["00", "03", "03", "11", "00", "12"];
+    app.write(sendData, (obj, frame) => {
+      console.log("获取负载电流", obj, frame)
+
+      obj.data["785"].value = parseInt(obj.data["785"].value) +
+        (parseInt(obj.data["786"].value) << 16);
+      obj.data["787"].value = parseInt(obj.data["787"].value) +
+        (parseInt(obj.data["788"].value) << 16);
+      obj.data["789"].value = parseInt(obj.data["789"].value) +
+        (parseInt(obj.data["790"].value) << 16);
+      obj.data["791"].value = parseInt(obj.data["791"].value) +
+        (parseInt(obj.data["792"].value) << 16);
+      delete obj.data[786]
+      delete obj.data[788]
+      delete obj.data[790]
+      delete obj.data[792]
+
+      this.setData({
+        fzdl: app.copyObject(this.data.fzdl, obj.data),
+      })
+      console.log(this.data)
+    });
+  },
+  // 获取补偿电流
+  getBcdl() {
+    var sendData = ["00", "03", "00", "0a", "00", "04"];
+    app.write(sendData, (obj, frame) => {
+      console.log("获取补偿电流", obj, frame)
+
+      this.setData({
+        bcdl: app.copyObject(this.data.bcdl, obj.data),
       })
       console.log(this.data)
     });
@@ -105,10 +156,10 @@ Page({
     app.write(sendData, (obj, frame) => {
       console.log("获取器件参数", obj, frame)
       this.setData({
-        mxdy: this.copyObject(this.data.mxdy, obj.data),
-        lcldy: this.copyObject(this.data.lcldy, obj.data),
-        wd: this.copyObject(this.data.wd, obj.data),
-        nbdl: this.copyObject(this.data.nbdl, obj.data)
+        mxdy: app.copyObject(this.data.mxdy, obj.data),
+        lcldy: app.copyObject(this.data.lcldy, obj.data),
+        wd: app.copyObject(this.data.wd, obj.data),
+        nbdl: app.copyObject(this.data.nbdl, obj.data)
       })
       console.log(this.data)
     });
@@ -119,7 +170,7 @@ Page({
     app.write(sendData, (obj, frame) => {
       console.log("获取Dwc信息", obj, frame)
       this.setData({
-        dwc: this.copyObject(this.data.dwc, obj.data)
+        dwc: app.copyObject(this.data.dwc, obj.data)
       })
       console.log(this.data)
     });
@@ -130,7 +181,7 @@ Page({
     app.write(sendData, (obj, frame) => {
       console.log("获取设备侧信息", obj, frame)
       this.setData({
-        sbc: this.copyObject(this.data.sbc, obj.data)
+        sbc: app.copyObject(this.data.sbc, obj.data)
       })
       console.log(this.data)
     });
@@ -141,7 +192,7 @@ Page({
     app.write(sendData, (obj, frame) => {
       console.log("获取质量分析-负载侧", obj, frame)
       this.setData({
-        fzc: this.copyObject(this.data.fzc, obj.data)
+        fzc: app.copyObject(this.data.fzc, obj.data)
       })
       console.log(this.data)
     });

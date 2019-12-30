@@ -1,12 +1,13 @@
 {
   "pages": [
-    "pages/login/login",
+    "pages/controlParams/controlParams",
+    "pages/login/login", 
     "pages/search/search",
     "pages/device/device",
     "pages/fieldapplication/fieldapplication",
     "pages/deviceInfo/deviceInfo",
     "pages/eventInfo/eventInfo",
-    "pages/controlParams/controlParams",
+
     "pages/measureValue/measureValue"
   ],
   "window": {

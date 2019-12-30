@@ -1,0 +1,5 @@
+<!--my_components/data-text/data-text.wxml-->
+<view class="data-text" style="{{ style }}">
+  <view class="title" wx:if="{{item.title}}">{{item.title}}</view>
+  <view class="value {{item.type == 'text' ? 'border' : 'noBorder'}}"  bindtap="onTap">{{item.value}}</view>
+</view>

@@ -18,7 +18,7 @@ Component({
   /**
    * 组件的方法列表
    */
-  methods: {
+  methods: { 
     onTap: function () {
       console.log("onTaponTaponTap")
       if(this.data.item.type == "input"){

@@ -1,0 +1,24 @@
+/* my_components/data_input/data_input.wxss */
+.data-text{
+  width:100%;
+  display: flex;
+  padding: 10rpx 30rpx;
+  box-sizing: border-box
+}
+.title{
+  width:50%;
+  padding: 14rpx 14rpx;
+  text-align: right;
+  box-sizing: border-box;
+}
+.value{
+  width:50%;
+  padding: 14rpx;
+  box-sizing: border-box;
+}
+.border{
+  border:1px solid gainsboro;
+}
+.noBorder{
+  border:1px solid white;
+}
