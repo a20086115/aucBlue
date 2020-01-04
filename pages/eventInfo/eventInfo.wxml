@@ -1,2 +1,13 @@
-<!--pages/eventInfo/eventINfo.wxml-->
-<text>pages/eventInfo/eventINfo.wxml</text>
+<van-tabs style="width:100%;height:100%;" swipeable  bind:change="onChange">
+  <van-tab title="当前事件" style="width:100%;overflow:scroll;height:100%"> 
+      <view class="data-input" wx:for="{{listDataMap}}" >
+        <view class="title" >{{item}}</view>
+      </view>
+  </van-tab>
+
+
+  <van-tab title="事件类型">
+
+  </van-tab>
+
+</van-tabs>

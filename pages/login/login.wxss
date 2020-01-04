@@ -9,7 +9,15 @@
   height:200rpx;
 }
 
-.container{
+.title{
   text-align: center;
+  padding: 30rpx 0 70rpx 0;
 }
 
+.loginBtn{
+  margin-top: 50rpx;
+}
+page{
+  display: flex;
+  flex-direction: column;
+}

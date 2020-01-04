@@ -23,14 +23,24 @@ App({
     bletools.initBle(this);
     //开启循环任务
     setInterval(() => {
-      if ((this.globalData.currentTask.used || new Date().getTime() - this.globalData.currentTask.time > 1000 * 5)  && this.globalData.taskList.length > 0) {
-        console.log("进入条件")
+      if (this.globalData.taskList.length == 0){
+        console.log("当前任务队列为空")
+        return
+      }
+      if (this.globalData.currentTask.used ) {
+        console.log("当前任务已结束")
         this.globalData.currentTask = this.globalData.taskList.shift();
         this.globalData.currentTask.time = new Date().getTime();
         bletools.write(this.globalData.currentTask.sendFrame)
+      } else if ( new Date().getTime() - this.globalData.currentTask.time > 1000 * 5) {
+        console.log("当前任务已超时")
+        this.globalData.currentTask = this.globalData.taskList.shift();
+        this.globalData.currentTask.time = new Date().getTime();
+        bletools.write(this.globalData.currentTask.sendFrame)
+      } else{
+        console.log("当前任务执行中")
       }
-   
-    },1000);
+    },200);
   },
   globalData: {
     SystemInfo: {},

@@ -5,78 +5,52 @@ Page({
    * 页面的初始数据
    */
   data: {
-    username:""
+    username: "admin",
+    password: "111"
   },
-  login: function(){
+  login: function () {
     console.log(this.data.username)
     console.log(this.data.password)
 
-    if (this.data.username == ''){
-      wx: wx.showToast({
-        title: '请输入用户名'
-      })
-      return false     
-    }
-    else if (this.data.password == '') {
-      wx: wx.showToast({
-        title: '请输入密码'
+    if (this.data.username == '') {
+      wx.showToast({
+        title: '请输入用户名',
+        icon: "none"
       })
       return false
     }
-    else{}
+    else if (this.data.password == '') {
+      wx.showToast({
+        title: '请输入密码',
+        icon: "none"
+      })
+      return false
+    }
+    else { }
 
-    if (this.data.username == 'admin'){
-      if (this.data.password != '111'){
-        wx: wx.showToast({
+    if (this.data.username == 'admin') {
+      if (this.data.password != '111') {
+        wx.showToast({
           title: '密码不正确'
         })
         return false
-      }
-      else{
+      }else {
         wx.navigateTo({
-        url: '../search/search'
-      })
+          url: '../search/search'
+        })
       }
-    }
-    else{
+    }else {
       wx: wx.showToast({
         title: '用户名不正确'
       })
     }
   },
-  c: function (e){
+  c: function (e) {
     console.log(e)
     this.data.username = e.detail
   },
   p: function (e) {
     console.log(e)
     this.data.password = e.detail
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
+  }
 })

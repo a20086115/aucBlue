@@ -11,5 +11,5 @@
       </view>
     </block>
   </scroll-view>
-  <button type="primary" class="button" loading="{{searching}}" bindtap="Search">{{searching?"搜索中...":"搜索蓝牙设备"}}</button>
+  <van-button class="button" type="info" size="large" bind:click="Search">{{searching?"搜索中...":"搜索蓝牙设备"}}</van-button>
 </view>

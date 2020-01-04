@@ -1,13 +1,14 @@
-<view class='imagesize'>
+
+<view class='imagesize pd-70'>
   <image src="/images/ic_launcher_foreground.png" class='in-image'   >
   </image>
 </view>
 
-<view class='container'>
+<view class='title '>
     电能质量综合监控
 </view>
 
-<van-cell-group>
+<van-cell-group >
   <van-field
     value="{{ username }}"
     required
@@ -26,6 +27,8 @@
     bind:click-icon="onClickIcon"
     bind:change="p"
   />
+
 </van-cell-group>
 
-<van-button type="info" size="large" bind:click="login">登录</van-button>
+
+<van-button class="loginBtn" type="info" size="large" bind:click="login">登录</van-button>

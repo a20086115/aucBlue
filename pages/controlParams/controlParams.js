@@ -75,8 +75,7 @@ Page({
     } else if (event.detail.name == "5") {
       // 获取录波数据
       this.getLbsj();
-    }
-    else {
+    }else {
       
     }
   },

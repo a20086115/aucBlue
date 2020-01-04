@@ -47,6 +47,15 @@ Page({
       title: '测量值'
     })
     console.log(this.data)
+    this.initInterval();// 初始化循环事件
+  },
+  initInterval(){
+    setInterval(() => {
+      if (app.globalData.taskList.length == 0) {
+        // 如果循环队列中的内容为空，重新开始读取
+        this.getData();
+      }
+    },100)
   },
   // 输入框点击事件
   onInputClick(event) {
