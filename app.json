@@ -1,9 +1,10 @@
 {
   "pages": [
+    "pages/search/search",
     "pages/device/device",
     "pages/login/login",
     "pages/eventInfo/eventInfo",
-    "pages/search/search",
+    
     "pages/controlParams/controlParams",
     "pages/fieldapplication/fieldapplication",
     "pages/deviceInfo/deviceInfo",

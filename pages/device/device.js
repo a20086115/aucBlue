@@ -6,6 +6,7 @@ Page({
     services: {},
     characteristics: {},
     connected: true,
+    currentstate :"",
     backgroundStyle: "background-color: #e71f1f;",
     UUID_SERVICE: "0000FFF0-0000-1000-8000-00805F9B34FB",
     UUID_WRITE: "0000FFF6-0000-1000-8000-00805F9B34FB", // 1
@@ -36,20 +37,40 @@ Page({
     }]
   },
   onLoad(){
-    this.setColor("1")
+    this.setColor("0")
+    this.getstate();
+  },
+  //查询设备运行状态
+  getstate() {
+    var sendData = ["00", "03", "00", "09", "00", "01"];
+    app.write(sendData, (obj, receiveFrame) => {
+      console.log("获取设备状态", obj, receiveFrame)
+      //0:离线 1:待机 2:运行 3:故障 4:急停
+      console.log("设备状态", receiveFrame[4])
+      this.setColor(receiveFrame[4]),
+      this.getstate();
+    });
   },
   setColor(val) {
     if(val == "0"){
       this.setData({
-        backgroundStyle: "background-color:#E3CF57" // 深林绿
+        backgroundStyle: "background-color:#0000FF", // 蓝色
+        currentstate : "离线"
       })
     }else if(val == "1"){
       this.setData({
-        backgroundStyle: "background-color:#E3CF57" // 香蕉黄
+        backgroundStyle: "background-color:#0000FF", // 蓝色
+        currentstate: "待机"
       })
     } else if (val == "2") {
       this.setData({
-        backgroundStyle: "background-color:red"
+        backgroundStyle: "background-color:#00FF00", //绿色
+        currentstate: "运行"
+      })
+    } else if (val == "3") {
+      this.setData({
+        backgroundStyle: "background-color:#FF8000", //黄色
+        currentstate: "故障"
       })
     }
   },
@@ -61,19 +82,19 @@ Page({
   },
   openTap(){
     this.onClose();
-    app.write(["00", "06", "00", "d5", "00", "01"], function (receiveData) {
+    app.write(["00", "06", "00", "c8", "00", "01"], function (receiveData) {
       console.log("openTap", receiveData)
     });
   },
   closeTap(){
     this.onClose();
-    app.write(["00", "03", "00", "51", "00", "21"], function(receiveData) {
+    app.write(["00", "06", "00", "c9", "00", "01"], function(receiveData) {
       console.log("closeTap", receiveData)
     });
   },
   resetTap(){
     this.onClose();
-    app.write(["00", "03", "02", "f1", "00", "01"], function (receiveData) {
+    app.write(["00", "06", "00", "ca", "00", "01"], function (receiveData) {
       console.log("resetTap", receiveData)
     });
   },
