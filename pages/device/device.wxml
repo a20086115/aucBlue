@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="topContainer">
+  <view class="topContainer" style="{{ backgroundStyle}}">
     <image src="../../images/startup.png" class="switchImage" mode="widthFix" bindtap="showPopup"></image>
     <text class="topTitle1">系统运行状态</text>
     <text class="topTitle2">故障</text>

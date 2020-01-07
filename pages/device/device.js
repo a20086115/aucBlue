@@ -6,6 +6,7 @@ Page({
     services: {},
     characteristics: {},
     connected: true,
+    backgroundStyle: "background-color: #e71f1f;",
     UUID_SERVICE: "0000FFF0-0000-1000-8000-00805F9B34FB",
     UUID_WRITE: "0000FFF6-0000-1000-8000-00805F9B34FB", // 1
     UUID_NOTIFICATION: "0000FFF4-0000-1000-8000-00805F9B34FB", // 0
@@ -33,6 +34,24 @@ Page({
         name: "控制参数",
         icon: "../../../images/controlparameter.png"
     }]
+  },
+  onLoad(){
+    this.setColor("1")
+  },
+  setColor(val) {
+    if(val == "0"){
+      this.setData({
+        backgroundStyle: "background-color:#E3CF57" // 深林绿
+      })
+    }else if(val == "1"){
+      this.setData({
+        backgroundStyle: "background-color:#E3CF57" // 香蕉黄
+      })
+    } else if (val == "2") {
+      this.setData({
+        backgroundStyle: "background-color:red"
+      })
+    }
   },
   showPopup() {
     this.setData({ show: true });
