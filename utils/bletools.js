@@ -219,7 +219,7 @@ function _startNotifyListener(deviceId) {
     deviceId: deviceId,
     serviceId: constants.SERUUID,
     characteristicId: constants.NOTIFYUUID,
-    state: true,
+    state: true, 
     success: res => {
       //启动成功后 监听数据变化
       //延迟一百毫秒，防止收不到数据
@@ -237,6 +237,7 @@ function _startNotifyListener(deviceId) {
 //监听低功耗蓝牙设备的特征值变化。必须先启用 notifyBLECharacteristicValueChange 接口才能接收到设备推送的 notification。
 function _onNotifyListener() {
   wx.onBLECharacteristicValueChange(res => {
+    console.log("onBLECharacteristicValueChange",res)
     //转换数据
     let buffer = res.value
     let dataView = new DataView(buffer)

@@ -37,13 +37,12 @@ Page({
     }]
   },
   onLoad(){
-    this.setColor("0")
-    // this.getstate();
+
   },
   //当前页面进行状态轮询
   onShow() {
     this.data.hide = false;
-    this.getstate();
+    // this.getstate();
     // console.log("openTap", this.data.hide)
   },
   onHide() {
@@ -59,7 +58,7 @@ Page({
       console.log("设备状态", receiveFrame[4])
       this.setColor(receiveFrame[4])
       
-      if (this.data.hide == 0) {
+      if (!this.data.hide) {
         this.getstate();
       }
     });

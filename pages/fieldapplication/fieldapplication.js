@@ -11,6 +11,7 @@ Page({
 
     field_debug: app.convertAddress(["52", "53"]),
 
+    currentIndex: "0",
     currentItem:{},
     show:false,
     spinnerShow: false,
@@ -53,15 +54,17 @@ Page({
   },
   onChange(event) {
     console.log("切换到标签", event.detail.name )
-    console.log(event)
-    console.log(event.detail.name)
-    if (event.detail.name == "0"){
-     // 获取基本参数
+    this.data.currentIndex = event.detail.name;
+    this.getTapData();
+  },
+  getTapData(){
+    if (this.data.currentIndex == "0") {
+      // 获取基本参数
       this.getJbcs();
       // 获取心跳时间
       app.globalData.field_switch_name = 0;
       // console.log("页面", app.globalData.switch_name)
-    } else if (event.detail.name == "1") {
+    } else if (this.data.currentIndex == "1") {
       //获取通信参数
       this.getTxcs();
       //获取模块号
@@ -86,7 +89,6 @@ Page({
       return;
     }
     // 判断value是否在范围内
-
     if (value > parseInt(this.data.currentItem.max) || value < parseInt(this.data.currentItem.min)) {
       this.setData({show: false,inputValue: ""})
       Toast.fail('输入数据应在' + this.data.currentItem.min + " 到 " + this.data.currentItem.max + "之间")
@@ -96,35 +98,15 @@ Page({
     // 写报文
     var addressByteArr = app.getAddressFrame(this.data.currentItem.address)
     var valueByteArr = app.getAddressFrame(value * this.data.currentItem.bs)
-
     var sendData = ["00", "06"].concat(addressByteArr, valueByteArr);
     app.write(sendData, (obj, frame) => {
-      console.log("---------")
       console.log(obj, frame)
       this.setData({
-        basic_params: Object.assign(this.data.basic_params, obj.data),
         show:false,
         inputValue: "",
-        
       })
       // Toast.success("设置成功")
-      console.log(this.data)
-      console.log("页面", app.globalData.field_switch_name)
-      this.getJbcs();
-      //设置报文后刷新一次
-      // if (app.globalData.field_switch_name == "0") {
-      //   // 获取基本参数
-      //   this.getJbcs();
-      //   // 获取心跳时间
-      // } else if (app.globalData.field_switch_name == "1") {
-      //   //获取通信参数
-      //   this.getTxcs();
-      //   //获取模块号
-      //   this.getMkh();
-      // } else if (app.globalData.field_switch_name == "2") {
-      //   // 获取现场调整信息
-      //   this.getXctzxx();
-      // } else{}
+      this.getTapData();
     });
   },
   bindKeyInput: function (e) {
@@ -152,7 +134,7 @@ Page({
         spinnerShow: false,
       })
       // Toast.fail("设置成功")
-      console.log(this.data)
+      this.getTapData();
     });
   },
   // 获取基本参数
