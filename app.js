@@ -57,7 +57,9 @@ App({
       used: true,
       time: new Date().getTime()
     },
-    frameBuffer:[]
+    frameBuffer:[],
+    field_switch_name : 0,
+    control_switch_name: 0
   },
   // 根据地址数组， 转换成界面需要的对象
   convertAddress(addressArray) {
@@ -200,8 +202,12 @@ App({
     // 合为一帧， 数组扁平化
     var completeFrame = Array.prototype.concat.apply([], this.globalData.frameBuffer)
     if (completeFrame.length > 2 && completeFrame[1] == "6") {
-      wx.showToast({ title: `设置成功`, icon: 'success' });
-    }
+      if (parseInt(completeFrame[5],16) == parseInt(this.globalData.currentTask.sendFrame[6],16)) {
+        wx.showToast({ title: `设置成功`, icon: 'success' });
+      } else {
+        wx.showToast({ title: `设置失败`, icon: 'fail' });
+      }
+    } 
 
     // 执行回调, 传回解析结果与保温
     this.globalData.currentTask.callback(parse(completeFrame, this.globalData.currentTask.sendFrame), completeFrame)

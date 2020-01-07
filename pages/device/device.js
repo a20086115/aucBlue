@@ -38,7 +38,17 @@ Page({
   },
   onLoad(){
     this.setColor("0")
+    // this.getstate();
+  },
+  //当前页面进行状态轮询
+  onShow() {
+    this.data.hide = false;
     this.getstate();
+    // console.log("openTap", this.data.hide)
+  },
+  onHide() {
+    this.data.hide = true;
+    // console.log("openTap1", this.data.hide)
   },
   //查询设备运行状态
   getstate() {
@@ -47,8 +57,11 @@ Page({
       console.log("获取设备状态", obj, receiveFrame)
       //0:离线 1:待机 2:运行 3:故障 4:急停
       console.log("设备状态", receiveFrame[4])
-      this.setColor(receiveFrame[4]),
-      this.getstate();
+      this.setColor(receiveFrame[4])
+      
+      if (this.data.hide == 0) {
+        this.getstate();
+      }
     });
   },
   setColor(val) {

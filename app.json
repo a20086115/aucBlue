@@ -1,10 +1,11 @@
 {
   "pages": [
-    "pages/search/search",
+   
+      "pages/search/search",
     "pages/device/device",
     "pages/login/login",
     "pages/eventInfo/eventInfo",
-    
+
     "pages/controlParams/controlParams",
     "pages/fieldapplication/fieldapplication",
     "pages/deviceInfo/deviceInfo",

@@ -1,5 +1,4 @@
 import Toast from "../../miniprogram_npm/vant-weapp/toast/toast";
-
 const app = getApp()
 Page({
   /**
@@ -54,22 +53,25 @@ Page({
   },
   onChange(event) {
     console.log("切换到标签", event.detail.name )
-  
+    console.log(event)
     console.log(event.detail.name)
     if (event.detail.name == "0"){
-     // app.write(["00","03","00","41","00","1c"]);
      // 获取基本参数
       this.getJbcs();
       // 获取心跳时间
-      this.getXtsj();
+      app.globalData.field_switch_name = 0;
+      // console.log("页面", app.globalData.switch_name)
     } else if (event.detail.name == "1") {
       //获取通信参数
       this.getTxcs();
       //获取模块号
       this.getMkh();
+      app.globalData.field_switch_name = 1;
+      // console.log("页面", app.globalData.switch_name)
     } else {
       // 获取现场调整信息
       this.getXctzxx();
+      app.globalData.field_switch_name = 2;
     }
   },
   
@@ -102,10 +104,27 @@ Page({
       this.setData({
         basic_params: Object.assign(this.data.basic_params, obj.data),
         show:false,
-        inputValue: ""
+        inputValue: "",
+        
       })
-      Toast.fail("设置成功")
+      // Toast.success("设置成功")
       console.log(this.data)
+      console.log("页面", app.globalData.field_switch_name)
+      this.getJbcs();
+      //设置报文后刷新一次
+      // if (app.globalData.field_switch_name == "0") {
+      //   // 获取基本参数
+      //   this.getJbcs();
+      //   // 获取心跳时间
+      // } else if (app.globalData.field_switch_name == "1") {
+      //   //获取通信参数
+      //   this.getTxcs();
+      //   //获取模块号
+      //   this.getMkh();
+      // } else if (app.globalData.field_switch_name == "2") {
+      //   // 获取现场调整信息
+      //   this.getXctzxx();
+      // } else{}
     });
   },
   bindKeyInput: function (e) {
@@ -132,12 +151,14 @@ Page({
       this.setData({
         spinnerShow: false,
       })
-      Toast.fail("设置成功")
+      // Toast.fail("设置成功")
       console.log(this.data)
     });
   },
   // 获取基本参数
   getJbcs() {
+    console.log("----获取基本参数1111-----")
+    console.log(this.data)
     var sendData = ["00", "03", "00", "41", "00", "1c"];
     app.write(sendData, (obj, frame) => {
       console.log("----获取基本参数-----")

@@ -82,8 +82,10 @@ function convertFrameByte(value, address){
       // 如果是下拉框， 获取其spinner
       actions = aucConstants.selectMap[address]
     }
-    if(value >= 37628){
+    if (arr[4] < 0) {
+     if(value >= 37628){
       value = value - 65536
+     }
     }
     return {
       value: (value / bs).toFixed(bs.length - 1),
