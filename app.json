@@ -1,9 +1,9 @@
 {
   "pages": [
-   
+      "pages/login/login",
       "pages/search/search",
     "pages/device/device",
-    "pages/login/login",
+
     "pages/eventInfo/eventInfo",
 
     "pages/controlParams/controlParams",

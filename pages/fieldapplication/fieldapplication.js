@@ -106,6 +106,7 @@ Page({
         inputValue: "",
       })
       // Toast.success("设置成功")
+      app.globalData.save_flag = 1;
       this.getTapData();
     });
   },
@@ -134,6 +135,7 @@ Page({
         spinnerShow: false,
       })
       // Toast.fail("设置成功")
+      app.globalData.save_flag = 1;
       this.getTapData();
     });
   },

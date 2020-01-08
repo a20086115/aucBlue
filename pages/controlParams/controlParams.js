@@ -16,6 +16,7 @@ Page({
 
     record_params: app.convertAddress(["116", "117", "119"]),
 
+    currentIndex: "0",
     currentItem: {},
     show: false,
     spinnerShow: false,
@@ -55,31 +56,33 @@ Page({
   },
   onChange(event) {
     console.log("切换到标签", event.detail.name)
-
-    console.log(event.detail.name)
-    if (event.detail.name == "0") {
-      // 获取参考值
-      this.getCkz();
-    } else if (event.detail.name == "1") {
-      //获取控制参数
-      this.getKzcs();
-    } else if (event.detail.name == "2") {
-      // 获取保护参数
-      this.getBhcs();
-    } else if (event.detail.name == "3") {
-      // 获取容量分配参数
-      this.getRlfp();
-    } else if (event.detail.name == "4") {
-      // 获取调试数据
-
-    } else if (event.detail.name == "5") {
-      // 获取录波数据
-      this.getLbsj();
-    }else {
-      
-    }
+    this.data.currentIndex = event.detail.name;
+    this.gettapname();
   },
 
+  gettapname() {
+    if (this.data.currentIndex == "0") {
+      // 获取参考值
+      this.getCkz();
+    } else if (this.data.currentIndex == "1") {
+      //获取控制参数
+      this.getKzcs();
+    } else if (this.data.currentIndex == "2") {
+      // 获取保护参数
+      this.getBhcs();
+    } else if (this.data.currentIndex == "3") {
+      // 获取容量分配参数
+      this.getRlfp();
+    } else if (this.data.currentIndex == "4") {
+      // 获取调试数据
+
+    } else if (this.data.currentIndex == "5") {
+      // 获取录波数据
+      this.getLbsj();
+    } else {
+
+    }
+  },
   onConfirm() {
     console.log("onConfirm", this.data.inputValue, this.data)
     // 判断value是否为空
@@ -111,8 +114,10 @@ Page({
         show: false,
         inputValue: ""
       })
-      Toast.fail("设置成功")
+      // Toast.fail("设置成功")
       console.log(this.data)
+      this.gettapname();
+      app.globalData.save_flag = 1;
     });
   },
   bindKeyInput: function (e) {
@@ -139,8 +144,10 @@ Page({
       this.setData({
         spinnerShow: false,
       })
-      Toast.fail("设置成功")
+      // Toast.fail("设置成功")
       console.log(this.data)
+      this.gettapname();
+      app.globalData.save_flag = 1;
     });
   },
   // 获取参考值
@@ -213,7 +220,7 @@ Page({
       this.setData({
         spinnerShow: false,
       })
-      Toast.fail("设置成功")
+      // Toast.fail("设置成功")
       console.log(this.data)
     });
   },
@@ -227,7 +234,7 @@ Page({
       this.setData({
         spinnerShow: false,
       })
-      Toast.fail("设置成功")
+      // Toast.fail("设置成功")
       console.log(this.data)
     });
   },
@@ -241,7 +248,7 @@ Page({
       this.setData({
         spinnerShow: false,
       })
-      Toast.fail("设置成功")
+      // Toast.fail("设置成功")
       console.log(this.data)
     });
   },
@@ -255,7 +262,7 @@ Page({
       this.setData({
         spinnerShow: false,
       })
-      Toast.fail("设置成功")
+      // Toast.fail("设置成功")
       console.log(this.data)
     });
   },
@@ -269,7 +276,7 @@ Page({
       this.setData({
         spinnerShow: false,
       })
-      Toast.fail("设置成功")
+      // Toast.fail("设置成功")
       console.log(this.data)
     });
   },

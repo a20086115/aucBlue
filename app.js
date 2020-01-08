@@ -59,7 +59,7 @@ App({
     },
     frameBuffer:[],
     field_switch_name : 0,
-    control_switch_name: 0
+    save_flag: 0
   },
   // 根据地址数组， 转换成界面需要的对象
   convertAddress(addressArray) {
@@ -203,7 +203,11 @@ App({
     var completeFrame = Array.prototype.concat.apply([], this.globalData.frameBuffer)
     if (completeFrame.length > 2 && completeFrame[1] == "6") {
       if (parseInt(completeFrame[5],16) == parseInt(this.globalData.currentTask.sendFrame[6],16)) {
-        wx.showToast({ title: `设置成功`, icon: 'success' });
+        if (completeFrame[3] == "76") {
+          wx.showToast({ title: `保存成功`, icon: 'success' });
+        } else {
+          wx.showToast({ title: `设置成功`, icon: 'success' });
+        }
       } else {
         wx.showToast({ title: `设置失败`, icon: 'fail' });
       }

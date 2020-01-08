@@ -42,12 +42,24 @@ Page({
   //当前页面进行状态轮询
   onShow() {
     this.data.hide = false;
-    // this.getstate();
+    if (app.globalData.save_flag == 1) {
+      this.saveData();
+      app.globalData.save_flag = 0;
+    }
+    this.getstate();
     // console.log("openTap", this.data.hide)
   },
   onHide() {
     this.data.hide = true;
     // console.log("openTap1", this.data.hide)
+  },
+  //参数保存
+  saveData() {
+    var sendData = ["00", "06", "01", "76", "00", "01"];
+    app.write(sendData, (obj, receiveFrame) => {
+      console.log("保存参数", obj, receiveFrame)
+      console.log("设备状态", receiveFrame[4])
+    });
   },
   //查询设备运行状态
   getstate() {
