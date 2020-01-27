@@ -1,4 +1,5 @@
 // pages/eventInfo/eventINfo.js
+const app = getApp()
 var bitArray = [
   0b0000000000000001, 0b0000000000000010, 0b0000000000000100, 0b0000000000001000,
   0b0000000000010000, 0b0000000000100000, 0b0000000001000000, 0b0000000010000000,
@@ -107,89 +108,99 @@ Page({
   // 读取当前事件相关数据
   getDqsj() {
     var sendData = ["00", "03", "00", "01", "00", "08"];
-    var frame = ["00", "03", "10", "00", "08", "00", "00", "ff", "ff", "ff", "ff", "00", "00", "00", "00", "00", "00", "00", "00", "c5", "a6"];
-    var resultList = this.parseFrame(frame);
-    var listMap = [];
-    var i = 0;
-    var cpu1 = resultList[i++];
-    for (var index = 0; index < bitArray.length && index < error1.length; index++) {
-      if ((cpu1 & bitArray[index]) == bitArray[index]) {
-        if (0) {
-          listMap.push(error1[index]);
-        } else {
-          listMap.push(error9[index]);
+    // var frame = ["00", "03", "10", "00", "08", "00", "00", "ff", "ff", "ff", "ff", "00", "00", "00", "00", "00", "00", "00", "00", "c5", "a6"];
+    app.write(sendData, (obj, receiveFrame) => {
+      console.log("----获取error-----")
+      console.log("切换到标签", receiveFrame)
+      var resultList = this.parseFrame(receiveFrame);
+      var listMap = [];
+      var i = 0;
+      var cpu1 = resultList[i++];
+      for (var index = 0; index < bitArray.length && index < error1.length; index++) {
+        if ((cpu1 & bitArray[index]) == bitArray[index]) {
+          if (1) {
+            listMap.push(error1[index]);
+          } else {
+            listMap.push(error9[index]);
+          }
         }
       }
-    }
 
-    let cpu2 = resultList[i++];
-    for (let index = 0; index < bitArray.length && index < error2.length; index++) {
-      if ((cpu2 & bitArray[index]) == bitArray[index]) {
-        if (0) { // 判断
-          listMap.push(error2[index]);
-        } else {
-          listMap.push(error10[index]);
-        } 
-      }
-    }
-
-    let cpu3 = resultList[i++];
-    for (let index = 0; index < bitArray.length && index < error3.length; index++) {
-      if ((cpu3 & bitArray[index]) == bitArray[index]) {
-        if (true) { //todo  判断是否
-          listMap.push(error3[index]);
-        } else {
-          listMap.push(error11[index]);
+      let cpu2 = resultList[i++];
+      for (let index = 0; index < bitArray.length && index < error2.length; index++) {
+        if ((cpu2 & bitArray[index]) == bitArray[index]) {
+          if (1) { // 判断
+            listMap.push(error2[index]);
+          } else {
+            listMap.push(error10[index]);
+          }
         }
       }
-    }
 
-    let cpu4 = resultList[i++];
-    for (let index = 0; index < bitArray.length && index < error4.length; index++) {
-      if ((cpu4 & bitArray[index]) == bitArray[index]) {
-        if (0) {
-          listMap.push(error4[index]);
-        } else {
-          listMap.push(error12[index]);
+      let cpu3 = resultList[i++];
+      for (let index = 0; index < bitArray.length && index < error3.length; index++) {
+        if ((cpu3 & bitArray[index]) == bitArray[index]) {
+          if (true) { //todo  判断是否
+            listMap.push(error3[index]);
+          } else {
+            listMap.push(error11[index]);
+          }
         }
       }
-    }
 
-    let cpu5 = resultList[i++];
-    for (let index = 0; index < bitArray.length && index < error5.length; index++) {
-      if ((cpu5 & bitArray[index]) == bitArray[index]) {
-        listMap.push(error5[index]);
-      }
-    }
-
-    let cpu6 = resultList[i++];
-    for (let index = 0; index < bitArray.length && index < error6.length; index++) {
-      if ((cpu6 & bitArray[index]) == bitArray[index]) {
-        listMap.push(error6[index]);
-      }
-    }
-
-    let cpu7 = resultList[i++];
-    for (let index = 0; index < bitArray.length && index < error7.length; index++) {
-      if ((cpu7 & bitArray[index]) == bitArray[index]) {
-        listMap.push(error7[index]);
-      }
-    }
-
-    let cpu8 = resultList[i++];
-    for (let index = 0; index < bitArray.length && index < error8.length; index++) {
-      if ((cpu8 & bitArray[index]) == bitArray[index]) {
-        if (0) {
-          listMap.push(error8[index]);
-        } else {
-          listMap.push(error13[index]);
+      let cpu4 = resultList[i++];
+      for (let index = 0; index < bitArray.length && index < error4.length; index++) {
+        if ((cpu4 & bitArray[index]) == bitArray[index]) {
+          if (1) {
+            listMap.push(error4[index]);
+          } else {
+            listMap.push(error12[index]);
+          }
         }
       }
-    }
-    console.log(listMap)
-    this.setData({
-      listDataMap: listMap
+
+      let cpu5 = resultList[i++];
+      for (let index = 0; index < bitArray.length && index < error5.length; index++) {
+        if ((cpu5 & bitArray[index]) == bitArray[index]) {
+          listMap.push(error5[index]);
+        }
+      }
+
+      let cpu6 = resultList[i++];
+      for (let index = 0; index < bitArray.length && index < error6.length; index++) {
+        if ((cpu6 & bitArray[index]) == bitArray[index]) {
+          listMap.push(error6[index]);
+        }
+      }
+
+      let cpu7 = resultList[i++];
+      for (let index = 0; index < bitArray.length && index < error7.length; index++) {
+        if ((cpu7 & bitArray[index]) == bitArray[index]) {
+          listMap.push(error7[index]);
+        }
+      }
+
+      let cpu8 = resultList[i++];
+      for (let index = 0; index < bitArray.length && index < error8.length; index++) {
+        if ((cpu8 & bitArray[index]) == bitArray[index]) {
+          if (1) {
+            listMap.push(error8[index]);
+          } else {
+            listMap.push(error13[index]);
+          }
+        }
+      }
+
+      console.log(listMap)
+      this.setData({
+        listDataMap: listMap
+      })
     })
+    
+    
+
+    
+
     // app.write(sendData, (obj, frame) => {
     //   console.log("----读取当前事件相关数据-----")
     //   var cpu1 = frame[]];
