@@ -34,14 +34,14 @@
     <data-grid x_array="{{titleArr}}" y_array="{{sbc_y_arr}}" value_array="{{sbc}}" title="设备侧"> </data-grid>
   </van-tab> 
   
-  <van-tab title="各次谐波">
+  <!-- <van-tab title="各次谐波">
     <view wx:for="{{analy_spinner}}" wx:key="{{item.key}}">
       <data-select item="{{item}}" bind:myValueClick="onActionClick"></data-select>
     </view>
     <view wx:for="{{gcxb}}" wx:key="{{item.key}}" style="width:33%;float:left">
       <data-input item="{{item}}"></data-input>
     </view>
-  </van-tab>
+  </van-tab> -->
 </van-tabs>
 
 <van-action-sheet show="{{ spinnerShow }}" actions="{{ currentItem.actions }}" bind:close="onActionClose" bind:cancel="onActionClose" bind:select="onActionSelect" title="{{currentItem.title}}设置" cancel-text="取消" close-on-click-overlay="{{true}}" />

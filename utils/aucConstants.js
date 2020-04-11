@@ -197,8 +197,17 @@ addressMap.set("752", "模块号_mkh_752_1_1_99_input");
 
 // 现场应用 - 现场调整
 addressMap.set("52", "主CT方向调整_zctfxtz_52_1_0_65535_select");
-addressMap.set("53", "辅CT方向调整_fctfxtz_53_10_0_65535_select");
+addressMap.set("53", "辅CT方向调整_fctfxtz_53_1_0_65535_select");
 
+// 现场应用 -组网参数
+addressMap.set("1039", "主从机设置_zcjsz_1039_1_0_65535_select");
+addressMap.set("1000", "补偿模式_bcmszw_1000_1_0_65535_select");
+addressMap.set("1003", "手动间谐波_sdjxb_1003_1_0_65535_select");
+addressMap.set("1032", "本地补偿模式_bdbcms_1032_1_0_65535_select");
+addressMap.set("1035", "全局补偿比例_bdqjbcbl_1035_1_0_100_input");
+addressMap.set("1036", "本地手动补偿比例_bdsdbcbl_1036_1_0_100_input");
+addressMap.set("1037", "无CT补偿比例_wctbcbl_1037_1_0_100_input");
+addressMap.set("1038", "线序遍历使能_xxblsn_1038_1_0_65535_select");
 
 // 测量值 - 常规数据
 // dwdy: app.convertAddress(["133", "134", "135", "126", "126", "126", "127", "128", "129"]),
@@ -365,9 +374,9 @@ addressMap.set("287", "_spinner3_287_1_0_65535_select");
 
 
 
-
-
-
+var bdbcms = [{ name: "同优先级", value: 0 }, { name: "不平衡+无功", value: 1 }, { name: "无功+不平衡", value: 2 }, { name: "无功分补", value: 3 }, { name: "仅正序无功", value: 4 }, { name: "仅不平衡", value: 5 }];
+var bcmszw = [{ value: 0, name: "手动补偿" }, { value: 1, name: "本地补偿" }, { value: 2, name: "全局补偿" }];
+var zcjsz = [{ value: 0, name: "从机" }, { value: 1, name: "主机" }];
 var offOn = [{value: 0,name: "OFF"}, {value: 1,name: "ON"}];
 var pllmsxz = [{ name: "Kp", value: 0 }, { name: "SOLPF", value: 1 }];
 var dyhlpf = [{ name: "ALL_OFF", value: 0 }, { name: "Fun_ON", value: 1 }, { name: "Harm_ON", value: 2 }, { name: "ALL_ON", value: 3 }]
@@ -403,6 +412,11 @@ var selectMap = {
   "518": offOn,
   "519": offOn,
   "614": offOn,
+  "1039":zcjsz,
+  "1038": offOn,
+  "1000":bcmszw,
+  "1003": offOn,
+  "1032":bdbcms,
 }
 module.exports = {
   addressMap: addressMap,

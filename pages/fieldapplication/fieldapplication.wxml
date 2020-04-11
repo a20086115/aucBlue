@@ -6,6 +6,12 @@
       </view>
   </van-tab>
 
+  <van-tab title="AUC10参数" style="width:100%;"> 
+      <view wx:for="{{net_params}}" wx:key="{{item.key}}">
+          <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+          <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+      </view>
+  </van-tab>
 
   <van-tab title="通信参数">
       <view wx:for="{{commu_params}}" wx:key="{{item.key}}">

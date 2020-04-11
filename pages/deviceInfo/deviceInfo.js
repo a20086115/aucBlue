@@ -47,11 +47,11 @@ Page({
   },
     // 获取出场编号
   getNumber() {
-    var sendData = ["00", "03", "03", "CA", "00", "0D"];
+    var sendData = ["00", "03", "03", "CA", "00", "0C"];
     app.write(sendData, (obj, receiveFrame) => {
       console.log("获取出厂编号成功", obj, receiveFrame)
       var text = ""
-      for(var i=4; i<30;i=i+2){
+      for(var i=4; i<28;i=i+2){
         text += receiveFrame[i]
       }
        this.setData({

@@ -9,7 +9,7 @@ Page({
   data: {
     titleArr:["A","B","C","N"],
     dwc_y_arr: ["视在功率（kVA）", "有功功率（kW）", "无功功率（kvar）"],
-    sbc_y_arr: ["视在功率（kVA）"],
+    sbc_y_arr: ["无功功率（kvar）"],
     titleArr1: ["A", "B", "C"],
     dwdy_y_arr: ["有效值（A）", "频率（HZ）", "THD（%）"],
     dwdl_y_arr: ["有效值（A）", "功率因数", "THD（%）"],
@@ -92,8 +92,8 @@ Page({
       this.getFzc();
     } else{
       // 获取下拉框信息
-      this.getSpinner();
-      this.getGcxb();
+      // this.getSpinner();
+      // this.getGcxb();
     }
   },
   // 获取电网电压、电流

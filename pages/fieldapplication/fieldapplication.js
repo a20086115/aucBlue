@@ -7,6 +7,8 @@ Page({
   data: {
     basic_params: app.convertAddress(["65", "66", "70", "71", "67", "68", "753", "79", "80", "83", "69", "84", "92"]),
 
+    net_params: app.convertAddress([ "1039","1000", "1003","1032","1035","1036","1037","1038"]),
+
     commu_params: app.convertAddress(["81", "82", "93", "752"]),
 
     field_debug: app.convertAddress(["52", "53"]),
@@ -65,16 +67,21 @@ Page({
       app.globalData.field_switch_name = 0;
       // console.log("页面", app.globalData.switch_name)
     } else if (this.data.currentIndex == "1") {
+      //获取组网参数
+      this.getnetparams();
+      app.globalData.field_switch_name = 1;
+    }
+     else if (this.data.currentIndex == "2") {
       //获取通信参数
       this.getTxcs();
       //获取模块号
       this.getMkh();
-      app.globalData.field_switch_name = 1;
+      app.globalData.field_switch_name = 2;
       // console.log("页面", app.globalData.switch_name)
     } else {
       // 获取现场调整信息
       this.getXctzxx();
-      app.globalData.field_switch_name = 2;
+      app.globalData.field_switch_name = 3;
     }
   },
   
@@ -196,6 +203,17 @@ Page({
       console.log("获取现场调整信息成功", obj, frame)
       this.setData({
         field_debug: app.copyObject(this.data.field_debug, obj.data)
+      })
+      console.log(this.data)
+    });
+  },
+  // 获取组网信息参数
+  getnetparams() {
+    var sendData = ["00", "03", "03", "e8", "00", "29"];
+    app.write(sendData, (obj, frame) => {
+      console.log("获取组网参数信息成功", obj, frame)
+      this.setData({
+        net_params: app.copyObject(this.data.net_params, obj.data)
       })
       console.log(this.data)
     });
