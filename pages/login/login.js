@@ -29,7 +29,7 @@ Page({
     else { }
 
     if (this.data.username == 'admin') {
-      if (this.data.password != '111') {
+      if ((this.data.password != '111') && (this.data.password != '222')) {
         wx.showToast({
           title: '密码不正确'
         })

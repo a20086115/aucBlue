@@ -30,11 +30,14 @@ Page({
         url: "/pages/eventInfo/eventInfo",
         name: "事件",
         icon: "../../../images/event.png"
-    }, {
-        url: "/pages/controlParams/controlParams",
-        name: "控制参数",
-        icon: "../../../images/controlparameter.png"
-    }]
+    }, 
+        {
+          url: "/pages/controlParams/controlParams",
+          name: "控制参数",
+          icon: "../../../images/controlparameter.png"
+        }
+]
+
   },
   onLoad(){
 
@@ -96,7 +99,23 @@ Page({
         backgroundStyle: "background-color:#FF8000", //黄色
         currentstate: "故障"
       })
+    } else if (val == "4") {
+      this.setData({
+        backgroundStyle: "background-color:#FF8000", //黄色
+        currentstate: "急停"
+      })
+    } else if (val == "5") {
+      this.setData({
+        backgroundStyle: "background-color:#0000FF", //蓝色
+        currentstate: "待机！"
+      })
+    } else if (val == "6") {
+      this.setData({
+        backgroundStyle: "background-color:#00FF00", //绿色
+        currentstate: "运行！"
+      })
     }
+     else{}
   },
   showPopup() {
     this.setData({ show: true });
@@ -120,6 +139,18 @@ Page({
     this.onClose();
     app.write(["00", "06", "00", "ca", "00", "01"], function (receiveData) {
       console.log("resetTap", receiveData)
+    });
+  },
+  openCapTap() {
+    this.onClose();
+    app.write(["00", "06", "04", "4e", "00", "01"], function (receiveData) {
+      console.log("openCapTap", receiveData)
+    });
+  },
+  closeCapTap() {
+    this.onClose();
+    app.write(["00", "06", "04", "4f", "00", "01"], function (receiveData) {
+      console.log("closeCapTap", receiveData)
     });
   },
   setFrameLen(){
