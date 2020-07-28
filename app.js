@@ -126,6 +126,8 @@ App({
     //   callback: callback,
     //   used: false
     // }
+    console.log("-----从机编号11----")
+    console.log(data)  
     this.addTask({
       sendFrame: data,
       callback: callback,

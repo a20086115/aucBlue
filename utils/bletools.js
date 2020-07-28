@@ -44,11 +44,13 @@ function write(data) {
     // console.log(parseInt(h, 16))
     return parseInt(h, 16)
   }))
+  
   var buffer = typedArray.buffer
   var charId = constants.WRITEUUID
   if(data[0] === "aa"){
     charId = constants.CONFIRMUUID
   }
+  console.log(buffer)
   //写数据
   console.log(data)
   wx.writeBLECharacteristicValue({
@@ -58,6 +60,7 @@ function write(data) {
     value: buffer,
     success: res => {
       _this.writeListener(true, data)
+      console.log(data)
     },
     fail: res => {
       _this.writeListener(false, data, errorInfo.getErrorInfo(res.errCode))
@@ -138,6 +141,22 @@ function connectBle(device) {
   wx.createBLEConnection({
     deviceId: deviceId,
     timeOut: constants.CONNECTTIME,
+    success(res) {
+      console.log(res)
+      //设置MTU
+      const mtu = 170;
+      wx.setBLEMTU({
+        deviceId: deviceId,
+        mtu,
+        success: (res) => {
+          console.log("setBLEMTU success>>", res)
+        },
+        fail: (res) => {
+          console.log("setBLEMTU fail>>", res)
+        }
+      })
+    },
+    
     fail: err => {
       _this.bleStateListener(constants.STATE_CONNECTING_ERROR)
       //蓝牙已经断开连接了  那么当前连接设备要取消掉
@@ -295,7 +314,7 @@ function _checkPermission(platform, version, tempSystem) {
   if (platform === 'android') {
     //android 4.3才开始支持ble Android 8.0.0
     var systemVersion = tempSystem.substring(8, tempSystem.length)
-    if (systemVersion >= '4.3.0') {
+    if (systemVersion >= '4.3.0' || true) {
       //系统支持
       if (version >= '6.5.7') {
         //支持ble 初始化蓝牙适配器

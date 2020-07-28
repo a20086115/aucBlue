@@ -1,5 +1,5 @@
 import Toast from "../../miniprogram_npm/vant-weapp/toast/toast";
-
+wx.cloud.init()
 const app = getApp()
 Page({
   /**
@@ -20,7 +20,12 @@ Page({
     currentItem: {},
     show: false,
     spinnerShow: false,
-    inputValue: ""
+    inputValue: "",
+
+
+    updateFileVersion: "", // 文件升级选择的版本
+    updateFileConfig: {}, // 可供选择的升级文件对象
+    updateFileArray: [] // 可供选择的升级文件名称数组
   },
 
   /**
@@ -30,12 +35,19 @@ Page({
     wx.setNavigationBarTitle({
       title: '控制参数'
     })
+    this.update()
 
     //初次进入页面读取首页数据
     // 获取参考值
     this.getCkz();
     console.log(this.data)
+
+    wx.cloud.init({
+      
+    })
+
   },
+    
 
   // 输入框点击事件
   onInputClick(event) {
@@ -208,6 +220,91 @@ Page({
       })
       console.log(this.data)
     });
+  },
+  //升级按钮
+  update: function () {
+    // 如果是软件升级，自动从云开发中读取config.json, 获取配置的可升级文件列表
+      wx.cloud.downloadFile({
+        fileID: 'cloud://aucble-ig4pz.6175-aucble-ig4pz-1302704672/config.json',
+        success: res => {
+          let fsm = wx.getFileSystemManager();
+
+          // console.log("res.tempFilePath")
+          // console.log(fsm)
+
+          fsm.readFile({
+            filePath: res.tempFilePath,
+            encoding: "utf8",
+            success: (res) => {
+              var config = JSON.parse(res.data)
+              this.setData({
+                updateFileArray: Object.keys(config),
+                updateFileConfig: config
+              })
+            }
+          })
+        }
+      })
+  },
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      updateFileVersion: this.data.updateFileArray[e.detail.value]
+    })
+
+    // 展示弹框
+    wx.showModal({
+      title: '提示',
+      content: '确定使用' + this.data.updateFileVersion + "进行升级？",
+      success: res => {
+        if (res.confirm) {
+          this.downBinFile(); // 下载升级文件
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  downBinFile: function () {
+    console.log(this.data)
+    var filePath = this.data.updateFileConfig[this.data.updateFileVersion];
+    console.log(filePath)
+    if (!filePath) {
+      // 如果文件地址不存在 
+      return;
+    }
+    wx.cloud.downloadFile({
+      fileID: filePath,
+      success: res => {
+        let fsm = wx.getFileSystemManager();
+        fsm.readFile({
+          filePath: res.tempFilePath,
+          success: (res) => {
+            let buffer = res.data
+            let dataView = new DataView(buffer)
+            let dataResult = []
+            for (let i = 0; i < dataView.byteLength; i++) {
+              dataResult.push(("00" + dataView.getUint8(i).toString(16)).slice(-2))
+            }
+            console.log(dataView)
+            console.log(dataResult)
+            console.log("buff = " + this.ab2hext(dataView.buffer));
+          }
+        })
+      }
+    })
+  },
+    /**
+   * 生成16进制字符串
+   */
+  ab2hext:function(buffer) {
+    var hexArr = Array.prototype.map.call(
+      new Uint8Array(buffer),
+      function(bit) {
+        return ('00' + bit.toString(16)).slice(-2);
+      }
+    )
+    return hexArr.join(' ');
   },
   //按钮回调函数
   //还原参数

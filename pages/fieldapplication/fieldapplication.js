@@ -7,7 +7,7 @@ Page({
   data: {
     basic_params: app.convertAddress(["65", "66", "70", "71", "67", "68", "753", "79", "80", "83", "69", "84", "92"]),
 
-    net_params: app.convertAddress([ "1039","1000", "1003","1032","1035","1036","1037","1038"]),
+    net_params: app.convertAddress([ "1039","1000", "1003","1032","1035","1036","1037","1038","1040"]),
 
     commu_params: app.convertAddress(["81", "82", "93", "752"]),
 
@@ -89,7 +89,7 @@ Page({
     console.log("onConfirm", this.data.inputValue, this.data)
     // 判断value是否为空
     var value = this.data.inputValue;
-
+    console.log("onConfirm", value)
     if (value === "") {
       this.setData({ show: false, inputValue: "" })
       Toast.fail("输入数据为空")
@@ -103,19 +103,56 @@ Page({
     }
 
     // 写报文
-    var addressByteArr = app.getAddressFrame(this.data.currentItem.address)
-    var valueByteArr = app.getAddressFrame(value * this.data.currentItem.bs)
-    var sendData = ["00", "06"].concat(addressByteArr, valueByteArr);
-    app.write(sendData, (obj, frame) => {
-      console.log(obj, frame)
-      this.setData({
-        show:false,
-        inputValue: "",
-      })
-      // Toast.success("设置成功")
-      app.globalData.save_flag = 1;
-      this.getTapData();
-    });
+    if(value.length < 12){
+      var addressByteArr = app.getAddressFrame(this.data.currentItem.address)
+      var valueByteArr = app.getAddressFrame(value * this.data.currentItem.bs)
+      var sendData = ["00", "06"].concat(addressByteArr, valueByteArr);
+      app.write(sendData, (obj, frame) => {
+        console.log(obj, frame)
+        this.setData({
+          show: false,
+          inputValue: "",
+        })
+        // Toast.success("设置成功")
+        app.globalData.save_flag = 1;
+        this.getTapData();
+      });
+    }else{
+      //取地址
+      var addressByteArr = app.getAddressFrame(this.data.currentItem.address)
+      //取输入字符串
+      var dataValue1 = []
+      var dataValue2 = []
+      var dataValue3 = []
+      var dataValue4 = []
+      var dataValue5 = []
+      var dataValue6 = []
+
+      dataValue1 = (value.substr(0, 2))
+      dataValue2 = (value.substr(2, 2))
+      dataValue3 = (value.substr(4, 2))
+      dataValue4 = (value.substr(6, 2))
+      dataValue5 = (value.substr(8, 2))
+      dataValue6 = (value.substr(10, 2))
+      
+      var sendData = ["00", "10"].concat(addressByteArr, dataValue1, dataValue2, dataValue3, dataValue4, dataValue5, dataValue6);
+      // var sendData = ["00", "10"].concat(addressByteArr, dataValue1, dataValue2);
+      console.log("-----从机编号1----")
+      console.log(sendData)    
+
+      app.write(sendData, (obj, frame) => {
+        console.log(obj, frame)
+        this.setData({
+          show: false,
+          inputValue: "",
+        })
+        // Toast.success("设置成功")
+        app.globalData.save_flag = 1;
+        this.getTapData();
+      });
+
+    }
+
   },
   bindKeyInput: function (e) {
     this.setData({

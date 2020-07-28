@@ -208,6 +208,7 @@ addressMap.set("1035", "全局补偿比例_bdqjbcbl_1035_1_0_100_input");
 addressMap.set("1036", "本地手动补偿比例_bdsdbcbl_1036_1_0_100_input");
 addressMap.set("1037", "无CT补偿比例_wctbcbl_1037_1_0_100_input");
 addressMap.set("1038", "线序遍历使能_xxblsn_1038_1_0_65535_select");
+addressMap.set("1040", "从机编号1_cjbh1_1040_1_0_999999999999_input");
 
 // 测量值 - 常规数据
 // dwdy: app.convertAddress(["133", "134", "135", "126", "126", "126", "127", "128", "129"]),
