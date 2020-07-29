@@ -196,6 +196,9 @@ addressMap.set("81", "并机容量_bjrl_81_10_0_65535_input");
 addressMap.set("752", "模块号_mkh_752_1_1_99_input");
 
 // 现场应用 - 现场调整
+addressMap.set("49", "CTA采集_ctacj_49_1_0_5_select");
+addressMap.set("50", "CTB采集_ctBcj_50_1_0_5_select");
+addressMap.set("51", "CTC采集_ctCcj_51_1_0_5_select");
 addressMap.set("52", "主CT方向调整_zctfxtz_52_1_0_65535_select");
 addressMap.set("53", "辅CT方向调整_fctfxtz_53_1_0_65535_select");
 
@@ -208,6 +211,7 @@ addressMap.set("1035", "全局补偿比例_bdqjbcbl_1035_1_0_100_input");
 addressMap.set("1036", "本地手动补偿比例_bdsdbcbl_1036_1_0_100_input");
 addressMap.set("1037", "无CT补偿比例_wctbcbl_1037_1_0_100_input");
 addressMap.set("1038", "线序遍历使能_xxblsn_1038_1_0_65535_select");
+addressMap.set("1001", "从机安装CT_cjazct_1001_1_0_5_select");
 addressMap.set("1040", "从机编号1_cjbh1_1040_1_0_999999999999_input");
 
 // 测量值 - 常规数据
@@ -251,9 +255,9 @@ addressMap.set("789", "*_*_*_100_0_65535_text");
 addressMap.set("790", "*_*_*_100_0_65535_text");
 addressMap.set("791", "*_*_*_100_0_65535_text");
 addressMap.set("792", "*_*_*_100_0_65535_text");
-addressMap.set("799", "*_*_*_100_0_65535_text");
-addressMap.set("800", "*_*_*_100_0_65535_text");
-addressMap.set("801", "*_*_*_100_0_65535_text");
+addressMap.set("799", "*_*_*_10000_0_65535_text");
+addressMap.set("800", "*_*_*_10000_0_65535_text");
+addressMap.set("801", "*_*_*_10000_0_65535_text");
 // addressMap.set("802", "*_*_*_100_0_65535_text");
 addressMap.set("793", "*_*_*_100_0_65535_text");
 addressMap.set("794", "*_*_*_100_0_65535_text");
@@ -379,6 +383,7 @@ var bdbcms = [{ name: "同优先级", value: 0 }, { name: "不平衡+无功", va
 var bcmszw = [{ value: 0, name: "手动补偿" }, { value: 1, name: "本地补偿" }, { value: 2, name: "全局补偿" }];
 var zcjsz = [{ value: 0, name: "从机" }, { value: 1, name: "主机" }];
 var offOn = [{value: 0,name: "OFF"}, {value: 1,name: "ON"}];
+var cjazct = [{ value: 0, name: "是" }, { value: 1, name: "否" }];
 var pllmsxz = [{ name: "Kp", value: 0 }, { name: "SOLPF", value: 1 }];
 var dyhlpf = [{ name: "ALL_OFF", value: 0 }, { name: "Fun_ON", value: 1 }, { name: "Harm_ON", value: 2 }, { name: "ALL_ON", value: 3 }]
 var dcxz = [{ name: "蓝牙", value: 0 }, { name: "串口", value: 1 }];
@@ -392,6 +397,10 @@ var ctfxtz = [{name: "不调整",value: 0}, {name: "调整A相",value: 1}, { nam
 var xiangwei = [{ name: "A相", value: 0 }, { name: "B相", value: 1 }, { name: "C相", value: 2 }, { name: "N", value: 3 }]
 var analyType = [{ name: "幅值", value: 0 }, { name: "相位", value: 1 }, { name: "百分比", value: 2 }]
 var analyType1 = [{ name: "电网电压", value: 0 }, { name: "负载电流", value: 1 }, { name: "网侧电流", value: 2 }]
+
+var ctacj = [{ name: "A相", value: 0 }, { name: "B相", value: 1 }, { name: "C相", value: 2 }]
+var ctbcj = [{ name: "A相", value: 0 }, { name: "B相", value: 1 }, { name: "C相", value: 2 }]
+var ctccj = [{ name: "A相", value: 0 }, { name: "B相", value: 1 }, { name: "C相", value: 2 }]
 
 var selectMap = {
   "66": zctwz,
@@ -418,6 +427,10 @@ var selectMap = {
   "1000":bcmszw,
   "1003": offOn,
   "1032":bdbcms,
+  "1001":cjazct,
+  "49":ctacj,
+  "50":ctbcj,
+  "51":ctccj,
 }
 module.exports = {
   addressMap: addressMap,

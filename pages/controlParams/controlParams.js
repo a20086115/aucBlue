@@ -289,6 +289,9 @@ Page({
             console.log(dataView)
             console.log(dataResult)
             console.log("buff = " + this.ab2hext(dataView.buffer));
+
+            //文件下载成功后进行分包发送
+            // updatefilesend();
           }
         })
       }

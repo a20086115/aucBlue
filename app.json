@@ -8,8 +8,8 @@
     "pages/fieldapplication/fieldapplication",
     "pages/deviceInfo/deviceInfo",
     "pages/controlParams/controlParams",
-    
     "pages/measureValue/measureValue"
+  
   ],
   "window": {
     "backgroundTextStyle": "light",

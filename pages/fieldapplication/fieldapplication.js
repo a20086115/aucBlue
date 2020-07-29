@@ -5,13 +5,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    basic_params: app.convertAddress(["65", "66", "70", "71", "67", "68", "753", "79", "80", "83", "69", "84", "92"]),
+    basic_params: app.convertAddress(["65", "66", "70", "71", "67", "68","79", "80", "83", "69", "84", "92"]),
 
-    net_params: app.convertAddress([ "1039","1000", "1003","1032","1035","1036","1037","1038","1040"]),
+    net_params: app.convertAddress(["1039", "1000", "1032", "1035", "1036", "1037", "1003","1038","1001","1040"]),
 
     commu_params: app.convertAddress(["81", "82", "93", "752"]),
 
-    field_debug: app.convertAddress(["52", "53"]),
+    field_debug: app.convertAddress(["49","50","51","52", "53"]),
 
     currentIndex: "0",
     currentItem:{},
@@ -32,7 +32,7 @@ Page({
     // 获取基本参数
     this.getJbcs();
     // 获取心跳时间
-    this.getXtsj();
+    // this.getXtsj();
 
     console.log(this.data)
   },
@@ -46,7 +46,7 @@ Page({
     })
   },
   // 
-  // 输入框点击事件
+  // 下拉框点击事件
   onActionClick(event) {
     console.log(event)
     this.setData({
@@ -198,17 +198,17 @@ Page({
     });
   },
   // 获取心跳时间
-  getXtsj() {
-    var sendData = ["00", "03", "02", "f1", "00", "01"];
-    app.write(sendData, (obj, frame) => {
-      console.log("----获取心跳时间-----")
-      console.log(obj, frame)
-      this.setData({
-        basic_params: app.copyObject(this.data.basic_params, obj.data)
-      })
-      console.log(this.data)
-    });
-  },
+  // getXtsj() {
+  //   var sendData = ["00", "03", "02", "f1", "00", "01"];
+  //   app.write(sendData, (obj, frame) => {
+  //     console.log("----获取心跳时间-----")
+  //     console.log(obj, frame)
+  //     this.setData({
+  //       basic_params: app.copyObject(this.data.basic_params, obj.data)
+  //     })
+  //     console.log(this.data)
+  //   });
+  // },
   // 获取通信参数
   getTxcs() {
     var sendData = ["00", "03", "00", "51", "00", "0D"];
@@ -235,7 +235,7 @@ Page({
   },
   // 获取现场调整信息
   getXctzxx() {
-    var sendData = ["00", "03", "00", "0e", "00", "28"];
+    var sendData = ["00", "03", "00", "31", "00", "06"];
     app.write(sendData, (obj, frame) => {
       console.log("获取现场调整信息成功", obj, frame)
       this.setData({
