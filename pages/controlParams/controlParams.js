@@ -283,21 +283,156 @@ Page({
             let buffer = res.data
             let dataView = new DataView(buffer)
             let dataResult = []
+            var dataResult1 = [187]
             for (let i = 0; i < dataView.byteLength; i++) {
               dataResult.push(("00" + dataView.getUint8(i).toString(16)).slice(-2))
             }
-            console.log(dataView)
-            console.log(dataResult)
+            console.log("buff1 = " + dataView)
+            console.log("buff2 = " + dataResult)
             console.log("buff = " + this.ab2hext(dataView.buffer));
 
+            //发送文件标志
+            app.globalData.sendfile_flag = 1
             //文件下载成功后进行分包发送
             // updatefilesend();
+            var Frame_length = 176
+            var count = parseInt((dataResult.length - 32) / Frame_length)
+            var sylen = dataResult.length - 32
+            var offset = 32
+
+            if (((dataResult.length - 32) % Frame_length) != 0)
+            {
+              count = count + 1
+            }
+            console.log("剩余包数 = " + count)
+
+            //第一包数据
+            dataResult1[0] = 0x00;
+            dataResult1[1] = 0xFF;
+            dataResult1[2] = 0x08;
+            dataResult1[3] = 0x00;
+            dataResult1[4] = 0x00;
+            dataResult1[5] = 0x00;
+            dataResult1[6] = 0x20;
+            dataResult1[7] = (count >> 8) & 0x00FF;
+            dataResult1[8] = count & 0x00FF;
+            dataResult1[9] = 0x00;
+            dataResult1[10] = 0x00;
+
+            for(let i = 0; i < 11; i++)
+            {
+              dataResult1[i] = dataResult1[i].toString(16)
+            }
+
+            for(let i = 0; i < 32; i++)
+            {
+              dataResult1[11+i] = dataResult[i]
+              // console.log("buff3 = " + dataResult1)
+            }
+
+            app.write(dataResult1, (obj, frame) => {
+              // console.log("----第一包数据-----")
+              // console.log(obj, frame)
+              this.setData({
+                spinnerShow: false,
+              })
+              // Toast.fail("设置成功")
+              console.log(this.data)
+            });
+
+            setTimeout(function(){    
+              //轮询发送后续文件
+              // this.sendfile(dataResult1)
+              for(let i = 1;i < (count+1); i++)
+              {
+                dataResult1 = []
+                dataResult1[0] = i;//文件分包-包号
+                dataResult1[1] = 0xFF;
+                dataResult1[2] = 0x08;//AFN
+                dataResult1[3] = (i >> 8) & 0x00FF;//当前包号
+                dataResult1[4] = i & 0x00FF;
+                // dataResult1[5] = 0x00;//当前包字节数
+                // dataResult1[6] = 0xB0;
+                dataResult1[7] = ((count - i) >> 8) & 0x00FF;//剩余包数
+                dataResult1[8] = (count-i) & 0x00FF;
+                dataResult1[9] = 0x00;
+                dataResult1[10] = 0x00;
+
+                if ((sylen / (Frame_length+1)) < 1)
+                {
+                  dataResult1[0] = 0x80 | i 
+                  sylen = sylen % (Frame_length + 1)
+                  dataResult1[5] = 0x00;//当前包字节数
+                  dataResult1[6] = sylen;
+
+                  for (let i = 0; i < sylen; i++) {
+                    dataResult1[11 + i] = dataResult[i + offset]
+                  }
+                }
+                else
+                {
+                  sylen = sylen - Frame_length
+                  dataResult1[5] = 0x00;//当前包字节数
+                  dataResult1[6] = 0xB0;
+
+                  for (let i = 0; i < 176; i++) {
+                    dataResult1[11 + i] = dataResult[i + offset]
+                  }
+                }
+
+                for (let i = 0; i < 11; i++) {
+                  dataResult1[i] = dataResult1[i].toString(16)
+                }
+                console.log("-----从机编号22----")
+                console.log(dataResult1)  
+                offset = offset + Frame_length
+                app.write(dataResult1, (obj, frame) => {
+                  // console.log("----第一包数据-----")
+                  // console.log(obj, frame)
+                  this.setData({
+                    spinnerShow: false,
+                  })
+                  // Toast.fail("设置成功")
+                  console.log(this.data)
+                });
+
+                // setTimeout(function () {
+
+                // },300)
+              }
+
+
+
+
+
+            },2000)
+
+
+
           }
         })
       }
     })
   },
-    /**
+  //发送剩余升级文件
+  // sendfile:function(buffer)
+  // {
+  //   setInterval(() => {
+  //     dataResult1[0] = 0xFF;
+  //     dataResult1[1] = 0x08;
+  //     dataResult1[2] = 0x00;
+  //     dataResult1[3] = 0x00;
+  //     dataResult1[4] = 0x00;
+  //     dataResult1[5] = 0x20;
+  //     dataResult1[6] = (count >> 8) & 0x00FF;
+  //     dataResult1[7] = count & 0x00FF;
+  //     dataResult1[8] = 0x00;
+  //     dataResult1[9] = 0x00;
+
+
+  //   }, 200);
+  // }, 
+   /**
    * 生成16进制字符串
    */
   ab2hext:function(buffer) {

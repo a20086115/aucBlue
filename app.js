@@ -21,6 +21,8 @@ App({
     this.globalData.SystemInfo = wx.getSystemInfoSync()
     // 第一步 initBle() 初始化蓝牙模块,判断版本是否支持
     bletools.initBle(this);
+    // var timeout = 5000
+
     //开启循环任务
     setInterval(() => {
       if (this.globalData.taskList.length == 0){
@@ -32,8 +34,9 @@ App({
         this.globalData.currentTask = this.globalData.taskList.shift();
         this.globalData.currentTask.time = new Date().getTime();
         bletools.write(this.globalData.currentTask.sendFrame)
-      } else if ( new Date().getTime() - this.globalData.currentTask.time > 1000 * 5) {
+      } else if (new Date().getTime() - this.globalData.currentTask.time > this.globalData.timeout) {
         console.log("当前任务已超时")
+        console.log(this.globalData.timeout)
         this.globalData.currentTask = this.globalData.taskList.shift();
         this.globalData.currentTask.time = new Date().getTime();
         bletools.write(this.globalData.currentTask.sendFrame)
@@ -59,7 +62,8 @@ App({
     },
     frameBuffer:[],
     field_switch_name : 0,
-    save_flag: 0
+    save_flag: 0,
+    timeout:5000
   },
   // 根据地址数组， 转换成界面需要的对象
   convertAddress(addressArray) {
@@ -112,13 +116,38 @@ App({
   },
   // 蓝牙发送方法
   write(data, callback) {
+
+    var data_first = data[0]
+    data.shift()
+    console.log("-----从机编号11----")
+    console.log(data)  
+    if (data[0] != "ff")
+    {
+      data.unshift(data_first)
+    }
     //
     // 添加crc字节
     var crc = CRC.CRC.CRC16(data);
     data.push(crc.substring(0, 2))
     data.push(crc.substring(2, 4))
     data.push("55")
-    data.unshift("80")
+    //目前除文件升级外，app发送报文不用分包
+    //升级文件自己加包头
+    if(data[0] != "ff")
+    {
+      this.globalData.timeout = 5000
+      data.unshift("80")
+    }
+    else
+    {
+      this.globalData.timeout = 500
+      if (data_first == "aa")
+      {
+        data_first = "ab"
+      }
+      data.unshift(data_first)
+    }
+    // data.unshift("80")
     // 80 00 03 00 41 00 1c 15 c6 55
     // bletools.write(data)
     // this.globalData.currentTask = {
