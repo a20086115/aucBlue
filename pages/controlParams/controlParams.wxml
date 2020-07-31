@@ -35,6 +35,7 @@
     <view wx:for="{{debug_params}}" wx:key="{{item.key}}">
         <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
         <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+        
     </view>
 
     <view class="button-sp-area"> 
@@ -42,6 +43,7 @@
       <picker bindchange="bindPickerChange" value="{{index}}" range="{{updateFileArray}}">
         <view class="picker">
           <van-button type="info" size="large" >程序升级</van-button>
+          
           <!-- <button bindtap="startUpdata10B0" class="buttonStyle">开启软件升级</button> -->
         </view>
       </picker>
@@ -54,6 +56,10 @@
     </view>
     <view class="button-sp-area"> 
       <van-button type="info" size="large" bind:click="lssjcc">历史事件擦除</van-button>
+    </view>
+
+    <view class="progress-box">
+      <progress percent="{{percentValue}}" show-info stroke-width="3"/>
     </view>
 
   </van-tab>

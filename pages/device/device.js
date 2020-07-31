@@ -44,6 +44,7 @@ Page({
   },
   //当前页面进行状态轮询
   onShow() {
+    app.globalData.measurerefresh_flag = 0
     this.data.hide = false;
     if (app.globalData.save_flag == 1) {
       this.saveData();

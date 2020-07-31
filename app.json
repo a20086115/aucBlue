@@ -1,14 +1,14 @@
 {
   "pages": [
-
+    
       "pages/search/search",
     "pages/device/device",
     "pages/login/login",
     "pages/eventInfo/eventInfo",
     "pages/fieldapplication/fieldapplication",
     "pages/deviceInfo/deviceInfo",
-     "pages/controlParams/controlParams",
-    "pages/measureValue/measureValue"
+    "pages/controlParams/controlParams",
+"pages/measureValue/measureValue"
   
   ],
   "window": {
@@ -37,6 +37,7 @@
     "van-row": "./miniprogram_npm/vant-weapp/row/index",
     "van-col": "./miniprogram_npm/vant-weapp/col/index",
     "van-button": "./miniprogram_npm/vant-weapp/button/index",
+    "van-circle": "./miniprogram_npm/vant-weapp/circle/index",
     "van-image": "./miniprogram_npm/vant-weapp/image/index"
   }
 }

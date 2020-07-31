@@ -11,13 +11,13 @@ Page({
     dwc_y_arr: ["视在功率（kVA）", "有功功率（kW）", "无功功率（kvar）"],
     sbc_y_arr: ["无功功率（kvar）"],
     titleArr1: ["A", "B", "C"],
-    dwdy_y_arr: ["有效值（A）", "频率（HZ）", "THD（%）"],
-    dwdl_y_arr: ["有效值（A）", "功率因数", "THD（%）"],
+    dwdy_y_arr: ["有效值（A）", "频率（Hz）", "THD（%）","不平衡度"],
+    dwdl_y_arr: ["有效值（A）", "功率因数", "THD（%）", "不平衡度"],
     bcdl_y_arr: ["有效值（A）"],
     // 常规数据中的数据
-    dwdy: app.convertAddress(["133", "134", "135", "126", "126", "126", "127", "128", "129"]),
-    dwdl: app.convertAddress(["136", "138", "140", "142", "150", "151", "152", "", "144", "145", "146", ""]),
-    fzdl: app.convertAddress(["785", "787", "789", "791", "799", "800", "801", "", "793", "794", "795", ""]),
+    dwdy: app.convertAddress(["133", "134", "135", "126", "126", "126", "127", "128", "129","130"]),
+    dwdl: app.convertAddress(["136", "138", "140", "142", "150", "151", "152", "", "144", "145", "146", "","147"]),
+    fzdl: app.convertAddress(["785", "787", "789", "791", "799", "800", "801", "", "793", "794", "795", "","796"]),
     bcdl: app.convertAddress(["10", "11", "12", "13"]),
 
     // 器件参数中的数据
@@ -47,11 +47,12 @@ Page({
       title: '测量值'
     })
     console.log(this.data)
+    app.globalData.measurerefresh_flag = 1
     this.initInterval();// 初始化循环事件
   },
   initInterval(){
     setInterval(() => {
-      if (app.globalData.taskList.length == 0) {
+      if ((app.globalData.taskList.length == 0) && (app.globalData.measurerefresh_flag == 1)) {
         // 如果循环队列中的内容为空，重新开始读取
         this.getData();
       }
@@ -100,7 +101,7 @@ Page({
   getDwdyAndDwdl() {
     var sendData = ["00", "03", "00", "7d", "00", "1d"];
     app.write(sendData, (obj, frame) => {
-      console.log("获取器件参数", obj, frame)
+      console.log("获取电网电流电压", obj, frame)
 
       obj.data["136"].value = parseInt(obj.data["136"].value) + 
               (parseInt(obj.data["137"].value) << 16);

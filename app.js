@@ -37,6 +37,19 @@ App({
       } else if (new Date().getTime() - this.globalData.currentTask.time > this.globalData.timeout) {
         console.log("当前任务已超时")
         console.log(this.globalData.timeout)
+        if (this.globalData.timeout == 300)
+        {
+          this.globalData.percent++
+          this.globalData.sendfile_flag = 1
+        }
+       
+        if ((this.globalData.timeout == 5000) && (this.globalData.sendfile_flag = 1))
+        {
+          this.globalData.sendfile_flag = 2
+          this.globalData.percent = 0
+        }
+        console.log(this.globalData.sendfile_flag)
+        
         this.globalData.currentTask = this.globalData.taskList.shift();
         this.globalData.currentTask.time = new Date().getTime();
         bletools.write(this.globalData.currentTask.sendFrame)
@@ -63,7 +76,10 @@ App({
     frameBuffer:[],
     field_switch_name : 0,
     save_flag: 0,
-    timeout:5000
+    timeout:5000,
+    percent:0,
+    sendfile_flag:0,
+    measurerefresh_flag:0
   },
   // 根据地址数组， 转换成界面需要的对象
   convertAddress(addressArray) {
@@ -140,7 +156,7 @@ App({
     }
     else
     {
-      this.globalData.timeout = 500
+      this.globalData.timeout = 300
       if (data_first == "aa")
       {
         data_first = "ab"

@@ -21,7 +21,9 @@ Page({
     show: false,
     spinnerShow: false,
     inputValue: "",
-
+    percentValue:0,
+    file_num:0,
+    percent_real:0,
 
     updateFileVersion: "", // 文件升级选择的版本
     updateFileConfig: {}, // 可供选择的升级文件对象
@@ -45,6 +47,25 @@ Page({
     wx.cloud.init({
       
     })
+    
+    setInterval(() => {
+      this.data.percent_real = app.globalData.percent / this.data.file_num
+      this.data.percent_real = (this.data.percent_real.toFixed(2)) * 100
+      if(app.globalData.sendfile_flag == 2)
+      {
+        this.data.percent_real = 100
+        app.globalData.sendfile_flag = 0
+      }
+      console.log(this.data.file_num)
+      console.log(this.data.percent_real)
+      this.setData({
+        percentValue: this.data.percent_real,
+       
+      })
+      
+      console.log(app.globalData.percent)
+      
+    },1000)
 
   },
     
@@ -70,6 +91,7 @@ Page({
     console.log("切换到标签", event.detail.name)
     this.data.currentIndex = event.detail.name;
     this.gettapname();
+    this.data.percent_real = 0;
   },
 
   gettapname() {
@@ -287,6 +309,8 @@ Page({
             for (let i = 0; i < dataView.byteLength; i++) {
               dataResult.push(("00" + dataView.getUint8(i).toString(16)).slice(-2))
             }
+            this.data.percent_real = 0;
+            app.globalData.percent = 0;
             console.log("buff1 = " + dataView)
             console.log("buff2 = " + dataResult)
             console.log("buff = " + this.ab2hext(dataView.buffer));
@@ -297,6 +321,7 @@ Page({
             // updatefilesend();
             var Frame_length = 176
             var count = parseInt((dataResult.length - 32) / Frame_length)
+            this.data.file_num = count
             var sylen = dataResult.length - 32
             var offset = 32
 
@@ -343,7 +368,7 @@ Page({
             setTimeout(function(){    
               //轮询发送后续文件
               // this.sendfile(dataResult1)
-              for(let i = 1;i < (count+1); i++)
+              for (let i = 1; i < (count+1); i++)
               {
                 dataResult1 = []
                 dataResult1[0] = i;//文件分包-包号
@@ -396,14 +421,7 @@ Page({
                   console.log(this.data)
                 });
 
-                // setTimeout(function () {
-
-                // },300)
               }
-
-
-
-
 
             },2000)
 
