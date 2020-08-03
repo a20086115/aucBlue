@@ -1,4 +1,5 @@
 import Toast from "../../miniprogram_npm/vant-weapp/toast/toast";
+var util = require('../../utils/util.js');
 const app = getApp()
 Page({
   /**
@@ -7,17 +8,20 @@ Page({
   data: {
     basic_params: app.convertAddress(["65", "66", "70", "71", "67", "68","79", "80", "83", "69", "84", "92"]),
 
-    net_params: app.convertAddress(["1039", "1000", "1032", "1035", "1036", "1037", "1003","1038","1001","1040"]),
+    net_params: app.convertAddress(["1039", "1000", "1032", "1035", "1036", "1037", "1038", "1003","1001","1040","1043","1046","1049","1052","1055","1058","1061","1064","1067"]),
 
     commu_params: app.convertAddress(["81", "82", "93", "752"]),
 
     field_debug: app.convertAddress(["49","50","51","52", "53"]),
 
+    system_time: app.convertAddress(["14"]),
+
     currentIndex: "0",
     currentItem:{},
     show:false,
     spinnerShow: false,
-    inputValue:""
+    inputValue:"",
+    time:""
   },
 
   /**
@@ -31,12 +35,8 @@ Page({
     //初次进入页面读取首页数据
     // 获取基本参数
     this.getJbcs();
-    // 获取心跳时间
-    // this.getXtsj();
-
     console.log(this.data)
   },
-
   // 输入框点击事件
   onInputClick(event){
     console.log(event)
@@ -63,7 +63,6 @@ Page({
     if (this.data.currentIndex == "0") {
       // 获取基本参数
       this.getJbcs();
-      // 获取心跳时间
       app.globalData.field_switch_name = 0;
       // console.log("页面", app.globalData.switch_name)
     } else if (this.data.currentIndex == "1") {
@@ -81,6 +80,8 @@ Page({
     } else {
       // 获取现场调整信息
       this.getXctzxx();
+      //获取系统时间
+      this.getxtsj();
       app.globalData.field_switch_name = 3;
     }
   },
@@ -103,8 +104,12 @@ Page({
     }
 
     // 写报文
-    if(value.length < 12){
-      var addressByteArr = app.getAddressFrame(this.data.currentItem.address)
+    var addressByteArr = app.getAddressFrame(this.data.currentItem.address)
+    var address = (parseInt(addressByteArr[0], 16) << 8) + parseInt(addressByteArr[1], 16)
+    console.log(address)
+
+    //地址介于1040-1067为出厂编号设置，使用10报文，其他使用06报文
+    if ((address < 1040) || (address > 1067)){
       var valueByteArr = app.getAddressFrame(value * this.data.currentItem.bs)
       var sendData = ["00", "06"].concat(addressByteArr, valueByteArr);
       app.write(sendData, (obj, frame) => {
@@ -118,25 +123,28 @@ Page({
         this.getTapData();
       });
     }else{
-      //取地址
-      var addressByteArr = app.getAddressFrame(this.data.currentItem.address)
+      //低于12位的输入丢弃并提示
+      // console.log(value.length)
+      if(value.length < 12)
+      {
+        this.setData({ show: false, inputValue: "" })
+        Toast.fail('输入数据应为12位')
+        return;
+      }
+
       //取输入字符串
       var dataValue1 = []
       var dataValue2 = []
       var dataValue3 = []
-      var dataValue4 = []
-      var dataValue5 = []
-      var dataValue6 = []
 
-      dataValue1 = (value.substr(0, 2))
-      dataValue2 = (value.substr(2, 2))
-      dataValue3 = (value.substr(4, 2))
-      dataValue4 = (value.substr(6, 2))
-      dataValue5 = (value.substr(8, 2))
-      dataValue6 = (value.substr(10, 2))
+      dataValue1[0] = (parseInt(value.substr(0, 4)) >> 8).toString(16)
+      dataValue1[1] = (parseInt(value.substr(0, 4)) & 0x00FF).toString(16)
+      dataValue2[0] = (parseInt(value.substr(4, 4)) >> 8).toString(16)
+      dataValue2[1] = (parseInt(value.substr(4, 4)) & 0x00FF).toString(16)
+      dataValue3[0] = (parseInt(value.substr(8, 4)) >> 8).toString(16)
+      dataValue3[1] = (parseInt(value.substr(8, 4)) & 0x00FF).toString(16)
       
-      var sendData = ["00", "10"].concat(addressByteArr, dataValue1, dataValue2, dataValue3, dataValue4, dataValue5, dataValue6);
-      // var sendData = ["00", "10"].concat(addressByteArr, dataValue1, dataValue2);
+      var sendData = ["00", "10"].concat(addressByteArr, "00", "03", "06", dataValue1[0], dataValue1[1], dataValue2[0], dataValue2[1], dataValue3[0], dataValue3[1]);
       console.log("-----从机编号1----")
       console.log(sendData)    
 
@@ -150,9 +158,7 @@ Page({
         app.globalData.save_flag = 1;
         this.getTapData();
       });
-
     }
-
   },
   bindKeyInput: function (e) {
     this.setData({
@@ -189,7 +195,7 @@ Page({
     console.log(this.data)
     var sendData = ["00", "03", "00", "41", "00", "1c"];
     app.write(sendData, (obj, frame) => {
-      console.log("----获取基本参数-----")
+      // console.log("----获取基本参数-----")
       console.log(obj, frame)
       this.setData({
         basic_params: app.copyObject(this.data.basic_params, obj.data)
@@ -244,15 +250,145 @@ Page({
       console.log(this.data)
     });
   },
+  // 获取系统时间
+  getxtsj() {
+    var sendData = ["00", "03", "00", "0E", "00", "06"];
+    app.write(sendData, (obj, frame) => {
+      console.log("获取系统时间", obj, frame)
+
+      //对接收到的系统时间进行合并
+      obj.data["14"].value = obj.data["14"].value + "/" +
+        obj.data["15"].value + "/" + obj.data["16"].value + " " + obj.data["17"].value + ":" + obj.data["18"].value + ":" + obj.data["19"].value;
+      delete obj.data[15]
+      delete obj.data[16]
+      delete obj.data[17]
+      delete obj.data[18]
+      delete obj.data[19]
+
+      this.setData({
+        system_time: app.copyObject(this.data.system_time, obj.data)
+      })
+      console.log(this.data)
+    });
+  },
   // 获取组网信息参数
   getnetparams() {
-    var sendData = ["00", "03", "03", "e8", "00", "29"];
+    var sendData = ["00", "03", "03", "e8", "00", "46"];
     app.write(sendData, (obj, frame) => {
       console.log("获取组网参数信息成功", obj, frame)
+
+      //对接收的到从机编号数据进行合并，10组数据
+      obj.data["1040"].value = app.buling(obj.data["1040"].value,4) +
+        app.buling(obj.data["1041"].value,4) + app.buling(obj.data["1042"].value,4);
+      delete obj.data[1041]
+      delete obj.data[1042]
+
+      obj.data["1043"].value = app.buling(obj.data["1043"].value, 4) +
+        app.buling(obj.data["1044"].value, 4) + app.buling(obj.data["1045"].value, 4);
+      delete obj.data[1044]
+      delete obj.data[1045]
+
+      obj.data["1046"].value = app.buling(obj.data["1046"].value, 4) +
+        app.buling(obj.data["1047"].value, 4) + app.buling(obj.data["1048"].value, 4);
+      delete obj.data[1047]
+      delete obj.data[1048]
+
+      obj.data["1049"].value = app.buling(obj.data["1049"].value, 4) +
+        app.buling(obj.data["1050"].value, 4) + app.buling(obj.data["1051"].value, 4);
+      delete obj.data[1050]
+      delete obj.data[1051]
+
+      obj.data["1052"].value = app.buling(obj.data["1052"].value, 4) +
+        app.buling(obj.data["1053"].value, 4) + app.buling(obj.data["1054"].value, 4);
+      delete obj.data[1053]
+      delete obj.data[1054]
+
+      obj.data["1055"].value = app.buling(obj.data["1055"].value, 4) +
+        app.buling(obj.data["1056"].value, 4) + app.buling(obj.data["1057"].value, 4);
+      delete obj.data[1056]
+      delete obj.data[1057]
+
+      obj.data["1058"].value = app.buling(obj.data["1058"].value, 4) +
+        app.buling(obj.data["1059"].value, 4) + app.buling(obj.data["1060"].value, 4);
+      delete obj.data[1059]
+      delete obj.data[1060]
+
+      obj.data["1061"].value = app.buling(obj.data["1061"].value, 4) +
+        app.buling(obj.data["1062"].value, 4) + app.buling(obj.data["1063"].value, 4);
+      delete obj.data[1062]
+      delete obj.data[1063]
+
+      obj.data["1064"].value = app.buling(obj.data["1064"].value, 4) +
+        app.buling(obj.data["1065"].value, 4) + app.buling(obj.data["1066"].value, 4);
+      delete obj.data[1065]
+      delete obj.data[1066]
+
+      obj.data["1067"].value = app.buling(obj.data["1067"].value, 4) +
+        app.buling(obj.data["1068"].value, 4) + app.buling(obj.data["1069"].value, 4);
+      delete obj.data[1068]
+      delete obj.data[1069]
+
+      console.log(obj.data)
+
       this.setData({
         net_params: app.copyObject(this.data.net_params, obj.data)
       })
       console.log(this.data)
     });
+  },
+  //系统时间校时
+  xtsj: function () {
+    //获取当前时间
+    var time = util.formatTime(new Date());
+    // time = new Date()
+    console.log("打印时间")
+    console.log(time)
+    var time1 = []
+    var time2 = []
+    var time3 = []
+    var time4 = []
+    var time5 = []
+    var time6 = []
+
+    time1[0] = (parseInt(time.substr(0, 4)) >> 8).toString(16)
+    time1[1] = (parseInt(time.substr(0, 4)) & 0x00FF).toString(16)
+    time2[0] = (parseInt(time.substr(5, 2)) >> 8).toString(16)
+    time2[1] = (parseInt(time.substr(5, 2)) & 0x00FF).toString(16)
+    time3[0] = (parseInt(time.substr(8, 2)) >> 8).toString(16)
+    time3[1] = (parseInt(time.substr(8, 2)) & 0x00FF).toString(16)
+    time4[0] = (parseInt(time.substr(11, 2)) >> 8).toString(16)
+    time4[1] = (parseInt(time.substr(11, 2)) & 0x00FF).toString(16)
+    time5[0] = (parseInt(time.substr(14, 2)) >> 8).toString(16)
+    time5[1] = (parseInt(time.substr(14, 2)) & 0x00FF).toString(16)
+    time6[0] = (parseInt(time.substr(17, 2)) >> 8).toString(16)
+    time6[1] = (parseInt(time.substr(17, 2)) & 0x00FF).toString(16)
+
+    //写报文
+    var sendData = ["00", "10", "00", "22", "00", "06", "0C", time1[0], time1[1], time2[0], time2[1], time3[0], time3[1], time4[0], time4[1], time5[0], time5[1], time6[0], time6[1]];
+    app.write(sendData, (obj, frame) => {
+      console.log("---------")
+      console.log(obj, frame)
+      this.setData({
+        spinnerShow: false,
+      })
+      console.log(this.data)
+      this.save_time();
+    });
+  },
+//时间生效标志
+  save_time: function (){
+    var sendData = ["00", "06", "00", "28", "00", "01"];
+    app.write(sendData, (obj, frame) => {
+      console.log("---------")
+      console.log(obj, frame)
+      this.setData({
+        spinnerShow: false,
+      })
+      console.log(this.data)
+      // Toast.success("设置成功")
+      app.globalData.save_flag = 1;
+      this.getTapData();
+    });
   }
+
 })

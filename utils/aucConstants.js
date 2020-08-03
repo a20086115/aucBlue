@@ -201,6 +201,12 @@ addressMap.set("50", "CTB采集_ctBcj_50_1_0_5_select");
 addressMap.set("51", "CTC采集_ctCcj_51_1_0_5_select");
 addressMap.set("52", "主CT方向调整_zctfxtz_52_1_0_65535_select");
 addressMap.set("53", "辅CT方向调整_fctfxtz_53_1_0_65535_select");
+addressMap.set("14", "系统时间:_xtsj_14_1_0_999999999999_text");
+addressMap.set("15", "系统时间:_xtsj_15_1_0_999999999999_text");
+addressMap.set("16", "系统时间:_xtsj_16_1_0_999999999999_text");
+addressMap.set("17", "系统时间:_xtsj_17_1_0_999999999999_text");
+addressMap.set("18", "系统时间:_xtsj_18_1_0_999999999999_text");
+addressMap.set("19", "系统时间:_xtsj_19_1_0_999999999999_text");
 
 // 现场应用 -组网参数
 addressMap.set("1039", "主从机设置_zcjsz_1039_1_0_65535_select");
@@ -213,7 +219,35 @@ addressMap.set("1037", "无CT补偿比例_wctbcbl_1037_1_0_100_input");
 addressMap.set("1038", "线序遍历使能_xxblsn_1038_1_0_65535_select");
 addressMap.set("1001", "从机安装CT_cjazct_1001_1_0_5_select");
 addressMap.set("1040", "从机编号1_cjbh1_1040_1_0_999999999999_input");
-
+addressMap.set("1041", "从机编号1_cjbh1_1041_1_0_999999999999_input");
+addressMap.set("1042", "从机编号1_cjbh1_1042_1_0_999999999999_input");
+addressMap.set("1043", "从机编号2_cjbh2_1043_1_0_999999999999_input");
+addressMap.set("1044", "从机编号2_cjbh2_1044_1_0_999999999999_input");
+addressMap.set("1045", "从机编号2_cjbh2_1045_1_0_999999999999_input");
+addressMap.set("1046", "从机编号3_cjbh3_1046_1_0_999999999999_input");
+addressMap.set("1047", "从机编号3_cjbh3_1047_1_0_999999999999_input");
+addressMap.set("1048", "从机编号3_cjbh3_1048_1_0_999999999999_input");
+addressMap.set("1049", "从机编号4_cjbh4_1049_1_0_999999999999_input");
+addressMap.set("1050", "从机编号4_cjbh4_1050_1_0_999999999999_input");
+addressMap.set("1051", "从机编号4_cjbh4_1051_1_0_999999999999_input");
+addressMap.set("1052", "从机编号5_cjbh5_1052_1_0_999999999999_input");
+addressMap.set("1053", "从机编号5_cjbh5_1053_1_0_999999999999_input");
+addressMap.set("1054", "从机编号5_cjbh5_1054_1_0_999999999999_input");
+addressMap.set("1055", "从机编号6_cjbh6_1055_1_0_999999999999_input");
+addressMap.set("1056", "从机编号6_cjbh6_1056_1_0_999999999999_input");
+addressMap.set("1057", "从机编号6_cjbh6_1057_1_0_999999999999_input");
+addressMap.set("1058", "从机编号7_cjbh7_1058_1_0_999999999999_input");
+addressMap.set("1059", "从机编号7_cjbh7_1059_1_0_999999999999_input");
+addressMap.set("1060", "从机编号7_cjbh7_1060_1_0_999999999999_input");
+addressMap.set("1061", "从机编号8_cjbh8_1061_1_0_999999999999_input");
+addressMap.set("1062", "从机编号8_cjbh8_1062_1_0_999999999999_input");
+addressMap.set("1063", "从机编号8_cjbh8_1063_1_0_999999999999_input");
+addressMap.set("1064", "从机编号9_cjbh9_1064_1_0_999999999999_input");
+addressMap.set("1065", "从机编号9_cjbh9_1065_1_0_999999999999_input");
+addressMap.set("1066", "从机编号9_cjbh9_1066_1_0_999999999999_input");
+addressMap.set("1067", "从机编号10_cjbh10_1067_1_0_999999999999_input");
+addressMap.set("1068", "从机编号10_cjbh10_1068_1_0_999999999999_input");
+addressMap.set("1069", "从机编号10_cjbh10_1069_1_0_999999999999_input");
 // 测量值 - 常规数据
 // dwdy: app.convertAddress(["133", "134", "135", "126", "126", "126", "127", "128", "129"]),
 // dwdl: app.convertAddress(["136", "137", "138", "139", "150", "151", "152", "153", "144", "145", "146", "147"]),
@@ -282,8 +316,8 @@ addressMap.set("347", "A相_lcldya_347_100_0_65535_text");
 addressMap.set("348", "B相_lcldyb_348_100_0_65535_text");
 addressMap.set("349", "C相_lcldyc_349_100_0_65535_text");
 addressMap.set("350", "散热器_ssqwd_350_10_0_65535_text");
-addressMap.set("351", "电感_dgwd_351_10_0_65535_text");
-addressMap.set("352", "腔体_qtwd_352_10_0_65535_text");
+addressMap.set("351", "上腔_dgwd_351_10_0_65535_text");
+addressMap.set("352", "下腔_qtwd_352_10_0_65535_text");
 addressMap.set("353", "电容_drwd_353_10_0_65535_text");
 addressMap.set("368", "A相_nbdla_368_100_0_65535_text");
 addressMap.set("369", "B相_nbdlb_369_100_0_65535_text");

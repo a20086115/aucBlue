@@ -6,6 +6,12 @@ var aucConstants = require('./utils/aucConstants.js');
 import { parse, convertFrameByte } from './utils/parse.js';
 // import { getAddressFrame } from './utils/util.js';
 App({
+  buling: (str, len) => {
+    while (str.length < len) {
+      str = "0" + str;
+    }
+    return str
+  },
   buf2hex: function (buffer) {
     return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('')
   },
@@ -21,7 +27,6 @@ App({
     this.globalData.SystemInfo = wx.getSystemInfoSync()
     // 第一步 initBle() 初始化蓝牙模块,判断版本是否支持
     bletools.initBle(this);
-    // var timeout = 5000
 
     //开启循环任务
     setInterval(() => {
@@ -248,7 +253,7 @@ App({
 
     // 合为一帧， 数组扁平化
     var completeFrame = Array.prototype.concat.apply([], this.globalData.frameBuffer)
-    if (completeFrame.length > 2 && completeFrame[1] == "6") {
+    if (completeFrame.length > 2 && ((completeFrame[1] == "6") || (completeFrame[1] == "10"))) {
       if (parseInt(completeFrame[5],16) == parseInt(this.globalData.currentTask.sendFrame[6],16)) {
         if (completeFrame[3] == "76") {
           wx.showToast({ title: `保存成功`, icon: 'success' });

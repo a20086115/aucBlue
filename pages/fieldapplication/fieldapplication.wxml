@@ -22,6 +22,12 @@
 
 
   <van-tab title="现场调整">
+    <view wx:for="{{system_time}}" wx:key="{{item.key}}" span = "32">
+        <data-input wx:if="{{item}}"  item="{{item}}"></data-input>
+    </view>
+    <view class="button-sp-area"> 
+      <van-button type="info" size="normal" bind:click="xtsj">系统时间校准</van-button>
+    </view>
     <view wx:for="{{field_debug}}" wx:key="{{item.key}}">
         <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
         <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
