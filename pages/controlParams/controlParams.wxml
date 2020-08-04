@@ -86,6 +86,20 @@
     <van-button type="info" size="large" bind:click="cleardata">存储擦除</van-button>
   </van-tab>
 
+    <van-tab title="组网参数">
+    <view wx:for="{{net_params}}" wx:key="{{item.key}}">
+        <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+        <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+    </view>
+  </van-tab>
+
+  <van-tab title="出厂信息">
+    <view wx:for="{{device_info}}" wx:key="{{item.key}}">
+        <data-input wx:if="{{item.type == 'input'}}"  item="{{item}}" bind:myValueClick="onInputClick"></data-input>
+        <data-select wx:else  item="{{item}}" bind:myValueClick="onActionClick"></data-select>
+    </view>
+  </van-tab>
+
 </van-tabs>
 
 <!-- <data-dialog item="{{currentItem}}" show="{{show}}"></data-dialog> -->

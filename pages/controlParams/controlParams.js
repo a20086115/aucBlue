@@ -16,6 +16,10 @@ Page({
 
     record_params: app.convertAddress(["116", "117", "119"]),
 
+    net_params: app.convertAddress(["1004", "1005", "1006", "1007", "1008", "1009"]),
+
+    device_info: app.convertAddress(["971"]),
+
     currentIndex: "0",
     currentItem: {},
     show: false,
@@ -113,6 +117,12 @@ Page({
     } else if (this.data.currentIndex == "5") {
       // 获取录波数据
       this.getLbsj();
+    } else if (this.data.currentIndex == "7") {
+      //获取组网参数
+      this.getzwcs();
+    } else if (this.data.currentIndex == "8") {
+      //获取出厂信息
+      this.getccxx();
     } else {
 
     }
@@ -139,20 +149,91 @@ Page({
     var addressByteArr = app.getAddressFrame(this.data.currentItem.address)
     var valueByteArr = app.getAddressFrame(value * this.data.currentItem.bs)
 
-    var sendData = ["00", "06"].concat(addressByteArr, valueByteArr);
-    app.write(sendData, (obj, frame) => {
-      console.log("---------")
-      console.log(obj, frame)
-      this.setData({
-        reference_params: Object.assign(this.data.reference_params, obj.data),
-        show: false,
-        inputValue: ""
-      })
-      // Toast.fail("设置成功")
-      console.log(this.data)
-      this.gettapname();
-      app.globalData.save_flag = 1;
-    });
+    var address = (parseInt(addressByteArr[0], 16) << 8) + parseInt(addressByteArr[1], 16)
+    console.log(address)
+
+    if (address != 971)
+    {
+      var sendData = ["00", "06"].concat(addressByteArr, valueByteArr);
+      app.write(sendData, (obj, frame) => {
+        console.log("---------")
+        console.log(obj, frame)
+        this.setData({
+          reference_params: Object.assign(this.data.reference_params, obj.data),
+          show: false,
+          inputValue: ""
+        })
+        // Toast.fail("设置成功")
+        console.log(this.data)
+        this.gettapname();
+        app.globalData.save_flag = 1;
+      });
+    }
+    else
+    {
+      //低于12位的输入丢弃并提示
+      // console.log(value.length)
+      if (value.length < 12) {
+        this.setData({ show: false, inputValue: "" })
+        Toast.fail('输入数据应为12位')
+        return;
+      }
+
+      //取输入字符串
+      var dataValue1 = []
+      var dataValue2 = []
+      var dataValue3 = []
+      var dataValue4 = []
+      var dataValue5 = []
+      var dataValue6 = []
+      var dataValue7 = []
+      var dataValue8 = []
+      var dataValue9 = []
+      var dataValue10 = []
+      var dataValue11= []
+      var dataValue12= []
+
+      dataValue1[0] = (parseInt(value.substr(0, 1)) >> 8).toString(16)
+      dataValue1[1] = (parseInt(value.substr(0, 1)) & 0x00FF).toString(16)
+      dataValue2[0] = (parseInt(value.substr(1, 1)) >> 8).toString(16)
+      dataValue2[1] = (parseInt(value.substr(1, 1)) & 0x00FF).toString(16)
+      dataValue3[0] = (parseInt(value.substr(2, 1)) >> 8).toString(16)
+      dataValue3[1] = (parseInt(value.substr(2, 1)) & 0x00FF).toString(16)
+      dataValue4[0] = (parseInt(value.substr(3, 1)) >> 8).toString(16)
+      dataValue4[1] = (parseInt(value.substr(3, 1)) & 0x00FF).toString(16)
+      dataValue5[0] = (parseInt(value.substr(4, 1)) >> 8).toString(16)
+      dataValue5[1] = (parseInt(value.substr(4, 1)) & 0x00FF).toString(16)
+      dataValue6[0] = (parseInt(value.substr(5, 1)) >> 8).toString(16)
+      dataValue6[1] = (parseInt(value.substr(5, 1)) & 0x00FF).toString(16)
+      dataValue7[0] = (parseInt(value.substr(6, 1)) >> 8).toString(16)
+      dataValue7[1] = (parseInt(value.substr(6, 1)) & 0x00FF).toString(16)
+      dataValue8[0] = (parseInt(value.substr(7, 1)) >> 8).toString(16)
+      dataValue8[1] = (parseInt(value.substr(7, 1)) & 0x00FF).toString(16)
+      dataValue9[0] = (parseInt(value.substr(8, 1)) >> 8).toString(16)
+      dataValue9[1] = (parseInt(value.substr(8, 1)) & 0x00FF).toString(16)
+      dataValue10[0] = (parseInt(value.substr(9, 1)) >> 8).toString(16)
+      dataValue10[1] = (parseInt(value.substr(9, 1)) & 0x00FF).toString(16)
+      dataValue11[0] = (parseInt(value.substr(10, 1)) >> 8).toString(16)
+      dataValue11[1] = (parseInt(value.substr(10, 1)) & 0x00FF).toString(16)
+      dataValue12[0] = (parseInt(value.substr(11, 1)) >> 8).toString(16)
+      dataValue12[1] = (parseInt(value.substr(11, 1)) & 0x00FF).toString(16)
+
+      var sendData = ["00", "10"].concat("03", "CA", "00", "0C", "18", dataValue1[0], dataValue1[1], dataValue2[0], dataValue2[1], dataValue3[0], dataValue3[1], dataValue4[0], dataValue4[1], dataValue5[0], dataValue5[1], dataValue6[0], dataValue6[1], dataValue7[0], dataValue7[1], dataValue8[0], dataValue8[1], dataValue8[0], dataValue9[1], dataValue10[0], dataValue10[1], dataValue11[0], dataValue11[1], dataValue12[0], dataValue12[1]);
+      console.log("-----从机编号1----")
+      console.log(sendData)
+
+      app.write(sendData, (obj, frame) => {
+        console.log(obj, frame)
+        this.setData({
+          show: false,
+          inputValue: "",
+        })
+        // Toast.fail("设置成功")
+        console.log(this.data)
+        this.gettapname();
+        app.globalData.save_flag = 1;
+      });
+    }
   },
   bindKeyInput: function (e) {
     this.setData({
@@ -239,6 +320,18 @@ Page({
       console.log("获取录波信息成功", obj, frame)
       this.setData({
         record_debug: app.copyObject(this.data.record_debug, obj.data)
+      })
+      console.log(this.data)
+    });
+  },
+  // 获取组网参数
+  getzwcs() {
+    var sendData = ["00", "03", "03", "EC", "00", "06"];
+    app.write(sendData, (obj, frame) => {
+      console.log("----获取组网参数-----")
+      console.log(obj, frame)
+      this.setData({
+        net_params: app.copyObject(this.data.net_params, obj.data)
       })
       console.log(this.data)
     });
@@ -533,8 +626,33 @@ Page({
       console.log(this.data)
     });
   },
+//获取出厂信息
+  getccxx: function () {
+    //写报文
+    var sendData = ["00", "03", "03", "CA", "00", "0C"];
+    app.write(sendData, (obj, frame) => {
 
+      obj.data["971"].value = obj.data["970"].value +
+        obj.data["971"].value + obj.data["972"].value + obj.data["973"].value + obj.data["974"].value + obj.data["975"].value + obj.data["976"].value                                + obj.data["977"].value + obj.data["978"].value + obj.data["979"].value + obj.data["980"].value + obj.data["981"].value;
+      delete obj.data[970]
+      delete obj.data[972]
+      delete obj.data[973]
+      delete obj.data[974]
+      delete obj.data[975]
+      delete obj.data[976]
+      delete obj.data[977]
+      delete obj.data[978]
+      delete obj.data[979]
+      delete obj.data[980]
+      delete obj.data[981]
 
+      this.setData({
+        device_info: app.copyObject(this.data.device_info, obj.data)
+      })
+      console.log(this.data)
+    });
+  },
+  
 
 
 })

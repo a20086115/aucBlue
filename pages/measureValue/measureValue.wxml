@@ -34,6 +34,28 @@
     <data-grid x_array="{{titleArr}}" y_array="{{sbc_y_arr}}" value_array="{{sbc}}" title="设备侧"> </data-grid>
   </van-tab> 
   
+    <van-tab title="组网参数" style="dispaly:flex;justify-content: flex-end;flex-wrap: wrap;">
+    <van-row>
+      <view class="title1">从机在线状态</view>
+      <van-col wx:for="{{online_state}}" wx:key="{{item.key}}" span="4">
+        <data-input item="{{item}}"></data-input>
+        <!-- <text width = "5" height = "5"></text> -->
+      </van-col>
+      <view class="title">母线电压（V）</view>
+      <van-col wx:for="{{mxdy}}" wx:key="{{item.key}}" span="12">
+        <data-input item="{{item}}"></data-input>
+      </van-col>
+      <view class="title">逆变电流 (A)</view>
+      <van-col wx:for="{{nbdl}}" wx:key="{{item.key}}" span="12">
+        <data-input item="{{item}}"></data-input>
+      </van-col>
+      <view class="title">LCL电容电压（V）</view>
+      <van-col wx:for="{{lcldy}}" wx:key="{{item.key}}" span="12">
+        <data-input item="{{item}}"></data-input>
+      </van-col>
+    </van-row>
+  </van-tab>
+
   <!-- <van-tab title="各次谐波">
     <view wx:for="{{analy_spinner}}" wx:key="{{item.key}}">
       <data-select item="{{item}}" bind:myValueClick="onActionClick"></data-select>

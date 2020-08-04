@@ -164,7 +164,19 @@ addressMap.set("19", "设置帧长_szzc_19_1_0_65535_input");
 
 
 // 设备信息
-addressMap.set("970", "出场编号_ccbh_970_1_0_65535_text");
+addressMap.set("970", "出场编号_ccbh_970_1_0_999999999999_text");
+addressMap.set("971", "出场编号_ccbh_971_1_0_999999999999_input");
+addressMap.set("972", "出场编号_ccbh_972_1_0_65535_input");
+addressMap.set("973", "出场编号_ccbh_973_1_0_65535_input");
+addressMap.set("974", "出场编号_ccbh_974_1_0_65535_input");
+addressMap.set("975", "出场编号_ccbh_975_1_0_65535_input");
+addressMap.set("976", "出场编号_ccbh_976_1_0_65535_input");
+addressMap.set("977", "出场编号_ccbh_977_1_0_65535_input");
+addressMap.set("978", "出场编号_ccbh_978_1_0_65535_input");
+addressMap.set("979", "出场编号_ccbh_979_1_0_65535_input");
+addressMap.set("980", "出场编号_ccbh_980_1_0_65535_input");
+addressMap.set("981", "出场编号_ccbh_981_1_0_65535_input");
+
 addressMap.set("27", "设备容量_sbrl_27_1_0_65535_text");
 addressMap.set("28", "硬件版本_yjbb_28_10_0_65535_text");
 addressMap.set("29", "硬件版本_yjbb_28_100_0_65535_text");
@@ -212,6 +224,13 @@ addressMap.set("19", "系统时间:_xtsj_19_1_0_999999999999_text");
 addressMap.set("1039", "主从机设置_zcjsz_1039_1_0_65535_select");
 addressMap.set("1000", "补偿模式_bcmszw_1000_1_0_65535_select");
 addressMap.set("1003", "手动间谐波_sdjxb_1003_1_0_65535_select");
+addressMap.set("1004", "间谐波幅值A_jxbfza_1004_1_0_100_input");
+addressMap.set("1005", "间谐波幅值B_jxbfzb_1005_1_0_100_input");
+addressMap.set("1006", "间谐波幅值C_jxbfzc_1006_1_0_100_input");
+addressMap.set("1007", "间谐波频率A_jxbpla_1007_1_0_65535_select");
+addressMap.set("1008", "间谐波频率A_jxbplb_1008_1_0_65535_select");
+addressMap.set("1009", "间谐波频率A_jxbplc_1009_1_0_65535_select");
+
 addressMap.set("1032", "本地补偿模式_bdbcms_1032_1_0_65535_select");
 addressMap.set("1035", "全局补偿比例_bdqjbcbl_1035_1_0_100_input");
 addressMap.set("1036", "本地手动补偿比例_bdsdbcbl_1036_1_0_100_input");
@@ -411,6 +430,18 @@ addressMap.set("285", "_spinner1_285_1_0_65535_select");
 addressMap.set("286", "_spinner2_286_1_0_65535_select");
 addressMap.set("287", "_spinner3_287_1_0_65535_select");
 
+//测量值-组网参数查看
+addressMap.set("1022", "_1022_1_0_65535_text");
+addressMap.set("1023", "_1023_1_0_65535_text");
+addressMap.set("1024", "_1024_1_0_65535_text");
+addressMap.set("1025", "_1025_1_0_65535_text");
+addressMap.set("1026", "_1026_1_0_65535_text");
+addressMap.set("1027", "_1027_1_0_65535_text");
+addressMap.set("1028", "_1028_1_0_65535_text");
+addressMap.set("1029", "_1029_1_0_65535_text");
+addressMap.set("1030", "_1030_1_0_65535_text");
+addressMap.set("1031", "_1031_1_0_65535_text");
+
 
 
 var bdbcms = [{ name: "同优先级", value: 0 }, { name: "不平衡+无功", value: 1 }, { name: "无功+不平衡", value: 2 }, { name: "无功分补", value: 3 }, { name: "仅正序无功", value: 4 }, { name: "仅不平衡", value: 5 }];
@@ -436,6 +467,10 @@ var ctacj = [{ name: "A相", value: 0 }, { name: "B相", value: 1 }, { name: "C�
 var ctbcj = [{ name: "A相", value: 0 }, { name: "B相", value: 1 }, { name: "C相", value: 2 }]
 var ctccj = [{ name: "A相", value: 0 }, { name: "B相", value: 1 }, { name: "C相", value: 2 }]
 
+var jxbpla = [{ name: "25", value: 0 }, { name: "75", value: 1 }, { name: "125", value: 2 }, { name: "175", value: 3 }, { name: "225", value: 4 }]
+var jxbplb = [{ name: "25", value: 0 }, { name: "75", value: 1 }, { name: "125", value: 2 }, { name: "175", value: 3 }, { name: "225", value: 4 }]
+var jxbplc = [{ name: "25", value: 0 }, { name: "75", value: 1 }, { name: "125", value: 2 }, { name: "175", value: 3 }, { name: "225", value: 4 }]
+
 var selectMap = {
   "66": zctwz,
   "71": bcms,
@@ -460,6 +495,9 @@ var selectMap = {
   "1038": offOn,
   "1000":bcmszw,
   "1003": offOn,
+  "1007":jxbpla,
+  "1008": jxbplb,
+  "1009": jxbplc,
   "1032":bdbcms,
   "1001":cjazct,
   "49":ctacj,

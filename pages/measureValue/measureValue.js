@@ -32,6 +32,10 @@ Page({
     dwc: app.convertAddress(["154", "155", "156", "157", "158", "159", "160", "161", "162", "163", "164", "165"]),
     analy_spinner: app.convertAddress(["285", "286", "287"]),
     gcxb: app.convertAddress(["235", "236", "237", "238", "239", "240", "241", "242", "243", "244", "245", "246", "247", "248", "249", "250", "251", "252", "253", "254", "255", "256", "257", "258", "259", "260", "261", "262", "263", "264", "265", "266", "267", "268", "269", "270", "271", "272", "273", "274", "275", "276", "277", "278", "279", "280", "281", "282", "283", "284"]),
+
+    //组网参数
+    online_state: app.convertAddress(["1022","1023","1024","1025","1026","1027","1028","1029","1030","1031"]),
+
     currentIndex: "0",
     currentItem: {},
     show: false,
@@ -91,7 +95,11 @@ Page({
       this.getDwc();
       this.getSbc();
       this.getFzc();
-    } else{
+    } else if (this.data.currentIndex == "3") {
+      //获取组网参数
+      this.getzwcs();
+    }
+    else{
       // 获取下拉框信息
       // this.getSpinner();
       // this.getGcxb();
@@ -225,6 +233,38 @@ Page({
       console.log("获取各次谐波信息", obj, frame)
       this.setData({
         gcxb: this.copyObject(this.data.gcxb, obj.data)
+      })
+      console.log(this.data)
+    });
+  },
+  //获取组网参数
+  getzwcs() {
+    var sendData = ["00", "03", "03", "FE", "00", "0a"];
+    app.write(sendData, (obj, frame) => {
+      console.log("获取从机在线状态", obj, frame)
+      console.log(parseInt(obj.data["0"].value))
+      // for(let i = 0;i < 10; i++)
+      // {
+      //   if(obj.data[i].value == "0")
+      //   {
+      //     obj.data[i].value = "离线"
+      //   } else if (obj.data[i].value == "1")
+      //   {
+      //     obj.data[i].value = "待机"
+      //   } else if (obj.data[i].value == "2") 
+      //   {
+      //     obj.data[i].value = "运行"
+      //   } else if (obj.data[i].value == "3") 
+      //   {
+      //     obj.data[i].value = "故障"
+      //   } else
+      //   {
+      //     obj.data[i].value = "离线"
+      //   }
+      // }
+
+      this.setData({
+        online_state: this.copyObject(this.data.online_state, obj.data)
       })
       console.log(this.data)
     });

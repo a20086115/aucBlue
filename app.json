@@ -7,7 +7,7 @@
     "pages/eventInfo/eventInfo",
 "pages/fieldapplication/fieldapplication",
     "pages/deviceInfo/deviceInfo",
-    "pages/controlParams/controlParams",
+  "pages/controlParams/controlParams",
 "pages/measureValue/measureValue"
   
   ],
